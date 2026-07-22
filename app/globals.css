@@ -15,16 +15,19 @@ html {
   background-color: #000308;
   color: #f8fafc;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   overflow-x: hidden;
   background-color: #000308;
+  touch-action: manipulation;
 }
 
 /* Custom Submarine Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #000308;
@@ -32,11 +35,20 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #03192e;
   border-radius: 9999px;
-  border: 2px solid #000308;
+  border: 1px solid #000308;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #00f0ff;
   box-shadow: 0 0 12px #00f0ff;
+}
+
+/* Utility to hide scrollbars for horizontal filter pills on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Animations for Water Blob Morphing Avatar Card */

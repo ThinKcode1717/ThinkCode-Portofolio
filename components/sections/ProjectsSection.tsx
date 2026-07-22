@@ -20,11 +20,11 @@ export default function ProjectsSection() {
     : THINKCODE_DATA.projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="relative py-24 bg-transparent overflow-hidden">
+    <section id="projects" className="relative py-16 sm:py-24 bg-transparent overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3 sm:space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -56,19 +56,19 @@ export default function ProjectsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`text-base sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
+            className={`text-sm sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
           >
             {t.projects.subtitle}
           </motion.p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Scrollable Horizontal Category Filter Pills on Mobile */}
+        <div className="flex items-center overflow-x-auto no-scrollbar py-2 px-1 mb-8 sm:mb-12 gap-2 justify-start sm:justify-center w-full">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-5 py-2 rounded-full text-xs font-mono font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-5 py-2 rounded-full text-xs font-mono font-semibold whitespace-nowrap shrink-0 transition-all duration-300 ${
                 activeFilter === cat
                   ? isDark
                     ? 'bg-[#00f0ff] text-[#000308] shadow-[0_0_15px_rgba(0,240,255,0.4)]'
@@ -84,7 +84,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {filteredProjects.map((project, idx) => (
             <motion.div
               key={project.id}
@@ -99,39 +99,39 @@ export default function ProjectsSection() {
                   : 'bg-white/80 border-slate-200 hover:border-[#0284c7]/50 hover:shadow-xl'
               }`}
             >
-              <div className="p-6 sm:p-8 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className={`text-xs font-mono uppercase tracking-wider font-semibold px-3 py-1 rounded-full border ${
+              <div className="p-5 sm:p-8 space-y-3.5">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className={`text-[11px] sm:text-xs font-mono uppercase tracking-wider font-semibold px-3 py-1 rounded-full border ${
                     isDark
                       ? 'text-[#00f0ff] bg-[#00f0ff]/10 border-[#00f0ff]/30'
                       : 'text-[#0284c7] bg-[#e0f2fe] border-[#0284c7]/30'
                   }`}>
                     {project.category}
                   </span>
-                  <span className={`text-xs font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <span className={`text-[11px] sm:text-xs font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                     {project.metrics}
                   </span>
                 </div>
 
-                <h3 className={`text-2xl font-bold transition-colors flex items-center gap-2 ${
+                <h3 className={`text-xl sm:text-2xl font-bold transition-colors flex items-center justify-between gap-2 ${
                   isDark ? 'text-white group-hover:text-[#00f0ff]' : 'text-slate-900 group-hover:text-[#0284c7]'
                 }`}>
-                  {project.title}
-                  <ExternalLink className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity ${
+                  <span>{project.title}</span>
+                  <ExternalLink className={`w-4 h-4 shrink-0 transition-opacity ${
                     isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'
                   }`} />
                 </h3>
 
-                <p className={`text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                   {project.description}
                 </p>
 
                 {/* Tech Tags */}
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-1.5 pt-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className={`text-xs font-mono px-2.5 py-1 rounded-lg border ${
+                      className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border ${
                         isDark
                           ? 'text-slate-300 bg-[#03192e]/70 border-[#0077b6]/20'
                           : 'text-slate-700 bg-slate-100 border-slate-200'
@@ -144,7 +144,7 @@ export default function ProjectsSection() {
               </div>
 
               {/* Bottom Card Action */}
-              <div className={`px-6 py-4 border-t flex items-center justify-between text-xs font-mono transition-colors ${
+              <div className={`px-5 sm:px-8 py-3.5 border-t flex items-center justify-between text-xs font-mono transition-colors ${
                 isDark
                   ? 'bg-[#03192e]/50 border-[#0077b6]/20 text-slate-400 group-hover:text-white'
                   : 'bg-slate-50 border-slate-200 text-slate-500 group-hover:text-slate-900'
@@ -161,12 +161,12 @@ export default function ProjectsSection() {
       {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className={`relative w-full max-w-2xl rounded-3xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border shadow-2xl ${
+              className={`relative w-[94vw] sm:w-full max-w-2xl rounded-3xl p-5 sm:p-8 space-y-5 max-h-[85vh] overflow-y-auto border shadow-2xl ${
                 isDark
                   ? 'bg-[#000308] border-[#00f0ff]/40 text-slate-100 shadow-[0_0_50px_rgba(0,240,255,0.25)]'
                   : 'bg-white border-slate-200 text-slate-900 shadow-2xl'
@@ -175,7 +175,7 @@ export default function ProjectsSection() {
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className={`absolute top-6 right-6 p-2 rounded-full border transition-colors ${
+                className={`absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full border transition-colors ${
                   isDark
                     ? 'bg-[#03192e]/60 text-slate-400 hover:text-white border-[#0077b6]/30'
                     : 'bg-slate-100 text-slate-600 hover:text-slate-900 border-slate-200'
@@ -184,29 +184,29 @@ export default function ProjectsSection() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5 pr-8">
                 <span className={`text-xs font-mono uppercase tracking-wider font-semibold ${
                   isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'
                 }`}>
                   {selectedProject.category} &bull; {selectedProject.metrics}
                 </span>
-                <h3 className="text-3xl font-extrabold">
+                <h3 className="text-2xl sm:text-3xl font-extrabold">
                   {selectedProject.title}
                 </h3>
               </div>
 
-              <p className={`text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <p className={`text-xs sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                 {selectedProject.longDescription}
               </p>
 
               {/* Specs & Tech Stack */}
-              <div className="space-y-3 pt-2">
+              <div className="space-y-2 pt-1">
                 <h4 className="text-xs font-mono text-slate-400 uppercase tracking-widest">{t.projects.usedTech}</h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {selectedProject.tags.map((tag) => (
                     <span
                       key={tag}
-                      className={`text-xs font-mono px-3 py-1.5 rounded-xl border font-semibold ${
+                      className={`text-xs font-mono px-2.5 py-1 rounded-xl border font-semibold ${
                         isDark
                           ? 'bg-[#00f0ff]/10 border-[#00f0ff]/30 text-[#00f0ff]'
                           : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
@@ -219,13 +219,13 @@ export default function ProjectsSection() {
               </div>
 
               {/* Action Buttons */}
-              <div className={`flex items-center gap-4 pt-6 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
+              <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-5 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
                 {selectedProject.liveUrl && (
                   <a
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className={`px-6 py-3 rounded-full font-bold text-sm tracking-wide flex items-center gap-2 transition-all ${
+                    className={`px-6 py-3 rounded-full font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition-all ${
                       isDark
                         ? 'bg-gradient-to-r from-[#00f0ff] to-[#0077b6] text-[#000308] hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]'
                         : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white hover:shadow-lg'
@@ -240,7 +240,7 @@ export default function ProjectsSection() {
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className={`px-6 py-3 rounded-full border font-semibold text-sm tracking-wide flex items-center gap-2 transition-all ${
+                    className={`px-6 py-3 rounded-full border font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all ${
                       isDark
                         ? 'bg-[#03192e]/60 border-[#0077b6]/40 hover:border-[#00f0ff]/60 text-white'
                         : 'bg-slate-100 border-slate-300 hover:border-slate-400 text-slate-800'

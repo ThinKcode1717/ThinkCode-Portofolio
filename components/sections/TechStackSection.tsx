@@ -24,11 +24,11 @@ export default function TechStackSection() {
     : THINKCODE_DATA.skills.filter(s => s.category === activeCategory);
 
   return (
-    <section id="skills" className="relative py-24 bg-transparent overflow-hidden">
+    <section id="skills" className="relative py-16 sm:py-24 bg-transparent overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3 sm:space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,19 +60,19 @@ export default function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`text-base sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
+            className={`text-sm sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
           >
             {t.skills.subtitle}
           </motion.p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Scrollable Horizontal Category Filter Pills on Mobile */}
+        <div className="flex items-center overflow-x-auto no-scrollbar py-2 px-1 mb-8 sm:mb-12 gap-2 justify-start sm:justify-center w-full">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-xs font-mono font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-5 py-2 rounded-full text-xs font-mono font-semibold whitespace-nowrap shrink-0 transition-all duration-300 ${
                 activeCategory === cat
                   ? isDark
                     ? 'bg-[#00f0ff] text-[#000308] shadow-[0_0_15px_rgba(0,240,255,0.4)]'
@@ -88,7 +88,7 @@ export default function TechStackSection() {
         </div>
 
         {/* Skills Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredSkills.map((catGroup, idx) => (
             <motion.div
               key={catGroup.category}
@@ -96,32 +96,32 @@ export default function TechStackSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={`rounded-3xl border p-6 backdrop-blur-xl transition-all duration-300 ${
+              className={`rounded-3xl border p-5 sm:p-6 backdrop-blur-xl transition-all duration-300 ${
                 isDark
                   ? 'bg-[#03192e]/30 border-[#0077b6]/30 hover:border-[#00f0ff]/40 hover:shadow-[0_10px_35px_rgba(0,240,255,0.15)]'
                   : 'bg-white/80 border-slate-200 hover:border-[#0284c7]/40 hover:shadow-lg'
               }`}
             >
-              <div className={`flex items-center gap-3 mb-6 pb-4 border-b ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
-                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
+              <div className={`flex items-center gap-3 mb-5 pb-3.5 border-b ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
+                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${
                   isDark
                     ? 'bg-[#00f0ff]/10 border-[#00f0ff]/30 text-[#00f0ff]'
                     : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                 }`}>
                   {iconMap[catGroup.iconName] || <Layers className="w-5 h-5" />}
                 </div>
-                <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{catGroup.category}</h3>
+                <h3 className={`text-lg sm:text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{catGroup.category}</h3>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3.5">
                 {catGroup.skills.map((skill) => (
                   <div key={skill.name} className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <span className={`font-semibold flex items-center gap-1.5 ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
-                        <CheckCircle2 className={`w-3.5 h-3.5 ${isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'}`} />
-                        {skill.name}
+                    <div className="flex items-center justify-between text-xs font-mono gap-2">
+                      <span className={`font-semibold flex items-center gap-1.5 truncate ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
+                        <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'}`} />
+                        <span className="truncate">{skill.name}</span>
                       </span>
-                      <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>{skill.highlight}</span>
+                      <span className={`shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{skill.highlight}</span>
                     </div>
 
                     {/* Progress Bar */}

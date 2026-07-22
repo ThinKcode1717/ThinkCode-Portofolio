@@ -112,11 +112,11 @@ export default function ChatbotSection() {
   };
 
   return (
-    <section id="chatbot" className="relative py-24 bg-transparent overflow-hidden">
+    <section id="chatbot" className="relative py-16 sm:py-24 bg-transparent overflow-hidden">
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3 sm:space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ export default function ChatbotSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`text-base sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
+            className={`text-sm sm:text-lg ${isDark ? 'text-slate-300' : 'text-slate-600'}`}
           >
             {t.chatbot.subtitle}
           </motion.p>
@@ -167,11 +167,11 @@ export default function ChatbotSection() {
           }`}
         >
           {/* Chat Window Title Bar */}
-          <div className={`px-6 py-4 border-b flex items-center justify-between ${
+          <div className={`px-4 sm:px-6 py-3.5 border-b flex items-center justify-between ${
             isDark ? 'bg-[#03192e]/60 border-[#0077b6]/30' : 'bg-slate-50 border-slate-200'
           }`}>
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-2xl p-[1.5px] shadow-md ${
+              <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl p-[1.5px] shadow-md ${
                 isDark
                   ? 'bg-gradient-to-br from-[#00f0ff] to-[#0077b6] shadow-[0_0_15px_#00f0ff]'
                   : 'bg-gradient-to-br from-[#0284c7] to-[#0f766e]'
@@ -183,13 +183,15 @@ export default function ChatbotSection() {
                 </div>
               </div>
               <div>
-                <h3 className={`text-sm font-bold font-sans flex items-center gap-2 ${
+                <h3 className={`text-xs sm:text-sm font-bold font-sans flex items-center gap-2 ${
                   isDark ? 'text-white' : 'text-slate-900'
                 }`}>
                   {t.chatbot.titleEngine}
                   <span className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-[#00f0ff]' : 'bg-[#0284c7]'}`} />
                 </h3>
-                <p className="text-[11px] font-mono text-slate-400">{t.chatbot.subtitleEngine}</p>
+                <p className="text-[10px] sm:text-[11px] font-mono text-slate-400 truncate max-w-[200px] sm:max-w-none">
+                  {t.chatbot.subtitleEngine}
+                </p>
               </div>
             </div>
 
@@ -208,7 +210,7 @@ export default function ChatbotSection() {
           </div>
 
           {/* Messages Body */}
-          <div className={`p-6 space-y-4 max-h-[420px] overflow-y-auto text-sm leading-relaxed ${
+          <div className={`p-4 sm:p-6 space-y-4 max-h-[350px] sm:max-h-[420px] overflow-y-auto text-xs sm:text-sm leading-relaxed ${
             isDark ? 'bg-[#000308]/80 text-slate-200' : 'bg-slate-50/50 text-slate-800'
           }`}>
             {messages.map((msg) => (
@@ -216,10 +218,10 @@ export default function ChatbotSection() {
                 key={msg.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex gap-2.5 sm:gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'ai' && (
-                  <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
                     isDark
                       ? 'bg-[#00f0ff]/10 border-[#00f0ff]/40 text-[#00f0ff]'
                       : 'bg-[#e0f2fe] border-[#0284c7]/40 text-[#0284c7]'
@@ -228,7 +230,7 @@ export default function ChatbotSection() {
                   </div>
                 )}
 
-                <div className={`max-w-[82%] rounded-2xl px-4 py-3 space-y-1 ${
+                <div className={`max-w-[85%] sm:max-w-[82%] rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 space-y-1 ${
                   msg.sender === 'user'
                     ? isDark
                       ? 'bg-gradient-to-r from-[#0077b6] to-[#00f0ff] text-[#000308] font-medium shadow-[0_0_15px_rgba(0,240,255,0.3)]'
@@ -238,7 +240,7 @@ export default function ChatbotSection() {
                       : 'bg-white border border-slate-200 text-slate-800 shadow-sm'
                 }`}>
                   <p className="whitespace-pre-wrap">{msg.text}</p>
-                  <span className={`text-[10px] font-mono block text-right ${
+                  <span className={`text-[9px] sm:text-[10px] font-mono block text-right ${
                     msg.sender === 'user'
                       ? isDark ? 'text-[#000308]/70' : 'text-white/80'
                       : isDark ? 'text-slate-400' : 'text-slate-400'
@@ -248,7 +250,7 @@ export default function ChatbotSection() {
                 </div>
 
                 {msg.sender === 'user' && (
-                  <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
                     isDark
                       ? 'bg-[#0077b6]/20 border-[#0077b6]/40 text-[#00f0ff]'
                       : 'bg-[#0284c7]/20 border-[#0284c7]/40 text-[#0284c7]'
@@ -262,14 +264,14 @@ export default function ChatbotSection() {
             {/* Loading Typing Indicator */}
             {loading && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3 items-center">
-                <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 ${
+                <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl border flex items-center justify-center shrink-0 ${
                   isDark
                     ? 'bg-[#00f0ff]/10 border-[#00f0ff]/40 text-[#00f0ff]'
                     : 'bg-[#e0f2fe] border-[#0284c7]/40 text-[#0284c7]'
                 }`}>
                   <Bot className="w-4 h-4 animate-spin-slow" />
                 </div>
-                <div className={`px-4 py-3 rounded-2xl border text-xs font-mono flex items-center gap-2 ${
+                <div className={`px-3.5 py-2.5 rounded-2xl border text-xs font-mono flex items-center gap-2 ${
                   isDark
                     ? 'bg-[#03192e]/50 border-[#0077b6]/30 text-slate-400'
                     : 'bg-white border-slate-200 text-slate-500'
@@ -283,11 +285,11 @@ export default function ChatbotSection() {
             <div ref={chatEndRef} />
           </div>
 
-          {/* Quick Suggestion Chips */}
-          <div className={`px-6 py-3 border-t flex flex-wrap gap-2 ${
+          {/* Scrollable Horizontal Suggestion Chips */}
+          <div className={`px-4 sm:px-6 py-2.5 border-t flex items-center overflow-x-auto no-scrollbar gap-2 w-full ${
             isDark ? 'bg-[#03192e]/30 border-[#0077b6]/20' : 'bg-slate-100/60 border-slate-200'
           }`}>
-            <span className="text-xs font-mono text-slate-400 flex items-center gap-1 py-1">
+            <span className="text-xs font-mono text-slate-400 flex items-center gap-1 shrink-0 py-1">
               <Sparkles className={`w-3.5 h-3.5 ${isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'}`} />
               {t.chatbot.suggestionLabel}
             </span>
@@ -296,7 +298,7 @@ export default function ChatbotSection() {
                 key={chip}
                 onClick={() => sendMessage(chip)}
                 disabled={loading}
-                className={`text-xs font-mono px-3 py-1 rounded-full border transition-all disabled:opacity-50 ${
+                className={`text-xs font-mono px-3 py-1 rounded-full border whitespace-nowrap shrink-0 transition-all disabled:opacity-50 ${
                   isDark
                     ? 'bg-[#03192e]/60 border-[#0077b6]/30 text-slate-300 hover:text-[#00f0ff] hover:border-[#00f0ff]/50'
                     : 'bg-white border-slate-300 text-slate-700 hover:text-[#0284c7] hover:border-[#0284c7]/50 shadow-sm'
@@ -308,7 +310,7 @@ export default function ChatbotSection() {
           </div>
 
           {/* Input Box Form */}
-          <form onSubmit={handleFormSubmit} className={`p-4 border-t flex items-center gap-3 ${
+          <form onSubmit={handleFormSubmit} className={`p-3 sm:p-4 border-t flex items-center gap-2.5 ${
             isDark ? 'bg-[#03192e]/50 border-[#0077b6]/30' : 'bg-slate-50 border-slate-200'
           }`}>
             <input
@@ -317,7 +319,7 @@ export default function ChatbotSection() {
               onChange={(e) => setInputMsg(e.target.value)}
               placeholder={t.chatbot.placeholder}
               disabled={loading}
-              className={`flex-1 border rounded-2xl px-4 py-3 text-sm font-sans transition-colors disabled:opacity-50 ${
+              className={`flex-1 border rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-sans transition-colors disabled:opacity-50 ${
                 isDark
                   ? 'bg-[#000308]/80 border-[#0077b6]/40 text-white placeholder-slate-500 focus:border-[#00f0ff]'
                   : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7]'
@@ -327,13 +329,13 @@ export default function ChatbotSection() {
               type="submit"
               disabled={!inputMsg.trim() || loading}
               aria-label="Kirim Pesan"
-              className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-50 ${
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-bold shrink-0 shadow-md hover:shadow-lg transition-all disabled:opacity-50 ${
                 isDark
                   ? 'bg-gradient-to-r from-[#00f0ff] to-[#0077b6] text-[#000308] shadow-[0_0_20px_rgba(0,240,255,0.4)]'
                   : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white'
               }`}
             >
-              <Send className="w-5 h-5" />
+              <Send className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </form>
         </motion.div>
