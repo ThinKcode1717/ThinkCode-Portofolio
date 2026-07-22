@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --bg-ocean-abyss: #000308;
+  --bg-ocean-trench: #010712;
+  --bg-ocean-marine: #03192e;
+  --color-biolum-cyan: #00f0ff;
+  --color-deep-aqua: #00b4d8;
+  --color-sapphire-blue: #0077b6;
+  --color-deep-navy: #001220;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #000308;
+  color: #f8fafc;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #000308;
+}
+
+/* Custom Submarine Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000308;
+}
+::-webkit-scrollbar-thumb {
+  background: #03192e;
+  border-radius: 9999px;
+  border: 2px solid #000308;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+  box-shadow: 0 0 12px #00f0ff;
+}
+
+/* Animations for Water Blob Morphing Avatar Card */
+@keyframes waterBlobMorph {
+  0%, 100% {
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(2deg) scale(1.02);
+  }
+  66% {
+    border-radius: 70% 30% 50% 50% / 40% 70% 30% 60%;
+    transform: rotate(-1deg) scale(0.99);
+  }
+}
+
+@keyframes waterRipple {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.06) rotate(180deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.25;
+  }
+}
+
+@keyframes floatBubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-130px) scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-280px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 14s linear infinite;
+}
+
+.animate-float-bubble {
+  animation: floatBubble 12s ease-in-out infinite;
+}
