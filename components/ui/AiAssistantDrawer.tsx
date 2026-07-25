@@ -90,7 +90,7 @@ export default function AiAssistantDrawer() {
       const aiMessage: ChatMessage = {
         id: `ai-${Date.now()}`,
         sender: 'ai',
-        text: data.reply || t.chatbot.fallbackReply || 'Maaf, terjadi kendala teknis saat menghubungi Groq AI Engine.',
+        text: data.reply || 'Maaf, terjadi kendala teknis saat menghubungi Groq AI Engine.',
         timestamp: formatTimeString(),
       };
 
@@ -102,7 +102,7 @@ export default function AiAssistantDrawer() {
         {
           id: `ai-err-${Date.now()}`,
           sender: 'ai',
-          text: t.chatbot.fallbackReply || 'Sistem AI sedang offline. Silakan hubungi Yoga secara langsung melalui tombol kontak.',
+          text: 'Sistem AI sedang offline. Silakan hubungi Yoga secara langsung melalui tombol kontak.',
           timestamp: formatTimeString(),
         },
       ]);
