@@ -182,8 +182,8 @@ export default function TechStackSection() {
               backdropFilter: 'blur(6px)',
             }}
             animate={{
-              y: [0, -(sectionHeight + b.size + 40)],
-              opacity: [0, 0.9, 0.9, 0.3, 0],
+              y: [0, -950],
+              opacity: [0, 0.95, 0.95, 0.4, 0],
               x: [
                 0,
                 b.wobble,
