@@ -15,10 +15,9 @@ export default function SeoSchema() {
       addressCountry: THINKCODE_DATA.location
     },
     sameAs: [
-      'https://github.com/ThinKcode1717',
-      'https://github.com/think-dev01',
-      THINKCODE_DATA.socials.linkedin,
-      THINKCODE_DATA.socials.twitter
+      THINKCODE_DATA.socials.github,
+      THINKCODE_DATA.socials.githubSecondary,
+      THINKCODE_DATA.socials.whatsapp
     ],
     knowsAbout: THINKCODE_DATA.skills.flatMap(c => c.skills.map(s => s.name))
   };
