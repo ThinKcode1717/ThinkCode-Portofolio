@@ -82,7 +82,7 @@ export default function AboutSection() {
                     : 'bg-gradient-to-br from-[#e0f2fe] to-[#38bdf8]/30 border-[#0284c7]/40 text-[#0284c7]'
                 }`}>
                   <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
-                    <Cpu className="w-5 h-5" />
+                    <HiOutlineCpuChip className="w-5 h-5" />
                   </motion.div>
                 </div>
                 <h3 className={`text-xl sm:text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
