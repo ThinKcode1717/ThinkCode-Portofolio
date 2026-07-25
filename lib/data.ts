@@ -64,6 +64,7 @@ export interface GeoAeoFaq {
 export const THINKCODE_DATA = {
   name: "Yoga Adi Pratama",
   brandName: "ThinkCode",
+  avatarUrl: "/profile.jpg",
   role: "Full Stack Web Developer & AI Data Analyst",
   tagline: "Merancang Aplikasi Web Berperforma Tinggi & Mengintegrasikan Solusi AI yang Efisien",
   availabilityStatus: "Status: Tersedia untuk Proyek & Kontrak",

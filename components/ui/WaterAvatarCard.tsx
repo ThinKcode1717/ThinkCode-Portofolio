@@ -10,6 +10,8 @@ interface WaterAvatarCardProps {
 }
 
 export default function WaterAvatarCard({ imageSrc, altText }: WaterAvatarCardProps) {
+  const finalImageSrc = imageSrc && imageSrc.trim() !== '' ? imageSrc : '/profile.jpg';
+
   return (
     <div className="relative group w-64 h-80 sm:w-80 sm:h-[400px] md:w-88 md:h-[430px] flex items-center justify-center p-2 sm:p-4 select-none">
       
@@ -87,7 +89,7 @@ export default function WaterAvatarCard({ imageSrc, altText }: WaterAvatarCardPr
         >
           {/* Avatar Profile Image */}
           <Image
-            src={imageSrc}
+            src={finalImageSrc}
             alt={altText}
             fill
             sizes="(max-width: 640px) 250px, (max-width: 768px) 320px, 380px"
