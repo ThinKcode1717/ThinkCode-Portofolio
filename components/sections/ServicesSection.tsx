@@ -63,7 +63,7 @@ export default function ServicesSection() {
         {/* Service Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           {THINKCODE_DATA.services.map((service, idx) => {
-            const IconComp = iconMap[service.icon] || Rocket;
+            const IconComp = iconMap[service.icon] || HiOutlineRocketLaunch;
             const isMiddle = idx === 1;
 
             return (
