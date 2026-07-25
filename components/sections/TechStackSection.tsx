@@ -14,6 +14,7 @@ import {
   X,
   ChevronDown
 } from 'lucide-react';
+import { GithubIcon } from '../ui/Icons';
 import { useApp } from '@/context/AppContext';
 import { THINKCODE_DATA } from '@/lib/data';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -123,6 +124,7 @@ export default function TechStackSection() {
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [hoveredBubbleId, setHoveredBubbleId] = useState<number | null>(null);
   const [selectedSkill, setSelectedSkill] = useState<SkillDetail | null>(null);
+  const [githubDropdownOpen, setGithubDropdownOpen] = useState(false);
   
   // Accordion state: Option A (Row 1 / Frontend open by default)
   const [openCategories, setOpenCategories] = useState<string[]>([
@@ -368,43 +370,24 @@ export default function TechStackSection() {
                               key={skill.name}
                               whileHover={{ scale: 1.02, x: 2 }}
                               onClick={() => setSelectedSkill({ ...skill, category: catGroup.category })}
-                              className={`p-3 rounded-xl border cursor-pointer transition-all duration-200 space-y-1.5 ${
+                              className={`p-3.5 rounded-xl border cursor-pointer transition-all duration-200 space-y-1.5 ${
                                 isDark
-                                  ? 'bg-[#000610]/40 border-slate-800 hover:border-[#00e5ff]/40 hover:bg-[#031729]/60'
-                                  : 'bg-white border-slate-200 hover:border-[#0284c7]/40 hover:bg-slate-50'
+                                  ? 'bg-[#000610]/40 border-slate-800 hover:border-[#00e5ff]/50 hover:bg-[#031729]/60'
+                                  : 'bg-white border-slate-200 hover:border-[#0284c7]/50 hover:bg-slate-50'
                               }`}
                             >
-                              <div className="flex items-center justify-between text-xs font-mono">
+                              <div className="flex items-center justify-between font-mono">
                                 <span className={`font-semibold text-xs flex items-center gap-1.5 ${
-                                  isDark ? 'text-slate-200' : 'text-slate-800'
+                                  isDark ? 'text-slate-100' : 'text-slate-900'
                                 }`}>
                                   <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
                                   <span className="truncate">{skill.name}</span>
                                 </span>
-                                <span className={`text-[10px] font-bold ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`}>
-                                  {skill.level}%
-                                </span>
-                              </div>
-
-                              {/* Progress Bar */}
-                              <div className={`h-1.5 w-full rounded-full overflow-hidden ${
-                                isDark ? 'bg-[#000610]' : 'bg-slate-200'
-                              }`}>
-                                <motion.div
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${skill.level}%` }}
-                                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                                  className={`h-full rounded-full ${
-                                    isDark
-                                      ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6]'
-                                      : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e]'
-                                  }`}
-                                />
                               </div>
 
                               {skill.highlight && (
-                                <p className={`text-[10px] font-mono leading-tight truncate ${
-                                  isDark ? 'text-slate-400' : 'text-slate-500'
+                                <p className={`text-[11px] font-mono leading-relaxed ${
+                                  isDark ? 'text-slate-400' : 'text-slate-600'
                                 }`}>
                                   • {skill.highlight}
                                 </p>
@@ -421,7 +404,7 @@ export default function TechStackSection() {
           })}
         </div>
 
-        {/* GitHub Tech Verification Banner */}
+        {/* GitHub Tech Verification Banner with Repos Dropdown */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -443,24 +426,83 @@ export default function TechStackSection() {
                 Terverifikasi Langsung dari Repository Kode Real
               </h4>
               <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                Seluruh keahlian di atas diimplementasikan pada proyek di <span className="font-mono text-[#00e5ff]">ThinKcode1717</span> &amp; <span className="font-mono text-[#00e5ff]">think-dev01</span>.
+                Seluruh keahlian di atas diimplementasikan pada akun <span className="font-mono text-[#00e5ff]">ThinKcode1717</span> &amp; <span className="font-mono text-[#00e5ff]">think-dev01</span>.
               </p>
             </div>
           </div>
 
-          <a
-            href="https://github.com/ThinKcode1717?tab=repositories"
-            target="_blank"
-            rel="noreferrer"
-            className={`px-4 py-2 rounded-full text-xs font-mono font-bold shrink-0 flex items-center gap-1.5 transition-all active:scale-95 border ${
-              isDark
-                ? 'bg-[#031729] text-[#00e5ff] border-[#00e5ff]/40 hover:bg-[#00e5ff] hover:text-[#000610]'
-                : 'bg-white text-[#0284c7] border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
-            }`}
-          >
-            <span>GitHub Repos</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          {/* Dual GitHub Account Dropdown Button */}
+          <div className="relative shrink-0 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => setGithubDropdownOpen(!githubDropdownOpen)}
+              className={`w-full sm:w-auto px-4 py-2 rounded-full text-xs font-mono font-bold flex items-center justify-between sm:justify-start gap-2 transition-all border ${
+                isDark
+                  ? 'bg-[#031729] text-[#00e5ff] border-[#00e5ff]/40 hover:border-[#00e5ff] hover:bg-[#00e5ff]/10'
+                  : 'bg-white text-[#0284c7] border-[#0284c7]/40 hover:border-[#0284c7] hover:bg-[#e0f2fe]'
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <GithubIcon className="w-4 h-4" />
+                <span>GitHub Repos</span>
+              </div>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${githubDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            <AnimatePresence>
+              {githubDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className={`absolute right-0 bottom-full sm:bottom-auto sm:top-full mb-2 sm:mb-0 sm:mt-2 w-full sm:w-60 rounded-2xl border p-2 shadow-2xl backdrop-blur-2xl z-30 ${
+                    isDark
+                      ? 'bg-[#010d1a] border-[#00e5ff]/40 text-white shadow-[#00e5ff]/10'
+                      : 'bg-white border-slate-300 text-slate-900 shadow-xl'
+                  }`}
+                >
+                  <a
+                    href="https://github.com/ThinKcode1717?tab=repositories"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setGithubDropdownOpen(false)}
+                    className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                      isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <GithubIcon className="w-4 h-4 text-[#00e5ff]" />
+                      <div>
+                        <span className="block font-bold">ThinKcode1717</span>
+                        <span className="text-[10px] text-slate-400 font-normal">Primary Repository</span>
+                      </div>
+                    </div>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+
+                  <a
+                    href="https://github.com/think-dev01?tab=repositories"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setGithubDropdownOpen(false)}
+                    className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-mono font-semibold transition-colors mt-1 ${
+                      isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <GithubIcon className="w-4 h-4 text-[#00b4d8]" />
+                      <div>
+                        <span className="block font-bold">think-dev01</span>
+                        <span className="text-[10px] text-slate-400 font-normal">Secondary Repository</span>
+                      </div>
+                    </div>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
       </div>
@@ -541,7 +583,7 @@ export default function TechStackSection() {
                       : 'bg-[#0284c7] text-white border-[#0284c7] hover:bg-[#0f766e]'
                   }`}
                 >
-                  <span>Repository</span>
+                  <span>Primary Repo</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
                 <button
