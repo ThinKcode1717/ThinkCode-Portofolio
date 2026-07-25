@@ -79,7 +79,7 @@ function ProjectScreenshotCarousel({ project, isDark }: { project: Project; isDa
             <div className={`p-3 rounded-2xl border mb-1 ${
               isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-cyan-500/20 border-cyan-400 text-cyan-300'
             }`}>
-              <ImageIcon className="w-6 h-6" />
+              <HiOutlinePhoto className="w-6 h-6" />
             </div>
             <h4 className="text-sm sm:text-base font-bold font-sans text-white">
               {typeof slides[currentSlide] === 'string'
