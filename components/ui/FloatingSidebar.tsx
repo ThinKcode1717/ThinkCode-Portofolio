@@ -67,13 +67,71 @@ export default function FloatingSidebar() {
           : 'bg-[#f0fdfa]/90 border-[#0284c7]/30 shadow-[0_4px_16px_rgba(0,0,0,0.08)]'
       }`}>
         
-        {/* Sidebar Nav Items (AI Assistant at VERY TOP) */}
+        {/* Sidebar Nav Items */}
         <div className="flex flex-col items-center gap-1.5">
           {sidebarItems.map((item) => {
             const IconComp = item.icon;
             const isActive = activeSection === item.id;
             const isHovered = hoveredId === item.id;
             const isBot = item.id === 'chatbot';
+
+            if (isBot) {
+              return (
+                <div 
+                  key={item.id} 
+                  className="relative flex items-center"
+                  onMouseEnter={() => setHoveredId(item.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
+                  {/* Rotating Glowing Border Beam Container */}
+                  <div className="relative p-[2px] rounded-full overflow-hidden flex items-center justify-center group cursor-pointer">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                      className="absolute inset-[-150%] pointer-events-none"
+                      style={{
+                        background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, #00f0ff 270deg, #0077b6 330deg, transparent 360deg)'
+                      }}
+                    />
+
+                    <a
+                      href={item.href}
+                      aria-label={item.label}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.dispatchEvent(new CustomEvent('open-ai-drawer'));
+                      }}
+                      className={`relative z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${
+                        isDark
+                          ? 'bg-[#010d1f] text-[#00f0ff] shadow-[0_0_14px_rgba(0,240,255,0.4)]'
+                          : 'bg-white text-[#0284c7] shadow-[0_0_12px_rgba(2,132,199,0.3)]'
+                      }`}
+                    >
+                      <IconComp className="w-4 h-4 text-[#00f0ff]" />
+                    </a>
+                  </div>
+
+                  {/* Tooltip Pill on Hover */}
+                  <AnimatePresence>
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -8, scale: 0.95 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: -8, scale: 0.95 }}
+                        transition={{ duration: 0.12 }}
+                        className={`absolute left-12 px-2.5 py-1 rounded-lg text-[11px] font-mono whitespace-nowrap pointer-events-none shadow-md z-50 ${
+                          isDark
+                            ? 'bg-[#03192e] border border-[#00f0ff]/40 text-[#00f0ff]'
+                            : 'bg-white border border-[#0284c7]/40 text-[#0284c7]'
+                        }`}
+                      >
+                        {item.label}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
 
             return (
               <div 
@@ -85,24 +143,14 @@ export default function FloatingSidebar() {
                 <a
                   href={item.href}
                   aria-label={item.label}
-                  onClick={(e) => {
-                    if (isBot) {
-                      e.preventDefault();
-                      window.dispatchEvent(new CustomEvent('open-ai-drawer'));
-                    }
-                  }}
                   className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isBot
+                    isActive 
                       ? isDark
-                        ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610] shadow-[0_0_12px_rgba(0,229,255,0.4)] font-bold animate-pulse'
-                        : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white shadow-[0_0_12px_rgba(2,132,199,0.3)] font-bold'
-                      : isActive 
-                        ? isDark
-                          ? 'text-[#000610] bg-[#00e5ff] shadow-[0_2px_8px_rgba(0,229,255,0.2)] font-bold' 
-                          : 'text-white bg-[#0284c7] shadow-[0_2px_8px_rgba(2,132,199,0.2)] font-bold'
-                        : isDark
-                          ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
-                          : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
+                        ? 'text-[#000610] bg-[#00e5ff] shadow-[0_2px_8px_rgba(0,229,255,0.2)] font-bold' 
+                        : 'text-white bg-[#0284c7] shadow-[0_2px_8px_rgba(2,132,199,0.2)] font-bold'
+                      : isDark
+                        ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
+                        : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
                   }`}
                 >
                   <IconComp className="w-4 h-4" />
@@ -242,36 +290,58 @@ export default function FloatingSidebar() {
                 : 'bg-white/95 border-[#0284c7]/40 text-slate-800'
             }`}
           >
-            {/* Pop-up Navigation Items (AI Assistant at TOP) */}
+            {/* Pop-up Navigation Items (AI Assistant with Rotating Border Glow at TOP) */}
             <div className="space-y-1.5">
               {sidebarItems.map((item) => {
                 const IconComp = item.icon;
                 const isActive = activeSection === item.id;
                 const isBot = item.id === 'chatbot';
 
+                if (isBot) {
+                  return (
+                    <div key={item.id} className="relative p-[2px] rounded-xl overflow-hidden cursor-pointer group">
+                      {/* Rotating Border Glow Ring */}
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                        className="absolute inset-[-150%] pointer-events-none"
+                        style={{
+                          background: 'conic-gradient(from 0deg, transparent 0deg, transparent 200deg, #00f0ff 270deg, #0077b6 330deg, transparent 360deg)'
+                        }}
+                      />
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          setMobileOpen(false);
+                          e.preventDefault();
+                          window.dispatchEvent(new CustomEvent('open-ai-drawer'));
+                        }}
+                        className={`relative z-10 flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] text-xs font-mono font-bold transition-colors min-h-[44px] ${
+                          isDark
+                            ? 'bg-[#010d1f] text-[#00f0ff] shadow-[0_0_12px_rgba(0,240,255,0.3)]'
+                            : 'bg-white text-[#0284c7] shadow-sm'
+                        }`}
+                      >
+                        <IconComp className="w-4 h-4 shrink-0 text-[#00f0ff]" />
+                        <span>{item.label}</span>
+                      </a>
+                    </div>
+                  );
+                }
+
                 return (
                   <a
                     key={item.id}
                     href={item.href}
-                    onClick={(e) => {
-                      setMobileOpen(false);
-                      if (isBot) {
-                        e.preventDefault();
-                        window.dispatchEvent(new CustomEvent('open-ai-drawer'));
-                      }
-                    }}
+                    onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-mono transition-colors min-h-[44px] ${
-                      isBot
+                      isActive
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610] font-bold shadow-[0_0_12px_rgba(0,229,255,0.4)]'
-                          : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white font-bold'
-                        : isActive
-                          ? isDark
-                            ? 'bg-[#00f0ff]/15 text-[#00f0ff] font-bold border border-[#00f0ff]/30'
-                            : 'bg-[#e0f2fe] text-[#0284c7] font-bold border border-[#0284c7]/30'
-                          : isDark
-                            ? 'text-slate-300 hover:text-white hover:bg-[#03192e]/60'
-                            : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
+                          ? 'bg-[#00f0ff]/15 text-[#00f0ff] font-bold border border-[#00f0ff]/30'
+                          : 'bg-[#e0f2fe] text-[#0284c7] font-bold border border-[#0284c7]/30'
+                        : isDark
+                          ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
+                          : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
                     }`}
                   >
                     <IconComp className="w-4 h-4 shrink-0" />
