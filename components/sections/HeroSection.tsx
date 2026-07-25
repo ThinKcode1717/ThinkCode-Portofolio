@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowDown, Mail, Sparkles, ArrowRight, FolderGit2, MessageSquare } from 'lucide-react';
+import { ArrowDown, Mail, Sparkles, ArrowRight, FolderGit2 } from 'lucide-react';
 import WaterAvatarCard from '../ui/WaterAvatarCard';
-import { GithubIcon } from '../ui/Icons';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -117,26 +116,6 @@ export default function HeroSection() {
               >
                 <FolderGit2 className="w-4 h-4" />
                 <span>{t.hero.viewWork}</span>
-              </a>
-            </motion.div>
-
-            {/* Direct Contact Quick Bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center gap-4 pt-2 text-xs font-mono"
-            >
-              <a
-                href="https://wa.me/6289601486350"
-                target="_blank"
-                rel="noreferrer"
-                className={`flex items-center gap-1.5 transition-colors ${
-                  isDark ? 'text-slate-400 hover:text-[#00e5ff]' : 'text-slate-600 hover:text-[#0284c7]'
-                }`}
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>WhatsApp: 089601486350</span>
               </a>
             </motion.div>
 

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Compass, Code2, Bot } from 'lucide-react';
+import { Menu, X, Compass, Code2, Bot, Settings, Sun, Moon, Globe, ChevronDown } from 'lucide-react';
+import { useApp } from '@/context/AppContext';
 
 const navItems = [
   { label: 'About', href: '#about' },
@@ -15,10 +16,14 @@ const navItems = [
 ];
 
 export default function HeadroomNavbar() {
+  const { theme, toggleTheme, lang, toggleLang } = useApp();
+  const isDark = theme === 'dark';
+
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export default function HeadroomNavbar() {
       transition={{ duration: 0.35, ease: 'easeInOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#020b14]/80 backdrop-blur-md border-b border-[#0077b6]/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] py-3'
+          ? 'bg-[#020b14]/85 backdrop-blur-md border-b border-[#0077b6]/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)] py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -82,7 +87,7 @@ export default function HeadroomNavbar() {
           </span>
         </a>
 
-        {/* Desktop Navigation Links */}
+        {/* Center: Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-1 bg-[#03254c]/30 backdrop-blur-lg px-4 py-1.5 rounded-full border border-[#0077b6]/20">
           {navItems.map((item) => {
             const sectionId = item.href.replace('#', '');
@@ -108,22 +113,85 @@ export default function HeadroomNavbar() {
           })}
         </nav>
 
-        {/* Action CTA Buttons (AI Assistant at TOP header position) */}
+        {/* Right Area: Separator Line + Action Buttons Cluster */}
         <div className="hidden md:flex items-center gap-3">
+          
+          {/* Vertical Separator Line */}
+          <div className="w-[1px] h-6 bg-[#0077b6]/40 mx-1" aria-hidden="true" />
+
+          {/* 1. AI Assistant Button */}
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent('open-ai-drawer'))}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold text-[#00f5d4] bg-[#0077b6]/20 border border-[#00f5d4]/40 hover:bg-[#00f5d4] hover:text-[#020b14] transition-all duration-300 shadow-[0_0_12px_rgba(0,245,212,0.2)] transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-[#00f5d4] bg-[#0077b6]/25 border border-[#00f5d4]/40 hover:bg-[#00f5d4] hover:text-[#020b14] transition-all duration-300 shadow-[0_0_12px_rgba(0,245,212,0.2)] transform hover:-translate-y-0.5"
           >
             <Bot className="w-4 h-4 text-[#00f5d4]" />
             <span>Asisten AI</span>
           </button>
 
+          {/* 2. Settings Menu Dropdown Trigger (Language & Theme Mode Switcher) */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setSettingsOpen(!settingsOpen)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-medium text-slate-200 bg-[#03254c]/40 border border-[#0077b6]/30 hover:border-[#00f5d4]/50 transition-all duration-300"
+            >
+              <Settings className="w-3.5 h-3.5 text-[#00f5d4]" />
+              <span>Menu Akses</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${settingsOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            <AnimatePresence>
+              {settingsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 mt-2 w-56 rounded-2xl border border-[#0077b6]/40 p-2.5 shadow-2xl backdrop-blur-2xl bg-[#020b14]/95 text-white z-50 space-y-2"
+                >
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 px-2 pt-1">Pengaturan &amp; Opsi</p>
+                  
+                  {/* Multi-Language Switcher */}
+                  <button
+                    type="button"
+                    onClick={() => { toggleLang(); setSettingsOpen(false); }}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-xs font-mono font-semibold text-slate-200 hover:bg-[#0077b6]/20 hover:text-[#00f5d4] transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Globe className="w-4 h-4 text-[#00f5d4]" />
+                      <span>Bahasa</span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded bg-[#0077b6]/30 text-[#00f5d4] text-[10px] font-bold">
+                      {lang.toUpperCase()}
+                    </span>
+                  </button>
+
+                  {/* Theme Mode Switcher */}
+                  <button
+                    type="button"
+                    onClick={() => { toggleTheme(); setSettingsOpen(false); }}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-xs font-mono font-semibold text-slate-200 hover:bg-[#0077b6]/20 hover:text-[#00f5d4] transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#00f5d4]" />}
+                      <span>Mode Tema</span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded bg-[#0077b6]/30 text-[#00f5d4] text-[10px] font-bold">
+                      {isDark ? 'Dark' : 'Light'}
+                    </span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* 3. Let's Talk CTA Button */}
           <a
             href="#contact"
-            className="relative group inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-[#020b14] bg-gradient-to-r from-[#00f5d4] to-[#0077b6] hover:shadow-[0_0_20px_rgba(0,245,212,0.5)] transition-all duration-300 transform hover:-translate-y-0.5"
+            className="relative group inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold text-[#020b14] bg-gradient-to-r from-[#00f5d4] to-[#0077b6] hover:shadow-[0_0_20px_rgba(0,245,212,0.5)] transition-all duration-300 transform hover:-translate-y-0.5"
           >
-            <Compass className="w-4 h-4 text-[#020b14] animate-spin-slow" />
+            <Compass className="w-3.5 h-3.5 text-[#020b14] animate-spin-slow" />
             <span>Let's Talk</span>
           </a>
         </div>
@@ -172,14 +240,28 @@ export default function HeadroomNavbar() {
                   {item.label}
                 </a>
               ))}
-              <div className="pt-4 border-t border-[#0077b6]/20">
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-[#020b14] bg-[#00f5d4]"
-                >
-                  <span>Let's Talk</span>
-                </a>
+
+              {/* Mobile Settings Controls (Language & Theme Mode) */}
+              <div className="pt-3 border-t border-[#0077b6]/20 space-y-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => toggleLang()}
+                    className="py-2.5 px-3 rounded-xl font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-[#0077b6]/40 bg-[#0077b6]/20 text-[#00f5d4]"
+                  >
+                    <Globe className="w-4 h-4" />
+                    <span>{lang.toUpperCase()}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleTheme()}
+                    className="py-2.5 px-3 rounded-xl font-mono text-xs font-bold flex items-center justify-center gap-1.5 border border-[#0077b6]/40 bg-[#0077b6]/20 text-[#00f5d4]"
+                  >
+                    {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+                    <span>{isDark ? 'Dark' : 'Light'}</span>
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>
