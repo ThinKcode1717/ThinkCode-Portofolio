@@ -19,91 +19,55 @@ import { useApp } from '@/context/AppContext';
 import { THINKCODE_DATA } from '@/lib/data';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
-// Expanded Tech Stack logos with rich SVG icons
+// Rich Tech Stack logos for floating water bubbles
 const TECH_LOGOS = [
   {
     name: 'React 19',
-    category: 'frontend',
     color: '#61DAFB',
     projectRef: 'Black Ant Academy · HolidayBro · SIPIA',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.092-.278z"/></svg>`,
   },
   {
     name: 'TypeScript',
-    category: 'frontend',
     color: '#3178C6',
     projectRef: 'Google Maps Scraper · SIPIA · SAKIP Crawler',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.12 1.21-.36 1.658a3.032 3.032 0 0 1-.991 1.01 4.weak 4.weak 0 0 1-1.485.528 8.68 8.68 0 0 1-1.811.176 9.1 9.1 0 0 1-1.91-.203 6.995 6.995 0 0 1-1.559-.538v-2.587a5.49 5.49 0 0 0 .825.498c.306.151.617.277.936.376a7.14 7.14 0 0 0 1.898.272c.291 0 .558-.023.8-.07a1.96 1.96 0 0 0 .599-.213c.163-.096.289-.213.38-.35a.9.9 0 0 0 .136-.5.897.897 0 0 0-.19-.58 2.252 2.252 0 0 0-.523-.457 6.63 6.63 0 0 0-.79-.41c-.298-.137-.626-.28-.984-.43a9.47 9.47 0 0 1-1.175-.597 4.278 4.278 0 0 1-.905-.74 3.115 3.115 0 0 1-.59-.947 3.483 3.483 0 0 1-.21-1.24c0-.617.116-1.155.35-1.614a3.303 3.303 0 0 1 .964-1.09 4.236 4.236 0 0 1 1.456-.617A7.377 7.377 0 0 1 18.488 9.75zm-6.75 0v2.333H9.126v7.917H6.458V12.083H4V9.75z"/></svg>`,
   },
   {
-    name: 'Next.js 16',
-    category: 'frontend',
-    color: '#00E5FF',
-    projectRef: 'Portofolio Utama · Black Ant Academy',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.4 17.8L9.9 7.2H8.4v9.6h1.5v-7.2l6.3 9.4c-.6.3-1.2.6-1.8.8z"/></svg>`,
-  },
-  {
     name: 'Python (AI/ML)',
-    category: 'backend',
     color: '#3776AB',
     projectRef: 'ARIMA-LSTM Stock Forecasting & Medical DNN',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.913 0c-5.23 0-4.887 2.274-4.887 2.274l.006 2.353h4.945v.7H5.097S.8 4.792.8 10.052c0 5.26 3.737 5.068 3.737 5.068h2.232v-3.143s-.121-3.737 3.676-3.737h6.312s3.535.06 3.535-3.414V2.274S20.67 0 11.913 0zM8.98 1.488a.952.952 0 1 1 0 1.905.952.952 0 0 1 0-1.905zm3.107 22.512c5.23 0 4.887-2.274 4.887-2.274l-.006-2.353h-4.945v-.7h6.88s4.297.535 4.297-4.725c0-5.26-3.737-5.068-3.737-5.068h-2.232v3.143s.121 3.737-3.676 3.737H7.243s-3.535-.06-3.535 3.414v2.576s-.379 2.274 8.379 2.274zm2.933-1.488a.952.952 0 1 1 0-1.905.952.952 0 0 1 0 1.905z"/></svg>`,
   },
   {
     name: 'Node.js & Express',
-    category: 'backend',
     color: '#339933',
     projectRef: 'SIPIA Backend · SAKIP Document Crawler',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1.5 17.5v-7l-6 3.5 6 3.5zm7.5-4.5l-6 3.5v-7l6-3.5v7z"/></svg>`,
   },
   {
     name: 'Laravel & PHP',
-    category: 'backend',
     color: '#FF2D20',
     projectRef: 'SI KuroWesi Inventory · SIPINTER Digital Library',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1.5 17.5v-7l-6 3.5 6 3.5zm7.5-4.5l-6 3.5v-7l6-3.5v7z"/></svg>`,
   },
   {
-    name: 'PostgreSQL',
-    category: 'backend',
-    color: '#4169E1',
-    projectRef: 'Neon Serverless Database · Relational Schemas',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm-1.5 4.5h3v3h-3zm0 4.5h3v10.5h-3z"/></svg>`,
-  },
-  {
     name: 'Docker',
-    category: 'devops',
     color: '#2496ED',
     projectRef: 'AI KuroWesi API & Multi-Container Deployments',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185"/></svg>`,
   },
   {
+    name: 'PostgreSQL',
+    color: '#4169E1',
+    projectRef: 'SI KuroWesi & Neon Serverless DB',
+    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`,
+  },
+  {
     name: 'Tailwind CSS',
-    category: 'frontend',
     color: '#06B6D4',
-    projectRef: 'Design Tokens · Glassmorphism Theme System',
+    projectRef: 'ThinkCode Portfolio · HolidayBro · SIPIA',
     svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>`,
-  },
-  {
-    name: 'Framer Motion',
-    category: 'frontend',
-    color: '#E91E63',
-    projectRef: 'Scroll Parallax · Shared Layout App Store Transitions',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/></svg>`,
-  },
-  {
-    name: 'Puppeteer & Cheerio',
-    category: 'devops',
-    color: '#00E5FF',
-    projectRef: 'Google Maps Scraper · SAKIP Document Crawler',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
-  },
-  {
-    name: 'Groq Llama 3.3',
-    category: 'backend',
-    color: '#00F0FF',
-    projectRef: 'Integrasi AI Assistant Drawer Portofolio',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-3-9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-6.75 4.5a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75z"/></svg>`,
   }
 ];
 
@@ -127,26 +91,26 @@ interface SkillDetail {
 
 function generateBubbles(): Bubble[] {
   const bubbles: Bubble[] = [];
-  // Duplicate tech logos array for a rich floating atmosphere
-  const techs = [...TECH_LOGOS, ...TECH_LOGOS];
+  const techs = [...TECH_LOGOS];
   for (let i = techs.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [techs[i], techs[j]] = [techs[j], techs[i]];
   }
 
+  // Generate bubbles strictly placed on Left and Right section flanks
   techs.forEach((tech, i) => {
     const side = i % 2 === 0 ? 'left' : 'right';
     const baseX = side === 'left'
-      ? 1 + Math.random() * 18
-      : 80 + Math.random() * 18;
+      ? 1 + Math.random() * 10  // Left side flank (1% to 11%)
+      : 88 + Math.random() * 10; // Right side flank (88% to 98%)
 
     bubbles.push({
       id: i,
       x: baseX,
-      size: 46 + Math.random() * 26,
-      speed: 14 + Math.random() * 18,
-      delay: Math.random() * -28,
-      wobble: 10 + Math.random() * 18,
+      size: 46 + Math.random() * 22,
+      speed: 14 + Math.random() * 16,
+      delay: Math.random() * -18,
+      wobble: 10 + Math.random() * 16,
       side,
       tech,
     });
@@ -169,16 +133,16 @@ export default function TechStackSection() {
   ]);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const [sectionHeight, setSectionHeight] = useState(850);
+  const [sectionHeight, setSectionHeight] = useState(700);
 
   useEffect(() => {
     setBubbles(generateBubbles());
 
     const el = sectionRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setSectionHeight(Math.max(el.offsetHeight, 800)));
+    const ro = new ResizeObserver(() => setSectionHeight(el.offsetHeight));
     ro.observe(el);
-    setSectionHeight(Math.max(el.offsetHeight, 800));
+    setSectionHeight(el.offsetHeight);
     return () => ro.disconnect();
   }, []);
 
@@ -197,33 +161,34 @@ export default function TechStackSection() {
       id="skills"
       className="relative py-12 lg:py-16 min-h-[85vh] lg:min-h-screen flex flex-col justify-center overflow-hidden"
     >
-      {/* ── 1. Floating Water Bubble Logo Loop Ambient Layer ── */}
+      {/* ── 1. Floating Water Tech Bubble Layer (Left & Right Flanks with Top Fade-Out) ── */}
       <div
-        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
+        ref={sectionRef as React.RefObject<HTMLDivElement>}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
         aria-hidden="true"
       >
         {bubbles.map((b) => (
           <motion.div
             key={b.id}
-            className="absolute bottom-0 flex items-center justify-center rounded-full cursor-pointer pointer-events-auto shadow-xl transition-all duration-300"
+            className="absolute bottom-0 flex items-center justify-center rounded-full cursor-pointer pointer-events-auto shadow-xl"
             style={{
               left: `${b.x}%`,
               width: b.size,
               height: b.size,
               background: isDark
-                ? `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22), rgba(0,229,255,0.08) 60%, rgba(0,180,216,0.18))`
-                : `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.85), rgba(255,255,255,0.3) 60%, rgba(14,165,233,0.18))`,
+                ? `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22), rgba(0,229,255,0.12) 50%, rgba(0,119,182,0.2) 85%)`
+                : `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.85), rgba(224,242,254,0.4) 60%, rgba(2,132,199,0.18))`,
               border: isDark
                 ? '1.5px solid rgba(0,229,255,0.45)'
-                : '1.5px solid rgba(14,165,233,0.45)',
-              backdropFilter: 'blur(8px)',
+                : '1.5px solid rgba(2,132,199,0.45)',
               boxShadow: isDark
-                ? '0 6px 25px rgba(0,229,255,0.25), inset 0 0 15px rgba(255,255,255,0.15)'
-                : '0 6px 25px rgba(14,165,233,0.2), inset 0 0 15px rgba(255,255,255,0.5)',
+                ? '0 6px 20px rgba(0,229,255,0.2), inset 0 0 15px rgba(0,229,255,0.25)'
+                : '0 6px 20px rgba(2,132,199,0.15), inset 0 0 15px rgba(255,255,255,0.8)',
+              backdropFilter: 'blur(8px)',
             }}
             animate={{
-              y: [0, -(sectionHeight + b.size + 60)],
-              opacity: [0, 0.95, 0.95, 0.4, 0],
+              y: [0, -(sectionHeight + b.size + 40)],
+              opacity: [0, 0.35, 1, 1, 0.7, 0], // Smooth fade-in at bottom and clean fade-out at top end
               x: [
                 0,
                 b.wobble,
@@ -232,16 +197,21 @@ export default function TechStackSection() {
                 0,
                 b.wobble,
                 0,
-                -b.wobble,
-                0,
               ],
             }}
             transition={{
               y: {
                 duration: b.speed,
                 repeat: Infinity,
-                times: [0, 0.1, 0.8, 0.92, 1],
-                ease: 'linear',
+                times: [0, 0.12, 0.3, 0.75, 0.9, 1],
+                ease: 'easeInOut',
+                delay: b.delay,
+              },
+              opacity: {
+                duration: b.speed,
+                repeat: Infinity,
+                times: [0, 0.1, 0.25, 0.75, 0.9, 1],
+                ease: 'easeInOut',
                 delay: b.delay,
               },
               x: {
@@ -251,36 +221,35 @@ export default function TechStackSection() {
                 delay: b.delay,
               },
             }}
-            whileHover={{ scale: 1.35, rotate: 12 }}
+            whileHover={{ scale: 1.35 }}
             onHoverStart={() => setHoveredBubbleId(b.id)}
             onHoverEnd={() => setHoveredBubbleId(null)}
           >
+            {/* Bubble Specular Glass Glint Overlay */}
+            <div className="absolute top-1 left-2 w-1/3 h-1/4 rounded-full opacity-65 bg-gradient-to-br from-white to-transparent pointer-events-none" />
+
+            {/* Tech Logo Icon inside Bubble */}
             <motion.span
-              className="select-none flex items-center justify-center"
-              style={{ color: b.tech.color, width: b.size * 0.48, height: b.size * 0.48 }}
-              animate={hoveredBubbleId === b.id ? { rotate: 20, scale: 1.15 } : { rotate: 0, scale: 1 }}
+              className="select-none z-10 flex items-center justify-center"
+              style={{ color: b.tech.color, width: b.size * 0.45, height: b.size * 0.45 }}
+              animate={hoveredBubbleId === b.id ? { rotate: 20 } : { rotate: 0 }}
               transition={{ duration: 0.2 }}
               dangerouslySetInnerHTML={{ __html: b.tech.svg }}
             />
 
-            {/* Bubble Liquid Gloss Reflection */}
-            <div 
-              className="absolute top-1.5 left-2 w-1/3 h-1/4 rounded-full opacity-70 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse, rgba(255,255,255,0.9), transparent)' }}
-            />
-
+            {/* Hover Tooltip Pill */}
             {hoveredBubbleId === b.id && (
               <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-xl text-[11px] font-mono font-bold whitespace-nowrap pointer-events-none shadow-2xl border backdrop-blur-xl z-50"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold whitespace-nowrap pointer-events-none shadow-xl border z-50"
                 style={{
-                  background: isDark ? 'rgba(1,13,31,0.96)' : 'rgba(255,255,255,0.98)',
+                  background: isDark ? 'rgba(1,13,31,0.95)' : 'rgba(255,255,255,0.98)',
                   color: b.tech.color,
-                  borderColor: `${b.tech.color}80`,
+                  borderColor: `${b.tech.color}60`,
                 }}
               >
-                <span className="block font-bold">{b.tech.name}</span>
+                <span>{b.tech.name}</span>
                 <span className="block text-[9px] font-normal text-slate-400">{b.tech.projectRef}</span>
               </motion.div>
             )}
@@ -341,8 +310,8 @@ export default function TechStackSection() {
                 transition={{ duration: 0.4, delay: groupIdx * 0.08 }}
                 className={`rounded-2xl border backdrop-blur-xl overflow-hidden transition-all duration-300 ${
                   isDark
-                    ? 'bg-[#031729]/65 border-[#0077b6]/35 hover:border-[#00e5ff]/45 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
-                    : 'bg-white/95 border-slate-200 hover:border-[#0284c7]/45 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+                    ? 'bg-[#031729]/50 border-[#0077b6]/30 hover:border-[#00e5ff]/40 shadow-[0_4px_20px_rgba(0,0,0,0.3)]'
+                    : 'bg-white/90 border-slate-200 hover:border-[#0284c7]/40 shadow-[0_4px_20px_rgba(0,0,0,0.05)]'
                 }`}
               >
                 {/* Accordion Row Header Toggle Button */}
@@ -457,7 +426,7 @@ export default function TechStackSection() {
           viewport={{ once: true }}
           className={`mt-6 p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-xl ${
             isDark
-              ? 'bg-[#010d1f]/85 border-[#0077b6]/35 text-slate-200'
+              ? 'bg-[#010d1f]/80 border-[#0077b6]/30 text-slate-200'
               : 'bg-slate-50 border-slate-200 text-slate-800'
           }`}
         >
@@ -590,7 +559,7 @@ export default function TechStackSection() {
                   type="button"
                   onClick={() => setSelectedSkill(null)}
                   className={`p-1.5 rounded-xl border transition-colors ${
-                    isDark ? 'border-slate-700 text-slate-400 hover:text-white' : 'border-slate-200 text-slate-600 hover:text-[#0284c7]'
+                    isDark ? 'border-slate-700 text-slate-400 hover:text-white' : 'border-slate-200 text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <X className="w-4 h-4" />
