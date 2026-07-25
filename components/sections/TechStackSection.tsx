@@ -199,8 +199,8 @@ export default function TechStackSection() {
               width: b.size,
               height: b.size,
               background: isDark
-                ? `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.22), rgba(0,229,255,0.12) 50%, rgba(0,119,182,0.2) 85%)`
-                : `radial-gradient(circle at 35% 35%, rgba(255,255,255,0.85), rgba(224,242,254,0.4) 60%, rgba(2,132,199,0.18))`,
+                ? `radial-gradient(circle at 65% 25%, rgba(255,255,255,0.3), rgba(0,229,255,0.15) 50%, rgba(0,119,182,0.25) 85%)`
+                : `radial-gradient(circle at 65% 25%, rgba(255,255,255,0.9), rgba(224,242,254,0.5) 60%, rgba(2,132,199,0.22))`,
               border: isDark
                 ? '1.5px solid rgba(0,229,255,0.45)'
                 : '1.5px solid rgba(2,132,199,0.45)',
@@ -211,7 +211,7 @@ export default function TechStackSection() {
             }}
             animate={{
               y: [0, -(sectionHeight + b.size + 40)],
-              opacity: [0, 0.35, 1, 1, 0.7, 0], // Smooth fade-in at bottom and clean fade-out at top end
+              opacity: [0, 1, 1, 0], // Clean fade-in at bottom and smooth fade-out at top edge
               x: [
                 0,
                 b.wobble,
@@ -226,14 +226,13 @@ export default function TechStackSection() {
               y: {
                 duration: b.speed,
                 repeat: Infinity,
-                times: [0, 0.12, 0.3, 0.75, 0.9, 1],
-                ease: 'easeInOut',
+                ease: 'linear',
                 delay: b.delay,
               },
               opacity: {
                 duration: b.speed,
                 repeat: Infinity,
-                times: [0, 0.1, 0.25, 0.75, 0.9, 1],
+                times: [0, 0.15, 0.85, 1],
                 ease: 'easeInOut',
                 delay: b.delay,
               },
@@ -248,8 +247,8 @@ export default function TechStackSection() {
             onHoverStart={() => setHoveredBubbleId(b.id)}
             onHoverEnd={() => setHoveredBubbleId(null)}
           >
-            {/* Bubble Specular Glass Glint Overlay */}
-            <div className="absolute top-1 left-2 w-1/3 h-1/4 rounded-full opacity-65 bg-gradient-to-br from-white to-transparent pointer-events-none" />
+            {/* Bubble Specular Glass Glint Overlay (Positioned on TOP-RIGHT Side Ray) */}
+            <div className="absolute top-1.5 right-2 w-1/3 h-1/4 rounded-full opacity-75 bg-gradient-to-bl from-white via-white/40 to-transparent pointer-events-none" />
 
             {/* Tech Logo Icon inside Bubble */}
             <motion.div
