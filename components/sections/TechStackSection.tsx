@@ -13,61 +13,85 @@ import {
   HiOutlineChevronDown 
 } from 'react-icons/hi2';
 import { FiDatabase } from 'react-icons/fi';
+import { 
+  SiReact, 
+  SiTypescript, 
+  SiPython, 
+  SiNodedotjs, 
+  SiLaravel, 
+  SiDocker, 
+  SiPostgresql, 
+  SiTailwindcss, 
+  SiNextdotjs, 
+  SiFastapi 
+} from 'react-icons/si';
 import { GithubIcon } from '../ui/Icons';
 import { useApp } from '@/context/AppContext';
 import { THINKCODE_DATA } from '@/lib/data';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
-// Rich Tech Stack logos for floating water bubbles
+// Rich Tech Stack logos for floating water bubbles using authentic brand React Icons
 const TECH_LOGOS = [
   {
     name: 'React 19',
     color: '#61DAFB',
     projectRef: 'Black Ant Academy · HolidayBro · SIPIA',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.092-.278z"/></svg>`,
+    icon: SiReact,
   },
   {
     name: 'TypeScript',
     color: '#3178C6',
     projectRef: 'Google Maps Scraper · SIPIA · SAKIP Crawler',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.12 1.21-.36 1.658a3.032 3.032 0 0 1-.991 1.01 4.weak 4.weak 0 0 1-1.485.528 8.68 8.68 0 0 1-1.811.176 9.1 9.1 0 0 1-1.91-.203 6.995 6.995 0 0 1-1.559-.538v-2.587a5.49 5.49 0 0 0 .825.498c.306.151.617.277.936.376a7.14 7.14 0 0 0 1.898.272c.291 0 .558-.023.8-.07a1.96 1.96 0 0 0 .599-.213c.163-.096.289-.213.38-.35a.9.9 0 0 0 .136-.5.897.897 0 0 0-.19-.58 2.252 2.252 0 0 0-.523-.457 6.63 6.63 0 0 0-.79-.41c-.298-.137-.626-.28-.984-.43a9.47 9.47 0 0 1-1.175-.597 4.278 4.278 0 0 1-.905-.74 3.115 3.115 0 0 1-.59-.947 3.483 3.483 0 0 1-.21-1.24c0-.617.116-1.155.35-1.614a3.303 3.303 0 0 1 .964-1.09 4.236 4.236 0 0 1 1.456-.617A7.377 7.377 0 0 1 18.488 9.75zm-6.75 0v2.333H9.126v7.917H6.458V12.083H4V9.75z"/></svg>`,
+    icon: SiTypescript,
   },
   {
     name: 'Python (AI/ML)',
     color: '#3776AB',
     projectRef: 'ARIMA-LSTM Stock Forecasting & Medical DNN',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.913 0c-5.23 0-4.887 2.274-4.887 2.274l.006 2.353h4.945v.7H5.097S.8 4.792.8 10.052c0 5.26 3.737 5.068 3.737 5.068h2.232v-3.143s-.121-3.737 3.676-3.737h6.312s3.535.06 3.535-3.414V2.274S20.67 0 11.913 0zM8.98 1.488a.952.952 0 1 1 0 1.905.952.952 0 0 1 0-1.905zm3.107 22.512c5.23 0 4.887-2.274 4.887-2.274l-.006-2.353h-4.945v-.7h6.88s4.297.535 4.297-4.725c0-5.26-3.737-5.068-3.737-5.068h-2.232v3.143s.121 3.737-3.676 3.737H7.243s-3.535-.06-3.535 3.414v2.576s-.379 2.274 8.379 2.274zm2.933-1.488a.952.952 0 1 1 0-1.905.952.952 0 0 1 0 1.905z"/></svg>`,
+    icon: SiPython,
   },
   {
-    name: 'Node.js & Express',
-    color: '#339933',
+    name: 'Node.js Backend',
+    color: '#5FA04E',
     projectRef: 'SIPIA Backend · SAKIP Document Crawler',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1.5 17.5v-7l-6 3.5 6 3.5zm7.5-4.5l-6 3.5v-7l6-3.5v7z"/></svg>`,
+    icon: SiNodedotjs,
   },
   {
     name: 'Laravel & PHP',
     color: '#FF2D20',
     projectRef: 'SI KuroWesi Inventory · SIPINTER Digital Library',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm-1.5 17.5v-7l-6 3.5 6 3.5zm7.5-4.5l-6 3.5v-7l6-3.5v7z"/></svg>`,
+    icon: SiLaravel,
   },
   {
-    name: 'Docker',
+    name: 'Docker Container',
     color: '#2496ED',
     projectRef: 'AI KuroWesi API & Multi-Container Deployments',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185"/></svg>`,
+    icon: SiDocker,
   },
   {
-    name: 'PostgreSQL',
+    name: 'PostgreSQL DB',
     color: '#4169E1',
     projectRef: 'SI KuroWesi & Neon Serverless DB',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`,
+    icon: SiPostgresql,
   },
   {
     name: 'Tailwind CSS',
     color: '#06B6D4',
     projectRef: 'ThinkCode Portfolio · HolidayBro · SIPIA',
-    svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>`,
-  }
+    icon: SiTailwindcss,
+  },
+  {
+    name: 'Next.js 15',
+    color: '#00E5FF',
+    projectRef: 'ThinkCode Portfolio & Modern Web Apps',
+    icon: SiNextdotjs,
+  },
+  {
+    name: 'FastAPI Backend',
+    color: '#009688',
+    projectRef: 'AI KuroWesi High Performance Microservices',
+    icon: SiFastapi,
+  },
 ];
 
 interface Bubble {
@@ -106,7 +130,7 @@ function generateBubbles(): Bubble[] {
     bubbles.push({
       id: i,
       x: baseX,
-      size: 46 + Math.random() * 22,
+      size: 54 + Math.random() * 22,
       speed: 14 + Math.random() * 16,
       delay: Math.random() * -18,
       wobble: 10 + Math.random() * 16,
@@ -228,13 +252,14 @@ export default function TechStackSection() {
             <div className="absolute top-1 left-2 w-1/3 h-1/4 rounded-full opacity-65 bg-gradient-to-br from-white to-transparent pointer-events-none" />
 
             {/* Tech Logo Icon inside Bubble */}
-            <motion.span
-              className="select-none z-10 flex items-center justify-center"
-              style={{ color: b.tech.color, width: b.size * 0.45, height: b.size * 0.45 }}
-              animate={hoveredBubbleId === b.id ? { rotate: 20 } : { rotate: 0 }}
+            <motion.div
+              className="select-none z-10 flex items-center justify-center p-1"
+              style={{ color: b.tech.color, width: b.size * 0.58, height: b.size * 0.58 }}
+              animate={hoveredBubbleId === b.id ? { rotate: 20, scale: 1.15 } : { rotate: 0, scale: 1 }}
               transition={{ duration: 0.2 }}
-              dangerouslySetInnerHTML={{ __html: b.tech.svg }}
-            />
+            >
+              <b.tech.icon className="w-full h-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]" />
+            </motion.div>
 
             {/* Hover Tooltip Pill */}
             {hoveredBubbleId === b.id && (

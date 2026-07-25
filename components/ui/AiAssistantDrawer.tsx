@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  HiOutlineCpuChip, 
   HiOutlinePaperAirplane, 
   HiOutlineUser, 
   HiOutlineArrowPath, 
@@ -11,6 +10,7 @@ import {
   HiOutlineSparkles, 
   HiOutlineCommandLine 
 } from 'react-icons/hi2';
+import { RiRobot3Fill } from 'react-icons/ri';
 import { CgSpinner } from 'react-icons/cg';
 import { useApp } from '@/context/AppContext';
 
@@ -228,7 +228,7 @@ export default function AiAssistantDrawer() {
                             ? 'bg-slate-800 border-slate-700 text-slate-200'
                             : 'bg-slate-200 border-slate-300 text-slate-800'
                       }`}>
-                        {isAi ? <HiOutlineCpuChip className="w-4 h-4" /> : <HiOutlineUser className="w-4 h-4" />}
+                        {isAi ? <RiRobot3Fill className="w-4 h-4" /> : <HiOutlineUser className="w-4 h-4" />}
                       </div>
 
                       <div className="space-y-1">
@@ -258,7 +258,7 @@ export default function AiAssistantDrawer() {
                     <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 ${
                       isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                     }`}>
-                      <HiOutlineCpuChip className="w-4 h-4" />
+                      <RiRobot3Fill className="w-4 h-4" />
                     </div>
                     <div className={`p-3.5 rounded-2xl text-xs font-mono flex items-center gap-2 ${
                       isDark ? 'bg-[#031729] border border-[#0077b6]/30 text-[#00e5ff]' : 'bg-slate-100 border border-slate-200 text-[#0284c7]'
