@@ -2,7 +2,16 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Send, User, RefreshCw, Loader2, X, Sparkles, Command } from 'lucide-react';
+import { 
+  HiOutlineCpuChip, 
+  HiOutlinePaperAirplane, 
+  HiOutlineUser, 
+  HiOutlineArrowPath, 
+  HiOutlineXMark, 
+  HiOutlineSparkles, 
+  HiOutlineCommandLine 
+} from 'react-icons/hi2';
+import { CgSpinner } from 'react-icons/cg';
 import { useApp } from '@/context/AppContext';
 
 interface ChatMessage {
@@ -19,101 +28,84 @@ const formatTimeString = (date: Date = new Date()) => {
 };
 
 export default function AiAssistantDrawer() {
-  const { t, theme, lang } = useApp();
+  const { t, theme } = useApp();
   const isDark = theme === 'dark';
 
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMsg, setInputMsg] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const messagesBoxRef = useRef<HTMLDivElement>(null);
 
-  // Initialize / re-initialize welcome message on language change
+  // Initialize initial greeting when language changes or drawer opens
   useEffect(() => {
     setMessages([
       {
-        id: 'welcome',
+        id: 'welcome-1',
         sender: 'ai',
         text: t.chatbot.welcome,
-        timestamp: formatTimeString(new Date())
-      }
+        timestamp: formatTimeString(),
+      },
     ]);
-  }, [lang, t.chatbot.welcome]);
+  }, [t.chatbot.welcome]);
 
-  // Scroll internally within message box ONLY (no window scrollIntoView)
+  // Listen for global window custom events to open drawer
+  useEffect(() => {
+    const handleOpenDrawer = () => setIsOpen(true);
+    window.addEventListener('open-ai-drawer', handleOpenDrawer);
+    return () => window.removeEventListener('open-ai-drawer', handleOpenDrawer);
+  }, []);
+
+  // Auto-scroll chat box to bottom when new message arrives
   useEffect(() => {
     if (messagesBoxRef.current) {
       messagesBoxRef.current.scrollTop = messagesBoxRef.current.scrollHeight;
     }
-  }, [messages, loading, isOpen]);
+  }, [messages, loading]);
 
-  // Keyboard shortcut listener (Ctrl + K or Cmd + K) & Custom Event Listener
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setIsOpen((prev) => !prev);
-      }
-    };
-
-    const handleCustomTrigger = () => setIsOpen(true);
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('open-ai-drawer', handleCustomTrigger);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('open-ai-drawer', handleCustomTrigger);
-    };
-  }, []);
-
-  const sendMessage = async (textToSend?: string) => {
-    const query = textToSend || inputMsg;
-    if (!query.trim() || loading) return;
-
-    const currentTime = formatTimeString(new Date());
+  const sendMessage = async (userText: string) => {
+    if (!userText.trim() || loading) return;
 
     const userMessage: ChatMessage = {
-      id: Date.now().toString(),
+      id: `user-${Date.now()}`,
       sender: 'user',
-      text: query,
-      timestamp: currentTime
+      text: userText,
+      timestamp: formatTimeString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    if (!textToSend) setInputMsg('');
+    setInputMsg('');
     setLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query, lang })
+        body: JSON.stringify({ message: userText }),
       });
 
-      const data = await res.json();
-      const aiReplyText = data.reply || "Maaf, tidak ada respon.";
+      const data = await response.json();
 
       const aiMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: `ai-${Date.now()}`,
         sender: 'ai',
-        text: aiReplyText,
-        timestamp: formatTimeString(new Date())
+        text: data.reply || t.chatbot.fallbackReply || 'Maaf, terjadi kendala teknis saat menghubungi Groq AI Engine.',
+        timestamp: formatTimeString(),
       };
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error('Chat error:', err);
-      const errorMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        sender: 'ai',
-        text: lang === 'id'
-          ? "Maaf, terjadi kesalahan koneksi AI. Silakan coba lagi."
-          : "Sorry, an AI connection error occurred. Please try again.",
-        timestamp: formatTimeString(new Date())
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      console.error('AI Assistant Fetch Error:', err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `ai-err-${Date.now()}`,
+          sender: 'ai',
+          text: t.chatbot.fallbackReply || 'Sistem AI sedang offline. Silakan hubungi Yoga secara langsung melalui tombol kontak.',
+          timestamp: formatTimeString(),
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -121,61 +113,23 @@ export default function AiAssistantDrawer() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    sendMessage();
+    sendMessage(inputMsg);
   };
 
   const resetChat = () => {
     setMessages([
       {
-        id: 'welcome',
+        id: `welcome-${Date.now()}`,
         sender: 'ai',
         text: t.chatbot.welcome,
-        timestamp: formatTimeString(new Date())
-      }
+        timestamp: formatTimeString(),
+      },
     ]);
   };
 
   return (
     <>
-      {/* ── Creative Floating Trigger Button (Bottom-Right) ── */}
-      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3 pointer-events-auto">
-        <motion.button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          aria-label="Open AI Assistant"
-          className={`relative group flex items-center gap-3 px-4 py-3 rounded-full border backdrop-blur-xl shadow-2xl transition-all duration-300 ${
-            isDark
-              ? 'bg-[#031729]/90 border-[#00e5ff]/40 text-slate-100 shadow-[0_0_25px_rgba(0,229,255,0.25)] hover:border-[#00e5ff]'
-              : 'bg-white/95 border-[#0284c7]/40 text-slate-800 shadow-[0_4px_20px_rgba(2,132,199,0.18)] hover:border-[#0284c7]'
-          }`}
-        >
-          {/* Animated AI Glow Ring */}
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
-          </span>
-
-          <div className="flex items-center gap-2 font-mono text-xs font-bold">
-            <Bot className={`w-4 h-4 transition-transform group-hover:rotate-12 ${
-              isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
-            }`} />
-            <span className="hidden sm:inline">AI Assistant</span>
-          </div>
-
-          <span className={`hidden md:flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-mono border ${
-            isDark
-              ? 'bg-[#000610] border-[#00e5ff]/20 text-[#00e5ff]'
-              : 'bg-slate-100 border-slate-300 text-slate-600'
-          }`}>
-            <Command className="w-2.5 h-2.5" />
-            <span>K</span>
-          </span>
-        </motion.button>
-      </div>
-
-      {/* ── Slide-in AI Assistant Drawer Modal ── */}
+      {/* Floating Global Drawer Trigger & Backdrop Modal */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -210,7 +164,7 @@ export default function AiAssistantDrawer() {
                       ? 'bg-[#00e5ff]/10 border-[#00e5ff]/40 text-[#00e5ff]'
                       : 'bg-[#e0f2fe] border-[#0284c7]/40 text-[#0284c7]'
                   }`}>
-                    <Sparkles className="w-5 h-5 animate-pulse" />
+                    <HiOutlineSparkles className="w-5 h-5 animate-pulse" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -236,7 +190,7 @@ export default function AiAssistantDrawer() {
                         : 'border-slate-300 text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
+                    <HiOutlineArrowPath className="w-3.5 h-3.5" />
                   </button>
                   <button
                     type="button"
@@ -248,7 +202,7 @@ export default function AiAssistantDrawer() {
                         : 'border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
-                    <X className="w-5 h-5" />
+                    <HiOutlineXMark className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -274,7 +228,7 @@ export default function AiAssistantDrawer() {
                             ? 'bg-slate-800 border-slate-700 text-slate-200'
                             : 'bg-slate-200 border-slate-300 text-slate-800'
                       }`}>
-                        {isAi ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                        {isAi ? <HiOutlineCpuChip className="w-4 h-4" /> : <HiOutlineUser className="w-4 h-4" />}
                       </div>
 
                       <div className="space-y-1">
@@ -304,12 +258,12 @@ export default function AiAssistantDrawer() {
                     <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 ${
                       isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                     }`}>
-                      <Bot className="w-4 h-4" />
+                      <HiOutlineCpuChip className="w-4 h-4" />
                     </div>
                     <div className={`p-3.5 rounded-2xl text-xs font-mono flex items-center gap-2 ${
                       isDark ? 'bg-[#031729] border border-[#0077b6]/30 text-[#00e5ff]' : 'bg-slate-100 border border-slate-200 text-[#0284c7]'
                     }`}>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <CgSpinner className="w-4 h-4 animate-spin" />
                       <span>{t.chatbot.processing}</span>
                     </div>
                   </div>
@@ -372,7 +326,7 @@ export default function AiAssistantDrawer() {
                         : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                   }`}
                 >
-                  <Send className="w-4 h-4" />
+                  <HiOutlinePaperAirplane className="w-4 h-4" />
                 </button>
               </form>
             </motion.div>

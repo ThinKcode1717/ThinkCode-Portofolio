@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FolderGit2, ExternalLink, X, TrendingUp, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { HiOutlineFolder, HiOutlineArrowTopRightOnSquare, HiOutlineXMark, HiOutlineArrowTrendingUp, HiOutlineChevronLeft, HiOutlineChevronRight, HiOutlinePhoto } from 'react-icons/hi2';
 import { GithubIcon } from '../ui/Icons';
 import { THINKCODE_DATA, Project } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
@@ -100,14 +100,14 @@ function ProjectScreenshotCarousel({ project, isDark }: { project: Project; isDa
           aria-label="Previous Slide"
           className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-[#00e5ff] hover:text-black transition-colors"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <HiOutlineChevronLeft className="w-4 h-4" />
         </button>
         <button
           onClick={nextSlide}
           aria-label="Next Slide"
           className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-[#00e5ff] hover:text-black transition-colors"
         >
-          <ChevronRight className="w-4 h-4" />
+          <HiOutlineChevronRight className="w-4 h-4" />
         </button>
 
         {/* Dots Indicator */}
@@ -261,7 +261,7 @@ export default function ProjectsSection() {
                       }`}
                     >
                       <span>{project.title}</span>
-                      <ExternalLink className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
+                      <HiOutlineArrowTopRightOnSquare className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
                         isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'
                       }`} />
                     </motion.h3>
@@ -277,7 +277,7 @@ export default function ProjectsSection() {
                           ? 'bg-emerald-950/40 border border-emerald-500/20 text-emerald-400'
                           : 'bg-emerald-50 border border-emerald-500/20 text-emerald-700'
                       }`}>
-                        <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+                        <HiOutlineArrowTrendingUp className="w-3.5 h-3.5 shrink-0" />
                         <span className="truncate">{project.businessImpact}</span>
                       </div>
                     )}
@@ -323,7 +323,7 @@ export default function ProjectsSection() {
                     : 'bg-white border-slate-300 text-slate-700 hover:border-[#0284c7]'
               }`}
             >
-              <ChevronLeft className="w-4 h-4" />
+              <HiOutlineChevronLeft className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-1">
@@ -357,7 +357,7 @@ export default function ProjectsSection() {
                     : 'bg-white border-slate-300 text-slate-700 hover:border-[#0284c7]'
               }`}
             >
-              <ChevronRight className="w-4 h-4" />
+              <HiOutlineChevronRight className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -397,7 +397,7 @@ export default function ProjectsSection() {
                     : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-black'
                 }`}
               >
-                <X className="w-5 h-5" />
+                <HiOutlineXMark className="w-5 h-5" />
               </button>
 
               <div className="space-y-4">

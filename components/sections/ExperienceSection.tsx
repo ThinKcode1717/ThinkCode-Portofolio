@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, CheckCircle } from 'lucide-react';
+import { HiOutlineCalendar, HiOutlineMapPin, HiOutlineCheckCircle } from 'react-icons/hi2';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -99,11 +99,11 @@ export default function ExperienceSection() {
                         <span className={`text-[11px] font-mono font-semibold flex items-center gap-1 ${
                           isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
                         }`}>
-                          <Calendar className="w-3 h-3" />
+                          <HiOutlineCalendar className="w-3 h-3" />
                           {exp.period}
                         </span>
                         <span className={`text-[11px] font-mono flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                          <MapPin className="w-3 h-3" />
+                          <HiOutlineMapPin className="w-3 h-3" />
                           {exp.location}
                         </span>
                       </div>
@@ -121,7 +121,7 @@ export default function ExperienceSection() {
                       <ul className={`space-y-1.5 pt-2 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
                         {exp.highlights.map((h, i) => (
                           <li key={i} className={`text-[11px] font-mono flex items-start gap-1.5 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            <CheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
+                            <HiOutlineCheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
                             <span>{h}</span>
                           </li>
                         ))}

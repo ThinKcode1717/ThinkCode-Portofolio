@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, Layers, Building2, CheckCircle, Clock, Users, ArrowRight, Star } from 'lucide-react';
+import { HiOutlineRocketLaunch, HiOutlineSquares2X2, HiOutlineBuildingOffice, HiOutlineCheckCircle, HiOutlineClock, HiOutlineUsers, HiOutlineArrowRight, HiStar } from 'react-icons/hi2';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
 const iconMap: Record<string, React.ElementType> = {
-  Rocket,
-  Layers,
-  Building2,
+  Rocket: HiOutlineRocketLaunch,
+  Layers: HiOutlineSquares2X2,
+  Building2: HiOutlineBuildingOffice,
 };
 
 export default function ServicesSection() {
@@ -90,7 +90,7 @@ export default function ServicesSection() {
                       ? 'bg-[#00e5ff] text-[#000610]'
                       : 'bg-[#0284c7] text-white'
                   }`}>
-                    <Star className="w-3 h-3 fill-current" />
+                    <HiStar className="w-3 h-3 fill-current" />
                     <span>PALING POPULER</span>
                   </div>
                 )}
@@ -109,7 +109,7 @@ export default function ServicesSection() {
                     </div>
                     <div className="text-right">
                       <div className={`flex items-center gap-1 text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                        <Clock className="w-3 h-3" />
+                        <HiOutlineClock className="w-3 h-3" />
                         {service.timeline}
                       </div>
                     </div>
@@ -128,7 +128,7 @@ export default function ServicesSection() {
                   <div className={`flex items-start gap-1.5 text-[11px] rounded-lg p-2.5 ${
                     isDark ? 'bg-[#031729]/60 text-slate-300' : 'bg-slate-50 text-slate-600'
                   }`}>
-                    <Users className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                    <HiOutlineUsers className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                     <span>{service.ideal}</span>
                   </div>
 
@@ -136,7 +136,7 @@ export default function ServicesSection() {
                   <ul className="space-y-1.5">
                     {service.deliverables.map((item, i) => (
                       <li key={i} className={`flex items-start gap-1.5 text-[11px] font-mono ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                        <CheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
+                        <HiOutlineCheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
                         {item}
                       </li>
                     ))}
@@ -157,7 +157,7 @@ export default function ServicesSection() {
                   }`}
                 >
                   <span>{service.cta}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <HiOutlineArrowRight className="w-3.5 h-3.5" />
                 </a>
               </motion.div>
             );

@@ -3,20 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Home, 
-  User, 
-  Layers, 
-  FolderGit2, 
-  Briefcase, 
-  Bot, 
-  Mail, 
-  Menu, 
-  X,
-  Sun,
-  Moon,
-  Globe,
-  Settings
-} from 'lucide-react';
+  HiOutlineHome, 
+  HiOutlineUser, 
+  HiOutlineSquares2X2, 
+  HiOutlineFolder, 
+  HiOutlineBriefcase, 
+  HiOutlineCpuChip, 
+  HiOutlineEnvelope, 
+  HiOutlineBars3, 
+  HiOutlineXMark, 
+  HiOutlineSun, 
+  HiOutlineMoon, 
+  HiOutlineLanguage, 
+  HiOutlineAdjustmentsHorizontal 
+} from 'react-icons/hi2';
 import { useApp } from '@/context/AppContext';
 
 export default function FloatingSidebar() {
@@ -28,13 +28,13 @@ export default function FloatingSidebar() {
 
   // AI Assistant (chatbot) placed at the VERY TOP of the navigation items
   const sidebarItems = [
-    { id: 'chatbot', label: t.nav.chatbot || 'Asisten AI', icon: Bot, href: '#chatbot' },
-    { id: 'hero', label: t.nav.home, icon: Home, href: '#hero' },
-    { id: 'about', label: t.nav.about, icon: User, href: '#about' },
-    { id: 'skills', label: t.nav.skills, icon: Layers, href: '#skills' },
-    { id: 'projects', label: t.nav.projects, icon: FolderGit2, href: '#projects' },
-    { id: 'experience', label: t.nav.timeline, icon: Briefcase, href: '#experience' },
-    { id: 'contact', label: t.nav.contact, icon: Mail, href: '#contact' },
+    { id: 'chatbot', label: t.nav.chatbot || 'Asisten AI', icon: HiOutlineCpuChip, href: '#chatbot' },
+    { id: 'hero', label: t.nav.home, icon: HiOutlineHome, href: '#hero' },
+    { id: 'about', label: t.nav.about, icon: HiOutlineUser, href: '#about' },
+    { id: 'skills', label: t.nav.skills, icon: HiOutlineSquares2X2, href: '#skills' },
+    { id: 'projects', label: t.nav.projects, icon: HiOutlineFolder, href: '#projects' },
+    { id: 'experience', label: t.nav.timeline, icon: HiOutlineBriefcase, href: '#experience' },
+    { id: 'contact', label: t.nav.contact, icon: HiOutlineEnvelope, href: '#contact' },
   ];
 
   useEffect(() => {
@@ -199,7 +199,7 @@ export default function FloatingSidebar() {
                   : 'text-[#0284c7] bg-[#e0f2fe] border border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
             }`}
           >
-            <Settings className={`w-4 h-4 transition-transform duration-300 ${desktopSettingsOpen ? 'rotate-90' : ''}`} />
+            <HiOutlineAdjustmentsHorizontal className={`w-4 h-4 transition-transform duration-300 ${desktopSettingsOpen ? 'rotate-90' : ''}`} />
           </button>
 
           {/* Desktop Pop-up Navigation Menu Drawer */}
@@ -227,7 +227,7 @@ export default function FloatingSidebar() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-[#00e5ff]" />
+                    <HiOutlineLanguage className="w-4 h-4 text-[#00e5ff]" />
                     <span>Bahasa</span>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
@@ -246,7 +246,7 @@ export default function FloatingSidebar() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#0284c7]" />}
+                    {isDark ? <HiOutlineSun className="w-4 h-4 text-amber-400" /> : <HiOutlineMoon className="w-4 h-4 text-[#0284c7]" />}
                     <span>Mode Tema</span>
                   </div>
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
@@ -273,7 +273,7 @@ export default function FloatingSidebar() {
               : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white'
           }`}
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileOpen ? <HiOutlineXMark className="w-5 h-5" /> : <HiOutlineBars3 className="w-5 h-5" />}
         </button>
       </div>
 
@@ -366,7 +366,7 @@ export default function FloatingSidebar() {
                       : 'bg-[#e0f2fe] text-[#0284c7] border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
                   }`}
                 >
-                  <Globe className="w-3.5 h-3.5" />
+                  <HiOutlineLanguage className="w-3.5 h-3.5" />
                   <span>{lang.toUpperCase()}</span>
                 </button>
 
@@ -380,7 +380,7 @@ export default function FloatingSidebar() {
                       : 'bg-[#e0f2fe] text-[#0284c7] border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
                   }`}
                 >
-                  {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+                  {isDark ? <HiOutlineSun className="w-3.5 h-3.5" /> : <HiOutlineMoon className="w-3.5 h-3.5" />}
                   <span>{isDark ? 'Light' : 'Dark'}</span>
                 </button>
               </div>

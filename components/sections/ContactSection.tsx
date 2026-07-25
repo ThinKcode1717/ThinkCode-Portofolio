@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, CheckCircle2, MessageSquare, Zap, Clock } from 'lucide-react';
+import { HiOutlineEnvelope, HiOutlineMapPin, HiOutlinePaperAirplane, HiOutlineCheckCircle, HiOutlineChatBubbleLeftRight, HiOutlineBolt, HiOutlineClock } from 'react-icons/hi2';
+import { FaWhatsapp } from 'react-icons/fa6';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
@@ -81,7 +82,7 @@ export default function ContactSection() {
                 ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300'
                 : 'bg-white border-slate-300 text-slate-600'
             }`}>
-              <Clock className="w-3.5 h-3.5" />
+              <HiOutlineClock className="w-3.5 h-3.5" />
               <span>Respon &lt; 24 jam</span>
             </span>
             <span className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border ${
@@ -89,7 +90,7 @@ export default function ContactSection() {
                 ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300'
                 : 'bg-white border-slate-300 text-slate-600'
             }`}>
-              <MessageSquare className="w-3.5 h-3.5" />
+              <HiOutlineChatBubbleLeftRight className="w-3.5 h-3.5" />
               <span>Konsultasi awal gratis</span>
             </span>
           </motion.div>
@@ -111,7 +112,7 @@ export default function ContactSection() {
             }`}
           >
             <div className="space-y-6">
-              <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.contact.directTitle}</h3>
+              <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-[#0284c7]'}`}>{t.contact.directTitle}</h3>
               <p className={`text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                 {t.contact.directDesc}
               </p>
@@ -122,7 +123,7 @@ export default function ContactSection() {
                     isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                   }`}>
                     <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
-                      <Mail className="w-5 h-5" />
+                      <HiOutlineEnvelope className="w-5 h-5" />
                     </motion.div>
                   </div>
                   <div>
@@ -140,7 +141,7 @@ export default function ContactSection() {
                     isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                   }`}>
                     <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
-                      <MapPin className="w-5 h-5" />
+                      <HiOutlineMapPin className="w-5 h-5" />
                     </motion.div>
                   </div>
                   <div>
@@ -198,7 +199,7 @@ export default function ContactSection() {
                       : 'bg-emerald-50 border-emerald-500/30 text-emerald-700 hover:border-emerald-600'
                   }`}
                 >
-                  <MessageSquare className="w-4 h-4" />
+                  <FaWhatsapp className="w-4 h-4" />
                   <span>WhatsApp</span>
                 </motion.a>
               </div>
@@ -222,7 +223,7 @@ export default function ContactSection() {
                 <div className={`w-16 h-16 rounded-full border flex items-center justify-center ${
                   isDark ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-400' : 'bg-emerald-50 border-emerald-500/40 text-emerald-600'
                 }`}>
-                  <CheckCircle2 className="w-8 h-8" />
+                  <HiOutlineCheckCircle className="w-8 h-8" />
                 </div>
                 <h4 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.contact.successTitle}</h4>
                 <p className={`text-sm max-w-md ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
@@ -301,7 +302,7 @@ export default function ContactSection() {
                       : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white shadow-lg'
                   }`}
                 >
-                  <Send className="w-4 h-4" />
+                  <HiOutlinePaperAirplane className="w-4 h-4" />
                   <span>{t.contact.submitBtn}</span>
                 </button>
               </form>

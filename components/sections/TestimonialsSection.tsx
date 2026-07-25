@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote, TrendingUp, Users, Zap } from 'lucide-react';
+import { HiStar, HiOutlineChatBubbleBottomCenterText, HiOutlineArrowTrendingUp, HiOutlineUsers, HiOutlineBolt } from 'react-icons/hi2';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -67,9 +67,9 @@ export default function TestimonialsSection() {
           }`}
         >
           {[
-            { value: THINKCODE_DATA.clientsServed, label: 'Klien Dilayani', icon: Users },
-            { value: THINKCODE_DATA.satisfactionRate, label: 'Tingkat Kepuasan', icon: Star },
-            { value: THINKCODE_DATA.responseTime, label: 'Response Time', icon: Zap },
+            { value: THINKCODE_DATA.clientsServed, label: 'Klien Dilayani', icon: HiOutlineUsers },
+            { value: THINKCODE_DATA.satisfactionRate, label: 'Tingkat Kepuasan', icon: HiStar },
+            { value: THINKCODE_DATA.responseTime, label: 'Response Time', icon: HiOutlineBolt },
           ].map((stat) => {
             const IconComp = stat.icon;
             return (
@@ -113,14 +113,14 @@ export default function TestimonialsSection() {
               <div className={`absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity ${
                 isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
               }`}>
-                <Quote className="w-6 h-6" />
+                <HiOutlineChatBubbleBottomCenterText className="w-6 h-6" />
               </div>
 
               <div className="space-y-3 flex-1">
                 {/* Stars Rating */}
                 <div className="flex items-center gap-1">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    <HiStar key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
 
@@ -135,7 +135,7 @@ export default function TestimonialsSection() {
                     ? 'bg-emerald-950/40 border border-emerald-500/20 text-emerald-400'
                     : 'bg-emerald-50 border border-emerald-500/20 text-emerald-700'
                 }`}>
-                  <TrendingUp className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                  <HiOutlineArrowTrendingUp className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                   <span>{testimonial.result}</span>
                 </div>
               </div>

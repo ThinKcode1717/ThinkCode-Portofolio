@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Compass, Code, Cpu, Award, Zap } from 'lucide-react';
+import { HiOutlineAcademicCap, HiOutlineCodeBracket, HiOutlineBolt, HiOutlineCpuChip } from 'react-icons/hi2';
+import { FiCompass } from 'react-icons/fi';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -12,10 +13,10 @@ export default function AboutSection() {
   const isDark = theme === 'dark';
 
   const stats = [
-    { label: t.about.years, value: THINKCODE_DATA.yearsExperience, icon: Compass },
-    { label: t.about.projects, value: THINKCODE_DATA.projectsCompleted, icon: Award },
-    { label: t.about.loc, value: THINKCODE_DATA.linesOfCode, icon: Code },
-    { label: t.about.lighthouse, value: '98/100', icon: Zap },
+    { label: t.about.years, value: THINKCODE_DATA.yearsExperience, icon: FiCompass },
+    { label: t.about.projects, value: THINKCODE_DATA.projectsCompleted, icon: HiOutlineAcademicCap },
+    { label: t.about.loc, value: THINKCODE_DATA.linesOfCode, icon: HiOutlineCodeBracket },
+    { label: t.about.lighthouse, value: '98/100', icon: HiOutlineBolt },
   ];
 
   return (

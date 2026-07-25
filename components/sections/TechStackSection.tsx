@@ -3,17 +3,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Code2, 
-  Server, 
-  Database, 
-  Cpu, 
-  Terminal, 
-  CheckCircle2, 
-  ExternalLink,
-  Bot,
-  X,
-  ChevronDown
-} from 'lucide-react';
+  HiOutlineCodeBracket, 
+  HiOutlineServer, 
+  HiOutlineCpuChip, 
+  HiOutlineCommandLine, 
+  HiOutlineCheckCircle, 
+  HiOutlineArrowTopRightOnSquare, 
+  HiOutlineXMark, 
+  HiOutlineChevronDown 
+} from 'react-icons/hi2';
+import { FiDatabase } from 'react-icons/fi';
 import { GithubIcon } from '../ui/Icons';
 import { useApp } from '@/context/AppContext';
 import { THINKCODE_DATA } from '@/lib/data';
@@ -328,9 +327,9 @@ export default function TechStackSection() {
                         ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]'
                         : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                     }`}>
-                      {groupIdx === 0 && <Code2 className="w-5 h-5" />}
-                      {groupIdx === 1 && <Server className="w-5 h-5" />}
-                      {groupIdx === 2 && <Database className="w-5 h-5" />}
+                      {groupIdx === 0 && <HiOutlineCodeBracket className="w-5 h-5" />}
+                      {groupIdx === 1 && <HiOutlineServer className="w-5 h-5" />}
+                      {groupIdx === 2 && <FiDatabase className="w-5 h-5" />}
                     </div>
                     <div>
                       <h3 className={`text-sm sm:text-base font-bold font-sans ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -357,7 +356,7 @@ export default function TechStackSection() {
                         isDark ? 'border-slate-700 text-[#00e5ff]' : 'border-slate-300 text-[#0284c7]'
                       }`}
                     >
-                      <ChevronDown className="w-4 h-4" />
+                      <HiOutlineChevronDown className="w-4 h-4" />
                     </motion.div>
                   </div>
                 </button>
@@ -395,7 +394,7 @@ export default function TechStackSection() {
                                 <span className={`font-semibold text-xs flex items-center gap-1.5 ${
                                   isDark ? 'text-slate-100' : 'text-slate-900'
                                 }`}>
-                                  <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
+                                  <HiOutlineCheckCircle className={`w-3.5 h-3.5 shrink-0 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
                                   <span className="truncate">{skill.name}</span>
                                 </span>
                               </div>
@@ -434,7 +433,7 @@ export default function TechStackSection() {
             <div className={`p-2.5 rounded-xl shrink-0 ${
               isDark ? 'bg-[#00e5ff]/10 text-[#00e5ff]' : 'bg-[#e0f2fe] text-[#0284c7]'
             }`}>
-              <Terminal className="w-5 h-5" />
+              <HiOutlineCommandLine className="w-5 h-5" />
             </div>
             <div>
               <h4 className="font-mono text-xs sm:text-sm font-bold">
@@ -461,7 +460,7 @@ export default function TechStackSection() {
                 <GithubIcon className="w-4 h-4" />
                 <span>GitHub Repos</span>
               </div>
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${githubDropdownOpen ? 'rotate-180' : ''}`} />
+              <HiOutlineChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${githubDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
             <AnimatePresence>
@@ -493,7 +492,7 @@ export default function TechStackSection() {
                         <span className="text-[10px] text-slate-400 font-normal">Primary Repository</span>
                       </div>
                     </div>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <HiOutlineArrowTopRightOnSquare className="w-3.5 h-3.5" />
                   </a>
 
                   <a
@@ -512,7 +511,7 @@ export default function TechStackSection() {
                         <span className="text-[10px] text-slate-400 font-normal">Secondary Repository</span>
                       </div>
                     </div>
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <HiOutlineArrowTopRightOnSquare className="w-3.5 h-3.5" />
                   </a>
                 </motion.div>
               )}
@@ -548,7 +547,7 @@ export default function TechStackSection() {
                   <div className={`p-2 rounded-xl border ${
                     isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                   }`}>
-                    <Cpu className="w-4 h-4" />
+                    <HiOutlineCpuChip className="w-4 h-4" />
                   </div>
                   <div>
                     <h3 className="font-bold text-base">{selectedSkill.name}</h3>
@@ -562,7 +561,7 @@ export default function TechStackSection() {
                     isDark ? 'border-slate-700 text-slate-400 hover:text-white' : 'border-slate-200 text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <X className="w-4 h-4" />
+                  <HiOutlineXMark className="w-4 h-4" />
                 </button>
               </div>
 
@@ -599,7 +598,7 @@ export default function TechStackSection() {
                   }`}
                 >
                   <span>Primary Repo</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <HiOutlineArrowTopRightOnSquare className="w-3.5 h-3.5" />
                 </a>
                 <button
                   type="button"
@@ -613,7 +612,7 @@ export default function TechStackSection() {
                       : 'bg-slate-100 text-slate-800 border-slate-300 hover:border-[#0284c7]/50'
                   }`}
                 >
-                  <Bot className="w-3.5 h-3.5" />
+                  <HiOutlineCpuChip className="w-3.5 h-3.5" />
                   <span>Tanya AI</span>
                 </button>
               </div>

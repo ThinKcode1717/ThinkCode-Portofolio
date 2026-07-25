@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUp, Code2 } from 'lucide-react';
+import { HiOutlineArrowUp, HiOutlineCodeBracket } from 'react-icons/hi2';
 import { useApp } from '@/context/AppContext';
 
 export default function Footer() {
@@ -25,7 +25,7 @@ export default function Footer() {
             isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
           }`}>
             <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
-              <Code2 className="w-4 h-4" />
+              <HiOutlineCodeBracket className="w-4 h-4" />
             </motion.div>
           </div>
           <div>
@@ -57,7 +57,7 @@ export default function Footer() {
           }`}
         >
           <span>{t.footer.surface}</span>
-          <ArrowUp className={`w-4 h-4 group-hover:-translate-y-1 transition-transform ${
+          <HiOutlineArrowUp className={`w-4 h-4 group-hover:-translate-y-1 transition-transform ${
             isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
           }`} />
         </button>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowDown, Mail, Sparkles, ArrowRight, FolderGit2 } from 'lucide-react';
+import { HiOutlineSparkles, HiOutlineArrowRight, HiOutlineFolder } from 'react-icons/hi2';
 import WaterAvatarCard from '../ui/WaterAvatarCard';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
@@ -63,7 +63,7 @@ export default function HeroSection() {
                 isDark ? 'text-slate-200' : 'text-slate-700'
               }`}>
                 <motion.span whileHover={{ rotate: 20, scale: 1.2 }}>
-                  <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
+                  <HiOutlineSparkles className={`w-4 h-4 sm:w-5 sm:h-5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
                 </motion.span>
                 <span>{t.hero.role}</span>
               </p>
@@ -104,7 +104,7 @@ export default function HeroSection() {
                 }`}
               >
                 <span>Mulai Proyek Sekarang</span>
-                <ArrowRight className="w-4 h-4" />
+                <HiOutlineArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#projects"
@@ -114,7 +114,7 @@ export default function HeroSection() {
                     : 'bg-white/80 text-slate-800 border-[#0284c7]/30 hover:border-[#0284c7]/60 hover:bg-white'
                 }`}
               >
-                <FolderGit2 className="w-4 h-4" />
+                <HiOutlineFolder className="w-4 h-4" />
                 <span>{t.hero.viewWork}</span>
               </a>
             </motion.div>
