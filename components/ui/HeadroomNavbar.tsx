@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Compass, Terminal, Code2 } from 'lucide-react';
+import { Menu, X, Compass, Code2, Bot } from 'lucide-react';
 
 const navItems = [
   { label: 'About', href: '#about' },
@@ -108,8 +108,17 @@ export default function HeadroomNavbar() {
           })}
         </nav>
 
-        {/* Action CTA Button */}
+        {/* Action CTA Buttons (AI Assistant at TOP header position) */}
         <div className="hidden md:flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-ai-drawer'))}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold text-[#00f5d4] bg-[#0077b6]/20 border border-[#00f5d4]/40 hover:bg-[#00f5d4] hover:text-[#020b14] transition-all duration-300 shadow-[0_0_12px_rgba(0,245,212,0.2)] transform hover:-translate-y-0.5"
+          >
+            <Bot className="w-4 h-4 text-[#00f5d4]" />
+            <span>Asisten AI</span>
+          </button>
+
           <a
             href="#contact"
             className="relative group inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-[#020b14] bg-gradient-to-r from-[#00f5d4] to-[#0077b6] hover:shadow-[0_0_20px_rgba(0,245,212,0.5)] transition-all duration-300 transform hover:-translate-y-0.5"
@@ -140,6 +149,19 @@ export default function HeadroomNavbar() {
             className="md:hidden bg-[#020b14]/95 backdrop-blur-xl border-b border-[#0077b6]/30 overflow-hidden"
           >
             <div className="px-6 py-6 space-y-3">
+              {/* AI Assistant Button at VERY TOP of mobile menu */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  window.dispatchEvent(new CustomEvent('open-ai-drawer'));
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-[#00f5d4] bg-[#0077b6]/30 border border-[#00f5d4]/40"
+              >
+                <Bot className="w-5 h-5 text-[#00f5d4]" />
+                <span>Asisten AI (Tanya Portofolio)</span>
+              </button>
+
               {navItems.map((item) => (
                 <a
                   key={item.label}

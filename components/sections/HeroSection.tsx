@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, Mail, Sparkles, ArrowRight, FolderGit2, MessageSquare } from 'lucide-react';
 import WaterAvatarCard from '../ui/WaterAvatarCard';
 import { GithubIcon } from '../ui/Icons';
@@ -13,6 +13,17 @@ export default function HeroSection() {
   const { t, theme } = useApp();
   const isDark = theme === 'dark';
 
+  // Alternating infinite loop between "ThinkCode" and "Yoga Adi Pratama"
+  const names = ['ThinkCode', 'Yoga Adi Pratama'];
+  const [nameIndex, setNameIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNameIndex((prev) => (prev + 1) % names.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [names.length]);
+
   return (
     <ScrollSectionWrapper id="hero" className="relative min-h-[85vh] lg:min-h-screen w-full flex items-center justify-center pt-20 lg:pt-24 pb-8 lg:pb-12 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -21,7 +32,7 @@ export default function HeroSection() {
           {/* Left Column: Hero Text Content */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-5">
             
-            {/* Headline Title */}
+            {/* Headline Title with Fade In Blur Name Loop */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -32,13 +43,22 @@ export default function HeroSection() {
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
                 {t.hero.greeting} <br className="hidden sm:block" />
-                <span className={
-                  isDark
-                    ? 'bg-gradient-to-r from-[#00e5ff] via-[#00b4d8] to-[#7c3aed] bg-clip-text text-transparent'
-                    : 'bg-gradient-to-r from-[#0284c7] via-[#0f766e] to-[#7c3aed] bg-clip-text text-transparent'
-                }>
-                  {THINKCODE_DATA.name}
-                </span>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={names[nameIndex]}
+                    initial={{ opacity: 0, filter: 'blur(12px)', y: 12 }}
+                    animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                    exit={{ opacity: 0, filter: 'blur(12px)', y: -12 }}
+                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    className={`inline-block ${
+                      isDark
+                        ? 'bg-gradient-to-r from-[#00e5ff] via-[#00b4d8] to-[#7c3aed] bg-clip-text text-transparent'
+                        : 'bg-gradient-to-r from-[#0284c7] via-[#0f766e] to-[#7c3aed] bg-clip-text text-transparent'
+                    }`}
+                  >
+                    {names[nameIndex]}
+                  </motion.span>
+                </AnimatePresence>
               </h1>
               <p className={`text-base sm:text-xl font-medium font-mono flex items-center justify-center lg:justify-start gap-2 pt-1 ${
                 isDark ? 'text-slate-200' : 'text-slate-700'
@@ -100,80 +120,41 @@ export default function HeroSection() {
               </a>
             </motion.div>
 
-            {/* Social Icons */}
+            {/* Direct Contact Quick Bar */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center gap-3 pt-2 text-slate-400"
+              className="flex items-center gap-4 pt-2 text-xs font-mono"
             >
-              <motion.a
-                whileHover={{ rotate: 12, scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-                href={THINKCODE_DATA.socials.github}
+              <a
+                href="https://wa.me/6289601486350"
                 target="_blank"
                 rel="noreferrer"
-                aria-label="GitHub Primary Profile"
-                title="GitHub (ThinKcode1717)"
-                className={`p-2.5 rounded-full border transition-colors ${
-                  isDark
-                    ? 'bg-[#03192e]/40 border-slate-700/50 hover:text-[#00e5ff] hover:border-[#00e5ff]/40'
-                    : 'bg-white border-slate-300 text-slate-600 hover:text-[#0284c7] hover:border-[#0284c7]/40'
-                }`}
-              >
-                <GithubIcon className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ rotate: -12, scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-                href={THINKCODE_DATA.socials.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="WhatsApp Contact"
-                title="WhatsApp (089601486350)"
-                className={`p-2.5 rounded-full border transition-colors ${
-                  isDark
-                    ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-400 hover:border-emerald-400'
-                    : 'bg-emerald-50 border-emerald-500/30 text-emerald-700 hover:border-emerald-600'
+                className={`flex items-center gap-1.5 transition-colors ${
+                  isDark ? 'text-slate-400 hover:text-[#00e5ff]' : 'text-slate-600 hover:text-[#0284c7]'
                 }`}
               >
                 <MessageSquare className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ rotate: 12, scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-                href={`mailto:${THINKCODE_DATA.socials.email}`}
-                aria-label="Send Email"
-                title={`Email (${THINKCODE_DATA.socials.email})`}
-                className={`p-2.5 rounded-full border transition-colors ${
-                  isDark
-                    ? 'bg-[#03192e]/40 border-slate-700/50 hover:text-[#00e5ff] hover:border-[#00e5ff]/40'
-                    : 'bg-white border-slate-300 text-slate-600 hover:text-[#0284c7] hover:border-[#0284c7]/40'
-                }`}
-              >
-                <Mail className="w-4 h-4" />
-              </motion.a>
+                <span>WhatsApp: 089601486350</span>
+              </a>
             </motion.div>
+
           </div>
 
-          {/* Right Column: Water Avatar Card */}
+          {/* Right Column: Dynamic Bio-Luminescent Water Drop Avatar */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 flex items-center justify-center pt-2 lg:pt-0"
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 flex items-center justify-center"
           >
-            <WaterAvatarCard imageSrc="/profile.jpg" altText={THINKCODE_DATA.name} />
+            <WaterAvatarCard
+              imageSrc={THINKCODE_DATA.avatarUrl}
+              altText={THINKCODE_DATA.name}
+            />
           </motion.div>
 
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="hidden lg:flex flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity pt-6">
-          <span className={`text-[10px] font-mono tracking-widest uppercase ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-            {t.hero.diveDeeper}
-          </span>
-          <ArrowDown className={`w-3.5 h-3.5 animate-bounce ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
         </div>
       </div>
     </ScrollSectionWrapper>
