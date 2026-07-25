@@ -14,7 +14,8 @@ import {
   X,
   Sun,
   Moon,
-  Globe
+  Globe,
+  Settings
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 
@@ -22,6 +23,7 @@ export default function FloatingSidebar() {
   const { theme, toggleTheme, lang, toggleLang, t } = useApp();
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [desktopSettingsOpen, setDesktopSettingsOpen] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // AI Assistant (chatbot) placed at the VERY TOP of the navigation items
@@ -128,6 +130,87 @@ export default function FloatingSidebar() {
             );
           })}
         </div>
+
+        {/* Separator Line */}
+        <div className={`w-5 h-[1px] my-1 ${isDark ? 'bg-[#00f0ff]/20' : 'bg-[#0284c7]/20'}`} />
+
+        {/* Action Button for Multi-Language & Theme Mode Dropdown on Desktop */}
+        <div className="relative flex items-center">
+          <button
+            type="button"
+            onClick={() => setDesktopSettingsOpen(!desktopSettingsOpen)}
+            aria-label="Pengaturan Tema & Bahasa"
+            title="Pengaturan Tema & Bahasa"
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
+              desktopSettingsOpen
+                ? isDark
+                  ? 'bg-[#00e5ff] text-[#000610] font-bold shadow-[0_0_12px_rgba(0,229,255,0.4)]'
+                  : 'bg-[#0284c7] text-white font-bold shadow-[0_0_12px_rgba(2,132,199,0.3)]'
+                : isDark
+                  ? 'text-[#00e5ff] bg-[#03192e] border border-[#00e5ff]/30 hover:bg-[#00e5ff] hover:text-[#000610]'
+                  : 'text-[#0284c7] bg-[#e0f2fe] border border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
+            }`}
+          >
+            <Settings className={`w-4 h-4 transition-transform duration-300 ${desktopSettingsOpen ? 'rotate-90' : ''}`} />
+          </button>
+
+          {/* Desktop Pop-up Navigation Menu Drawer */}
+          <AnimatePresence>
+            {desktopSettingsOpen && (
+              <motion.div
+                initial={{ opacity: 0, x: 12, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: 12, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className={`absolute left-12 bottom-0 w-52 rounded-2xl border p-3 shadow-2xl backdrop-blur-2xl z-50 space-y-2.5 ${
+                  isDark
+                    ? 'bg-[#010d1f]/95 border-[#00e5ff]/40 text-white shadow-[#00e5ff]/10'
+                    : 'bg-white/95 border-slate-300 text-slate-900 shadow-xl'
+                }`}
+              >
+                <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">Opsi &amp; Pengaturan</p>
+
+                {/* Multi-Language Trigger */}
+                <button
+                  type="button"
+                  onClick={() => { toggleLang(); setDesktopSettingsOpen(false); }}
+                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                    isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-[#00e5ff]" />
+                    <span>Bahasa</span>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
+                    isDark ? 'bg-[#00e5ff]/20 text-[#00e5ff]' : 'bg-[#e0f2fe] text-[#0284c7]'
+                  }`}>
+                    {lang.toUpperCase()}
+                  </span>
+                </button>
+
+                {/* Theme Mode Trigger */}
+                <button
+                  type="button"
+                  onClick={() => { toggleTheme(); setDesktopSettingsOpen(false); }}
+                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                    isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#0284c7]" />}
+                    <span>Mode Tema</span>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
+                    isDark ? 'bg-[#00e5ff]/20 text-[#00e5ff]' : 'bg-[#e0f2fe] text-[#0284c7]'
+                  }`}>
+                    {isDark ? 'Dark' : 'Light'}
+                  </span>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </aside>
 
       {/* Mobile Floating Action Toggle Button */}
@@ -200,7 +283,7 @@ export default function FloatingSidebar() {
 
             {/* Pop-up Navigation Theme Mode & Language Switcher Controls */}
             <div className={`pt-3 border-t space-y-2 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
-              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">Pengaturan Tema & Bahasa</p>
+              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">Pengaturan Tema &amp; Bahasa</p>
               
               <div className="grid grid-cols-2 gap-2">
                 {/* Language Switch Button */}
