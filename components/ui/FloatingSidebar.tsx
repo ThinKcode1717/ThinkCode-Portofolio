@@ -59,18 +59,19 @@ export default function FloatingSidebar() {
       {/* Desktop Sticky Floating Left Sidebar */}
       <aside className={`fixed left-3 sm:left-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-2 py-3 px-2 rounded-full border backdrop-blur-xl transition-colors duration-500 ${
         isDark 
-          ? 'bg-[#000308]/85 border-[#00f0ff]/30 shadow-[0_0_30px_rgba(0,240,255,0.2)]'
-          : 'bg-[#f0fdfa]/90 border-[#0284c7]/30 shadow-[0_0_30px_rgba(2,132,199,0.2)]'
+          ? 'bg-[#000610]/85 border-[#00e5ff]/30 shadow-[0_4px_12px_rgba(0,0,0,0.5)]'
+          : 'bg-[#f0fdfa]/90 border-[#0284c7]/30 shadow-[0_4px_12px_rgba(0,0,0,0.08)]'
       }`}>
         
         {/* Language Switch Button */}
         <button
-          onClick={toggleLang}
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleLang(); }}
           aria-label="Switch Language"
           title={`Switch to ${lang === 'id' ? 'English' : 'Bahasa Indonesia'}`}
           className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-[11px] font-bold transition-all duration-300 ${
             isDark
-              ? 'bg-[#03192e] text-[#00f0ff] border border-[#00f0ff]/40 hover:bg-[#00f0ff] hover:text-[#000308]'
+              ? 'bg-[#03192e] text-[#00e5ff] border border-[#00e5ff]/30 hover:bg-[#00e5ff] hover:text-[#000610]'
               : 'bg-[#e0f2fe] text-[#0284c7] border border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
           }`}
         >
@@ -79,12 +80,13 @@ export default function FloatingSidebar() {
 
         {/* Theme Mode Switch Button */}
         <button
-          onClick={toggleTheme}
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleTheme(); }}
           aria-label="Toggle Theme"
-          title={isDark ? 'Switch to Sunlit Light Mode' : 'Switch to Abyssal Dark Mode'}
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
             isDark
-              ? 'bg-[#03192e] text-amber-400 border border-amber-400/40 hover:bg-amber-400 hover:text-[#000308]'
+              ? 'bg-[#03192e] text-amber-400 border border-amber-400/30 hover:bg-amber-400 hover:text-[#000610]'
               : 'bg-[#e0f2fe] text-[#0284c7] border border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
           }`}
         >
@@ -110,13 +112,19 @@ export default function FloatingSidebar() {
                 <a
                   href={item.href}
                   aria-label={item.label}
+                  onClick={(e) => {
+                    if (item.id === 'chatbot') {
+                      e.preventDefault();
+                      window.dispatchEvent(new CustomEvent('open-ai-drawer'));
+                    }
+                  }}
                   className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
                     isActive 
                       ? isDark
-                        ? 'text-[#000308] bg-[#00f0ff] shadow-[0_0_18px_#00f0ff]' 
-                        : 'text-white bg-[#0284c7] shadow-[0_0_18px_#0284c7]'
+                        ? 'text-[#000610] bg-[#00e5ff] shadow-[0_2px_8px_rgba(0,229,255,0.2)] font-bold' 
+                        : 'text-white bg-[#0284c7] shadow-[0_2px_8px_rgba(2,132,199,0.2)] font-bold'
                       : isDark
-                        ? 'text-slate-300 hover:text-white hover:bg-[#03192e]/60'
+                        ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
                         : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
                   }`}
                 >
@@ -150,33 +158,40 @@ export default function FloatingSidebar() {
       {/* Mobile Floating Action Control Bar */}
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 md:hidden flex items-center gap-2">
         <button
-          onClick={toggleLang}
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleLang(); }}
           aria-label="Switch Language"
           className={`w-11 h-11 rounded-full font-mono text-xs font-bold flex items-center justify-center shadow-lg border active:scale-95 transition-transform ${
             isDark
-              ? 'bg-[#010712] text-[#00f0ff] border-[#00f0ff]/40'
+              ? 'bg-[#010d1f] text-[#00e5ff] border-[#00e5ff]/30'
               : 'bg-white text-[#0284c7] border-[#0284c7]/40'
           }`}
         >
           {lang.toUpperCase()}
         </button>
         <button
-          onClick={toggleTheme}
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleTheme(); }}
           aria-label="Toggle Theme"
           className={`w-11 h-11 rounded-full font-mono text-xs font-bold flex items-center justify-center shadow-lg border active:scale-95 transition-transform ${
             isDark
-              ? 'bg-[#010712] text-amber-400 border-amber-400/40'
+              ? 'bg-[#010d1f] text-amber-400 border-amber-400/30'
               : 'bg-white text-[#0284c7] border-[#0284c7]/40'
           }`}
         >
           {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen(!mobileOpen); }}
           aria-label="Toggle Navigation Menu"
-          className="w-12 h-12 rounded-full bg-gradient-to-r from-[#00f0ff] to-[#0077b6] text-[#000308] shadow-[0_0_20px_rgba(0,240,255,0.5)] flex items-center justify-center font-bold active:scale-95 transition-transform"
+          className={`w-12 h-12 rounded-full flex items-center justify-center font-bold active:scale-95 transition-all ${
+            isDark
+              ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610]'
+              : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white'
+          }`}
         >
-          {mobileOpen ? <X className="w-5 h-5 text-[#000308]" /> : <Menu className="w-5 h-5 text-[#000308]" />}
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
@@ -200,7 +215,13 @@ export default function FloatingSidebar() {
                 <a
                   key={item.id}
                   href={item.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => {
+                    setMobileOpen(false);
+                    if (item.id === 'chatbot') {
+                      e.preventDefault();
+                      window.dispatchEvent(new CustomEvent('open-ai-drawer'));
+                    }
+                  }}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-mono transition-colors min-h-[44px] ${
                     isActive
                       ? isDark

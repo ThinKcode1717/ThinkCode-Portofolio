@@ -15,7 +15,8 @@ export default function SeoSchema() {
       addressCountry: THINKCODE_DATA.location
     },
     sameAs: [
-      THINKCODE_DATA.socials.github,
+      'https://github.com/ThinKcode1717',
+      'https://github.com/think-dev01',
       THINKCODE_DATA.socials.linkedin,
       THINKCODE_DATA.socials.twitter
     ],

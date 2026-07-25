@@ -1,13 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --bg-ocean-abyss: #000308;
-  --bg-ocean-trench: #010712;
-  --bg-ocean-marine: #03192e;
-  --color-biolum-cyan: #00f0ff;
+  /* Ocean Color System */
+  --bg-ocean-abyss: #000610;
+  --bg-ocean-trench: #010d1f;
+  --bg-ocean-marine: #031729;
+  --bg-ocean-surface: #042540;
+
+  /* Brand Colors */
+  --color-biolum-cyan: #00e5ff;
   --color-deep-aqua: #00b4d8;
   --color-sapphire-blue: #0077b6;
   --color-deep-navy: #001220;
+
+  /* Accent — Electric Purple for AI/tech */
+  --color-electric-purple: #7c3aed;
+  --color-purple-dim: #4c1d95;
+
+  /* Semantic */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+
+  /* Typography */
+  --font-display: var(--font-display);
 }
 
 html {
@@ -51,19 +66,19 @@ body {
   scrollbar-width: none;
 }
 
-/* Animations for Water Blob Morphing Avatar Card */
-@keyframes waterBlobMorph {
+/* Animations for Water Teardrop Morphing Avatar Card */
+@keyframes waterDropMorph {
   0%, 100% {
-    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    border-radius: 50% 50% 50% 50% / 70% 70% 35% 35%;
     transform: rotate(0deg) scale(1);
   }
   33% {
-    border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
-    transform: rotate(2deg) scale(1.02);
+    border-radius: 45% 55% 48% 52% / 75% 72% 32% 38%;
+    transform: rotate(1.5deg) scale(1.015);
   }
   66% {
-    border-radius: 70% 30% 50% 50% / 40% 70% 30% 60%;
-    transform: rotate(-1deg) scale(0.99);
+    border-radius: 55% 45% 52% 48% / 68% 65% 38% 32%;
+    transform: rotate(-1.5deg) scale(0.985);
   }
 }
 

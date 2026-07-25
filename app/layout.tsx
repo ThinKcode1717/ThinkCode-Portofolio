@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SeoSchema from '@/components/seo/SeoSchema';
 import { AppProvider } from '@/context/AppContext';
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+});
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}>
+    <html lang="id" className={`${archivo.variable} ${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}>
       <head>
         <SeoSchema />
       </head>

@@ -11,83 +11,113 @@ interface WaterAvatarCardProps {
 
 export default function WaterAvatarCard({ imageSrc, altText }: WaterAvatarCardProps) {
   return (
-    <div className="relative group w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center p-2 sm:p-4">
-      {/* Outer ambient deep sea caustic glow */}
-      <div 
-        className="absolute inset-0 rounded-full blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(0,240,255,0.35) 0%, rgba(0,180,216,0.25) 45%, rgba(0,3,8,0) 80%)'
-        }}
-      />
-
-      {/* Floating water drip droplets */}
-      <motion.div
+    <div className="relative group w-64 h-80 sm:w-80 sm:h-[400px] md:w-88 md:h-[430px] flex items-center justify-center p-2 sm:p-4 select-none">
+      
+      {/* ── 1. Outer Deep Sea Ambient Caustic Glow (Continuous Pulse Loop) ── */}
+      <motion.div 
         animate={{
-          y: [-8, 8, -8],
-          x: [-4, 4, -4],
           scale: [1, 1.15, 1],
+          opacity: [0.55, 0.85, 0.55],
         }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-2 left-6 sm:left-10 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#00f0ff]/80 blur-[1px] shadow-[0_0_15px_#00f0ff] pointer-events-none z-20"
-      />
-      <motion.div
-        animate={{
-          y: [6, -10, 6],
-          x: [4, -6, 4],
-          scale: [1.1, 0.9, 1.1],
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute inset-0 rounded-full blur-3xl pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(0,229,255,0.45) 0%, rgba(0,180,216,0.25) 50%, rgba(0,0,0,0) 80%)'
         }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute -bottom-2 right-8 sm:right-12 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#00b4d8]/70 blur-[1px] shadow-[0_0_18px_#00b4d8] pointer-events-none z-20"
-      />
-      <motion.div
-        animate={{
-          y: [-6, 12, -6],
-          scale: [0.8, 1.25, 0.8],
-        }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute top-1/2 -right-2 sm:-right-4 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#0077b6]/80 blur-[1px] shadow-[0_0_12px_#0077b6] pointer-events-none z-20"
       />
 
-      {/* Main morphing water blob container */}
-      <div className="relative w-full h-full p-2 rounded-full overflow-hidden z-10">
-        {/* Animated SVG Fluid Morph Mask Frame */}
+      {/* ── 2. Rotating Water Splash Aura Ring ── */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+        className="absolute inset-2 rounded-full border border-dashed border-[#00e5ff]/30 pointer-events-none z-0"
+      />
+
+      {/* ── 3. Floating Micro Water Droplets (Orbit Loop) ── */}
+      <motion.div
+        animate={{
+          y: [-14, 12, -14],
+          x: [-6, 8, -6],
+          scale: [0.9, 1.25, 0.9],
+        }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-2 left-6 sm:left-10 w-4 h-5 rounded-full bg-[#00e5ff]/90 blur-[0.5px] shadow-[0_0_15px_#00e5ff] pointer-events-none z-20"
+        style={{ borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%' }}
+      />
+      <motion.div
+        animate={{
+          y: [10, -16, 10],
+          x: [8, -6, 8],
+          scale: [1.2, 0.85, 1.2],
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
+        className="absolute bottom-4 right-8 sm:right-12 w-5 h-6 rounded-full bg-[#00b4d8]/80 blur-[0.5px] shadow-[0_0_18px_#00b4d8] pointer-events-none z-20"
+        style={{ borderRadius: '50% 50% 50% 50% / 70% 70% 30% 30%' }}
+      />
+      <motion.div
+        animate={{
+          y: [-8, 14, -8],
+          scale: [0.8, 1.3, 0.8],
+        }}
+        transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
+        className="absolute top-1/2 -right-3 sm:-right-5 w-4 h-4.5 rounded-full bg-[#0077b6]/90 blur-[0.5px] shadow-[0_0_14px_#0077b6] pointer-events-none z-20"
+        style={{ borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%' }}
+      />
+
+      {/* ── 4. Main Water Drop Avatar Capsule (Continuous Loop Animation) ── */}
+      <motion.div
+        animate={{
+          y: [-9, 9, -9],
+          rotate: [-1.8, 1.8, -1.8],
+          scale: [0.985, 1.015, 0.985],
+        }}
+        transition={{
+          duration: 5.5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        whileHover={{ scale: 1.04, rotate: 0 }}
+        className="relative w-full h-full p-2 z-10 flex items-center justify-center cursor-pointer"
+      >
+        {/* Bio-Luminescent Water Drop Frame */}
         <div 
-          className="w-full h-full relative overflow-hidden transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full relative overflow-hidden transition-all duration-700 shadow-2xl"
           style={{
-            borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%',
-            animation: 'waterBlobMorph 12s ease-in-out infinite',
-            border: '2px solid rgba(0, 240, 255, 0.4)',
-            boxShadow: '0 0 35px rgba(0, 180, 216, 0.5), inset 0 0 25px rgba(0, 240, 255, 0.3)'
+            /* Elegant Water Droplet Capsule Contour */
+            borderRadius: '50% 50% 50% 50% / 68% 68% 34% 34%',
+            border: '2.5px solid rgba(0, 229, 255, 0.6)',
+            boxShadow: '0 15px 45px rgba(0, 180, 216, 0.5), inset 0 0 35px rgba(0, 229, 255, 0.4)'
           }}
         >
-          {/* Profile Image */}
+          {/* Avatar Profile Image */}
           <Image
             src={imageSrc}
             alt={altText}
             fill
-            sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 400px"
+            sizes="(max-width: 640px) 250px, (max-width: 768px) 320px, 380px"
             priority
-            className="object-cover object-top filter contrast-[1.08] brightness-[1.03] transition-all duration-700 group-hover:scale-110"
+            className="object-cover object-top filter contrast-[1.06] brightness-[1.03] transition-transform duration-700 group-hover:scale-110"
           />
 
-          {/* Water reflection highlight overlay */}
+          {/* Liquid Glass Highlight Overlay */}
           <div 
-            className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-50"
+            className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-65 group-hover:opacity-85 transition-opacity"
             style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(0,240,255,0.25) 40%, transparent 70%)'
+              background: 'radial-gradient(ellipse at 35% 15%, rgba(255,255,255,0.75) 0%, rgba(0,229,255,0.35) 45%, transparent 80%)'
             }}
           />
 
-          {/* Water ripples wave overlay */}
-          <div 
-            className="absolute inset-0 pointer-events-none opacity-35 group-hover:opacity-55 transition-opacity"
+          {/* Water Surface Ripple Overlay */}
+          <motion.div 
+            animate={{ opacity: [0.25, 0.5, 0.25] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 65%)',
-              animation: 'waterRipple 8s linear infinite'
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 50%, rgba(0,229,255,0.25) 100%)'
             }}
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

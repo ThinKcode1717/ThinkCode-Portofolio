@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle2, MessageSquare, Zap, Clock } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 import { THINKCODE_DATA } from '@/lib/data';
 import { useApp } from '@/context/AppContext';
+import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
 export default function ContactSection() {
   const { t, theme } = useApp();
@@ -21,24 +22,21 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-transparent overflow-hidden">
+    <ScrollSectionWrapper id="contact" className="relative py-12 lg:py-16 min-h-[85vh] lg:min-h-screen flex flex-col justify-center overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+        {/* Section Header — Clean typographic overline */}
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border backdrop-blur-md text-xs font-mono ${
-              isDark
-                ? 'bg-[#03192e]/60 border-[#00f0ff]/30 text-[#00f0ff]'
-                : 'bg-white/80 border-[#0284c7]/30 text-[#0284c7]'
+            className={`text-xs font-mono font-semibold tracking-widest uppercase ${
+              isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
             }`}
           >
-            <Mail className="w-4 h-4" />
-            <span>{t.contact.badge}</span>
-          </motion.div>
+            {t.contact.badge}
+          </motion.p>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -49,7 +47,7 @@ export default function ContactSection() {
               isDark ? 'text-white' : 'text-slate-900'
             }`}
           >
-            {t.contact.titlePre} <span className={isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'}>{t.contact.titleHighlight}</span>
+            {t.contact.titlePre} <span className={isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}>{t.contact.titleHighlight}</span>
           </motion.h2>
 
           <motion.p
@@ -61,6 +59,40 @@ export default function ContactSection() {
           >
             {t.contact.subtitle}
           </motion.p>
+
+          {/* Trust indicators with Lucide Icons */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-3 pt-2"
+          >
+            <span className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border ${
+              isDark
+                ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-400'
+                : 'bg-emerald-50 border-emerald-500/30 text-emerald-700'
+            }`}>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Status: Open for Contracts</span>
+            </span>
+            <span className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border ${
+              isDark
+                ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300'
+                : 'bg-white border-slate-300 text-slate-600'
+            }`}>
+              <Clock className="w-3.5 h-3.5" />
+              <span>Respon &lt; 24 jam</span>
+            </span>
+            <span className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border ${
+              isDark
+                ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300'
+                : 'bg-white border-slate-300 text-slate-600'
+            }`}>
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Konsultasi awal gratis</span>
+            </span>
+          </motion.div>
         </div>
 
         {/* Contact Form & Information Grid */}
@@ -74,7 +106,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className={`lg:col-span-5 rounded-3xl border p-8 backdrop-blur-xl flex flex-col justify-between space-y-6 ${
               isDark
-                ? 'bg-[#03192e]/30 border-[#0077b6]/30'
+                ? 'bg-[#031729]/40 border-[#0077b6]/30'
                 : 'bg-white/80 border-slate-200'
             }`}
           >
@@ -87,14 +119,16 @@ export default function ContactSection() {
               <div className="space-y-4 pt-2">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
-                    isDark ? 'bg-[#00f0ff]/10 border-[#00f0ff]/30 text-[#00f0ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
+                    isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                   }`}>
-                    <Mail className="w-5 h-5" />
+                    <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
+                      <Mail className="w-5 h-5" />
+                    </motion.div>
                   </div>
                   <div>
                     <span className="text-xs font-mono text-slate-400 block">{t.contact.emailLabel}</span>
                     <a href={`mailto:${THINKCODE_DATA.socials.email}`} className={`text-sm font-semibold hover:underline ${
-                      isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'
+                      isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
                     }`}>
                       {THINKCODE_DATA.socials.email}
                     </a>
@@ -103,9 +137,11 @@ export default function ContactSection() {
 
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
-                    isDark ? 'bg-[#00f0ff]/10 border-[#00f0ff]/30 text-[#00f0ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
+                    isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
                   }`}>
-                    <MapPin className="w-5 h-5" />
+                    <motion.div whileHover={{ rotate: 15, scale: 1.1 }}>
+                      <MapPin className="w-5 h-5" />
+                    </motion.div>
                   </div>
                   <div>
                     <span className="text-xs font-mono text-slate-400 block">{t.contact.locationLabel}</span>
@@ -119,30 +155,52 @@ export default function ContactSection() {
             <div className={`pt-6 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
               <span className="text-xs font-mono text-slate-400 block mb-3">{t.contact.socialsLabel}</span>
               <div className="flex items-center gap-3">
-                <a
+                <motion.a
+                  whileHover={{ rotate: 12, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
                   href={THINKCODE_DATA.socials.github}
                   target="_blank"
                   rel="noreferrer"
+                  title="GitHub Primary (ThinKcode1717)"
                   className={`p-3 rounded-2xl border transition-colors ${
                     isDark
-                      ? 'bg-[#03192e]/60 border-[#0077b6]/30 text-slate-300 hover:text-[#00f0ff] hover:border-[#00f0ff]/50'
-                      : 'bg-white border-slate-300 text-slate-700 hover:text-[#0284c7] hover:border-[#0284c7]/50'
+                      ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300 hover:text-[#00e5ff] hover:border-[#00e5ff]/50'
+                      : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-[#0284c7] hover:border-[#0284c7]/50'
                   }`}
                 >
                   <GithubIcon className="w-5 h-5" />
-                </a>
-                <a
-                  href={THINKCODE_DATA.socials.linkedin}
+                </motion.a>
+                <motion.a
+                  whileHover={{ rotate: -12, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                  href={THINKCODE_DATA.socials.githubSecondary}
                   target="_blank"
                   rel="noreferrer"
+                  title="GitHub Secondary (think-dev01)"
                   className={`p-3 rounded-2xl border transition-colors ${
                     isDark
-                      ? 'bg-[#03192e]/60 border-[#0077b6]/30 text-slate-300 hover:text-[#00f0ff] hover:border-[#00f0ff]/50'
-                      : 'bg-white border-slate-300 text-slate-700 hover:text-[#0284c7] hover:border-[#0284c7]/50'
+                      ? 'bg-[#031729]/60 border-[#0077b6]/30 text-slate-300 hover:text-[#00e5ff] hover:border-[#00e5ff]/50'
+                      : 'bg-slate-100 border-slate-200 text-slate-700 hover:text-[#0284c7] hover:border-[#0284c7]/50'
                   }`}
                 >
-                  <LinkedinIcon className="w-5 h-5" />
-                </a>
+                  <GithubIcon className="w-5 h-5" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ rotate: 12, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                  href={THINKCODE_DATA.socials.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="WhatsApp"
+                  className={`px-4 py-3 rounded-2xl border transition-colors flex items-center gap-2 font-mono text-xs font-semibold ${
+                    isDark
+                      ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-400 hover:border-emerald-400'
+                      : 'bg-emerald-50 border-emerald-500/30 text-emerald-700 hover:border-emerald-600'
+                  }`}
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>WhatsApp</span>
+                </motion.a>
               </div>
             </div>
           </motion.div>
@@ -153,82 +211,94 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className={`lg:col-span-7 rounded-3xl border p-8 backdrop-blur-xl ${
+            className={`lg:col-span-7 rounded-3xl border p-8 sm:p-10 backdrop-blur-xl ${
               isDark
-                ? 'bg-[#03192e]/30 border-[#0077b6]/30'
+                ? 'bg-[#031729]/40 border-[#0077b6]/30'
                 : 'bg-white/80 border-slate-200'
             }`}
           >
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
                 <div className={`w-16 h-16 rounded-full border flex items-center justify-center ${
-                  isDark
-                    ? 'bg-[#00f0ff]/10 border-[#00f0ff]/40 text-[#00f0ff] shadow-[0_0_30px_#00f0ff]'
-                    : 'bg-[#e0f2fe] border-[#0284c7]/40 text-[#0284c7]'
+                  isDark ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-400' : 'bg-emerald-50 border-emerald-500/40 text-emerald-600'
                 }`}>
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.contact.successTitle}</h3>
+                <h4 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.contact.successTitle}</h4>
                 <p className={`text-sm max-w-md ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                   {t.contact.successMsg}
                 </p>
+                <button
+                  onClick={() => { setSubmitted(false); setFormState({ name: '', email: '', message: '' }); }}
+                  className={`mt-4 px-6 py-2.5 rounded-full text-xs font-mono border ${
+                    isDark ? 'border-[#00e5ff]/40 text-[#00e5ff] hover:bg-[#00e5ff]/10' : 'border-[#0284c7]/40 text-[#0284c7] hover:bg-[#e0f2fe]'
+                  }`}
+                >
+                  Kirim Pesan Lain
+                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className={`block text-xs font-mono mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.contact.nameInput}</label>
+                  <label className={`block text-xs font-mono uppercase mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {t.contact.nameInput}
+                  </label>
                   <input
                     type="text"
                     required
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                     placeholder={t.contact.namePlaceholder}
-                    className={`w-full border rounded-2xl px-4 py-3.5 text-sm font-sans transition-colors ${
+                    className={`w-full px-4 py-3 rounded-2xl border text-sm transition-colors outline-none ${
                       isDark
-                        ? 'bg-[#000308]/80 border-[#0077b6]/40 text-white placeholder-slate-500 focus:border-[#00f0ff] focus:outline-none'
-                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7] focus:outline-none'
+                        ? 'bg-[#000610]/60 border-[#0077b6]/30 text-white placeholder-slate-500 focus:border-[#00e5ff]'
+                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7]'
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-mono mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.contact.emailInput}</label>
+                  <label className={`block text-xs font-mono uppercase mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {t.contact.emailInput}
+                  </label>
                   <input
                     type="email"
                     required
                     value={formState.email}
                     onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                     placeholder={t.contact.emailPlaceholder}
-                    className={`w-full border rounded-2xl px-4 py-3.5 text-sm font-sans transition-colors ${
+                    className={`w-full px-4 py-3 rounded-2xl border text-sm transition-colors outline-none ${
                       isDark
-                        ? 'bg-[#000308]/80 border-[#0077b6]/40 text-white placeholder-slate-500 focus:border-[#00f0ff] focus:outline-none'
-                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7] focus:outline-none'
+                        ? 'bg-[#000610]/60 border-[#0077b6]/30 text-white placeholder-slate-500 focus:border-[#00e5ff]'
+                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7]'
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className={`block text-xs font-mono mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.contact.messageInput}</label>
+                  <label className={`block text-xs font-mono uppercase mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {t.contact.messageInput}
+                  </label>
                   <textarea
                     required
                     rows={4}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder={t.contact.messagePlaceholder}
-                    className={`w-full border rounded-2xl px-4 py-3.5 text-sm font-sans transition-colors ${
+                    className={`w-full px-4 py-3 rounded-2xl border text-sm transition-colors outline-none resize-none ${
                       isDark
-                        ? 'bg-[#000308]/80 border-[#0077b6]/40 text-white placeholder-slate-500 focus:border-[#00f0ff] focus:outline-none'
-                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7] focus:outline-none'
+                        ? 'bg-[#000610]/60 border-[#0077b6]/30 text-white placeholder-slate-500 focus:border-[#00e5ff]'
+                        : 'bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-[#0284c7]'
                     }`}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className={`w-full py-4 rounded-2xl font-bold text-sm tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-2xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center justify-center gap-2 active:scale-98 ${
                     isDark
-                      ? 'bg-gradient-to-r from-[#00f0ff] to-[#0077b6] text-[#000308] shadow-[0_0_20px_rgba(0,240,255,0.4)]'
-                      : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white'
+                      ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610]'
+                      : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white shadow-lg'
                   }`}
                 >
                   <Send className="w-4 h-4" />
@@ -241,6 +311,6 @@ export default function ContactSection() {
         </div>
 
       </div>
-    </section>
+    </ScrollSectionWrapper>
   );
 }
