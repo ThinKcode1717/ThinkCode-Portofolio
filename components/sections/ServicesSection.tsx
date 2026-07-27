@@ -13,7 +13,9 @@ import {
   HiOutlineShieldCheck,
   HiOutlineCloudArrowUp,
   HiOutlineWrenchScrewdriver,
-  HiOutlineCommandLine
+  HiOutlineCommandLine,
+  HiOutlineAdjustmentsHorizontal,
+  HiOutlineChevronDown
 } from 'react-icons/hi2';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
@@ -43,6 +45,7 @@ export default function ServicesSection() {
   const isEn = lang === 'en';
 
   const [activeTab, setActiveTab] = useState<'web' | 'automation' | 'ai'>('web');
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState<boolean>(false);
 
   const cases: CaseStudyCapability[] = [
     {
@@ -282,8 +285,79 @@ export default function ServicesSection() {
           </motion.p>
         </div>
 
-        {/* ── 1. Glass Segmented Control Tab Selector ── */}
-        <div className="flex justify-center mb-8">
+        {/* ── 1. MOBILE CATEGORY SELECT DROPDOWN (sm:hidden - Fixes Clipping) ── */}
+        <div className="sm:hidden w-full mb-6 relative">
+          <button
+            type="button"
+            onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
+            className={`w-full p-3.5 rounded-2xl border backdrop-blur-2xl flex items-center justify-between font-mono text-xs font-bold transition-all shadow-lg ${
+              isDark
+                ? 'bg-[#010d1a]/90 border-[#0077b6]/40 text-white'
+                : 'bg-white/90 border-slate-300 text-slate-900'
+            }`}
+          >
+            <div className="flex items-center gap-2 truncate">
+              <HiOutlineAdjustmentsHorizontal className="w-4 h-4 text-[#38bdf8] shrink-0" />
+              <span className="text-slate-400">{isEn ? 'Capability:' : 'Kapabilitas:'}</span>
+              <span className={`px-2.5 py-0.5 rounded-md font-bold truncate ${
+                isDark ? 'bg-[#0284c7]/20 text-[#38bdf8]' : 'bg-[#e0f2fe] text-[#0284c7]'
+              }`}>
+                {cases.find((c) => c.id === activeTab)?.tabLabel}
+              </span>
+            </div>
+            <HiOutlineChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+              mobileCategoryOpen ? 'rotate-180 text-[#38bdf8]' : 'text-slate-400'
+            }`} />
+          </button>
+
+          <AnimatePresence>
+            {mobileCategoryOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+                className={`absolute left-0 right-0 top-14 z-40 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl space-y-1 ${
+                  isDark
+                    ? 'bg-[#010d1f]/95 border-[#0077b6]/50 text-white'
+                    : 'bg-white/95 border-slate-300 text-slate-900'
+                }`}
+              >
+                {cases.map((c) => {
+                  const isActive = activeTab === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveTab(c.id);
+                        setMobileCategoryOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                        isActive
+                          ? isDark
+                            ? 'bg-[#0284c7] text-white font-bold'
+                            : 'bg-[#0284c7] text-white font-bold'
+                          : isDark
+                            ? 'hover:bg-[#031729] text-slate-300'
+                            : 'hover:bg-slate-100 text-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {c.icon}
+                        <span>{c.tabLabel}</span>
+                      </div>
+                      {isActive && <HiOutlineCheckCircle className="w-4 h-4 text-white" />}
+                    </button>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ── 2. DESKTOP GLASS SEGMENTED TAB SELECTOR (hidden sm:flex) ── */}
+        <div className="hidden sm:flex justify-center mb-8">
           <div className={`p-1.5 rounded-2xl border backdrop-blur-2xl flex items-center gap-1.5 max-w-full overflow-x-auto no-scrollbar ${
             isDark
               ? 'bg-[#010d1a]/80 border-[#0077b6]/30 shadow-xl'
