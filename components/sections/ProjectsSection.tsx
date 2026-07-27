@@ -9,26 +9,33 @@ import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
 // Mock UI Screenshot Slide Component for Visual Application Previews
-function ProjectScreenshotCarousel({ project, isDark }: { project: Project; isDark: boolean }) {
+function ProjectScreenshotCarousel({ project, isDark, lang }: { project: Project; isDark: boolean; lang: string }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const isEn = lang === 'en';
 
   // Define themed mock UI preview slides for each application
   const slides = project.screenshots && project.screenshots.length > 0
     ? project.screenshots
     : [
         {
-          title: 'Dashboard Overview & Real-Time Analytics',
-          subtitle: 'Antarmuka utama dengan visualisasi data real-time, metrics performa, & kontrol multi-role.',
+          title: isEn ? 'Dashboard Overview & Real-Time Analytics' : 'Pratinjau Dashboard & Analitik Real-Time',
+          subtitle: isEn
+            ? 'Main interface with real-time data visualization, performance metrics, & multi-role control.'
+            : 'Antarmuka utama dengan visualisasi data real-time, metrics performa, & kontrol multi-role.',
           type: 'dashboard'
         },
         {
-          title: 'Arsitektur Data & Sistem Integrasi API',
-          subtitle: 'Alur proses data, integrasi REST API microservice, & manajemen database terstruktur.',
+          title: isEn ? 'Data Architecture & API Integration' : 'Arsitektur Data & Sistem Integrasi API',
+          subtitle: isEn
+            ? 'Data pipeline workflows, REST API microservice integration, & structured database management.'
+            : 'Alur proses data, integrasi REST API microservice, & manajemen database terstruktur.',
           type: 'system'
         },
         {
-          title: 'Modul Fitur Utama & Visualisasi Interaktif',
-          subtitle: 'Fitur unggulan aplikasi yang dikembangkan berbasis React/Vue & Framer Motion.',
+          title: isEn ? 'Core Features & Interactive Visuals' : 'Modul Fitur Utama & Visualisasi Interaktif',
+          subtitle: isEn
+            ? 'Key application features engineered with React/Vue & Framer Motion physics.'
+            : 'Fitur unggulan aplikasi yang dikembangkan berbasis React/Vue & Framer Motion.',
           type: 'feature'
         }
       ];
@@ -131,19 +138,24 @@ function ProjectScreenshotCarousel({ project, isDark }: { project: Project; isDa
 }
 
 export default function ProjectsSection() {
-  const { t, theme } = useApp();
+  const { t, theme, lang } = useApp();
   const isDark = theme === 'dark';
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // Dynamically resolve active project from current language dictionary
+  const selectedProject = selectedProjectId
+    ? t.data.projects.find((p) => p.id === selectedProjectId) || null
+    : null;
+
   const ITEMS_PER_PAGE = 4;
 
-  const categories = ['All', ...Array.from(new Set(THINKCODE_DATA.projects.map((p) => p.category)))];
+  const categories = ['All', ...Array.from(new Set(t.data.projects.map((p) => p.category)))];
 
   const filteredProjects = activeFilter === 'All'
-    ? THINKCODE_DATA.projects
-    : THINKCODE_DATA.projects.filter((p) => p.category === activeFilter);
+    ? t.data.projects
+    : t.data.projects.filter((p) => p.category === activeFilter);
 
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
 
@@ -197,25 +209,42 @@ export default function ProjectsSection() {
           </motion.p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center overflow-x-auto no-scrollbar py-2 px-1 mb-6 gap-2 justify-start sm:justify-center w-full">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleFilterChange(cat)}
-              className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-mono font-semibold whitespace-nowrap shrink-0 transition-all duration-300 ${
-                activeFilter === cat
-                  ? isDark
-                    ? 'bg-[#00f0ff] text-[#000308] shadow-[0_0_15px_rgba(0,240,255,0.4)]'
-                    : 'bg-[#0284c7] text-white shadow-[0_0_15px_rgba(2,132,199,0.4)]'
-                  : isDark
-                    ? 'bg-[#03192e]/50 text-slate-300 border border-[#0077b6]/30 hover:border-[#00f0ff]/40 hover:text-white backdrop-blur-md'
-                    : 'bg-white/80 text-slate-700 border border-slate-200 hover:border-[#0284c7]/40 hover:text-[#0284c7] backdrop-blur-md'
-              }`}
-            >
-              {cat === 'All' ? t.projects.all : cat}
-            </button>
-          ))}
+        {/* Category Filter Pills with Smooth Active Tab Sliding Animation */}
+        <div className="w-full max-w-full overflow-x-auto no-scrollbar py-2 px-1 mb-8 flex justify-center">
+          <div className={`p-1.5 rounded-2xl border backdrop-blur-2xl flex items-center gap-1.5 min-w-max ${
+            isDark
+              ? 'bg-[#010d1a]/80 border-[#0077b6]/30 shadow-xl'
+              : 'bg-white/70 border-slate-200 shadow-md'
+          }`}>
+            {categories.map((cat) => {
+              const isActive = activeFilter === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => handleFilterChange(cat)}
+                  className={`relative px-4 py-2.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all duration-300 outline-none z-10 ${
+                    isActive
+                      ? 'text-white font-bold'
+                      : isDark
+                        ? 'text-slate-400 hover:text-slate-200'
+                        : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeProjectCategoryGlow"
+                      className={`absolute inset-0 rounded-xl shadow-md ${
+                        isDark ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6]' : 'bg-[#0284c7]'
+                      }`}
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat === 'All' ? t.projects.all : cat}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Projects Cards Grid (Compact 2x2 Grid for 100vh Sizing) */}
@@ -233,23 +262,23 @@ export default function ProjectsSection() {
                 <motion.div
                   key={project.id}
                   layoutId={`card-container-${project.id}`}
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => setSelectedProjectId(project.id)}
                   className={`group cursor-pointer rounded-2xl border p-5 backdrop-blur-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden ${
                     isDark
-                      ? 'bg-[#03192e]/40 border-[#0077b6]/30 hover:border-[#00f0ff]/60 hover:shadow-[0_10px_30px_rgba(0,240,255,0.15)]'
-                      : 'bg-white/80 border-slate-200 hover:border-[#0284c7]/60 hover:shadow-lg'
+                      ? 'bg-[#03192e]/40 border-[#0077b6]/30 hover:border-[#0284c7]/60 hover:shadow-[0_10px_30px_rgba(2,132,199,0.15)]'
+                      : 'bg-white/40 border-white/60 shadow-xl shadow-[#0284c7]/15 hover:bg-white/55 hover:border-white/80'
                   }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`text-[10px] sm:text-xs font-mono uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full border ${
+                      <span className={`text-[10px] sm:text-xs font-mono uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full border ${
                         isDark
-                          ? 'text-[#00f0ff] bg-[#00f0ff]/10 border-[#00f0ff]/30'
-                          : 'text-[#0284c7] bg-[#e0f2fe] border-[#0284c7]/30'
+                          ? 'text-[#38bdf8] bg-[#0284c7]/10 border-[#0284c7]/30'
+                          : 'text-[#0284c7] bg-white/70 border-white/90'
                       }`}>
                         {project.category}
                       </span>
-                      <span className={`text-[10px] sm:text-xs font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <span className={`text-[10px] sm:text-xs font-mono font-medium ${isDark ? 'text-slate-400' : 'text-[#0f4c75]'}`}>
                         {project.year}
                       </span>
                     </div>
@@ -257,25 +286,25 @@ export default function ProjectsSection() {
                     <motion.h3
                       layoutId={`card-title-${project.id}`}
                       className={`text-lg sm:text-xl font-bold transition-colors flex items-center justify-between gap-2 ${
-                        isDark ? 'text-white group-hover:text-[#00f0ff]' : 'text-slate-900 group-hover:text-[#0284c7]'
+                        isDark ? 'text-white group-hover:text-[#38bdf8]' : 'text-[#032b43] group-hover:text-[#0284c7]'
                       }`}
                     >
                       <span>{project.title}</span>
                       <HiOutlineArrowTopRightOnSquare className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                        isDark ? 'text-[#00f0ff]' : 'text-[#0284c7]'
+                        isDark ? 'text-[#38bdf8]' : 'text-[#0284c7]'
                       }`} />
                     </motion.h3>
 
-                    <p className={`text-xs leading-relaxed line-clamp-2 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                    <p className={`text-xs leading-relaxed font-medium line-clamp-2 ${isDark ? 'text-slate-300' : 'text-[#0c3559]'}`}>
                       {project.description}
                     </p>
 
                     {/* Business Impact Highlight */}
                     {project.businessImpact && (
-                      <div className={`flex items-center gap-1.5 p-2 rounded-lg text-[11px] font-mono ${
+                      <div className={`flex items-center gap-1.5 p-2 rounded-lg text-[11px] font-mono font-semibold ${
                         isDark
                           ? 'bg-emerald-950/40 border border-emerald-500/20 text-emerald-400'
-                          : 'bg-emerald-50 border border-emerald-500/20 text-emerald-700'
+                          : 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-800'
                       }`}>
                         <HiOutlineArrowTrendingUp className="w-3.5 h-3.5 shrink-0" />
                         <span className="truncate">{project.businessImpact}</span>
@@ -288,17 +317,17 @@ export default function ProjectsSection() {
                     {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                        className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded border ${
                           isDark
                             ? 'text-slate-300 bg-[#03192e]/80 border-[#0077b6]/20'
-                            : 'text-slate-700 bg-slate-100 border-slate-200'
+                            : 'text-[#082846] bg-white/60 border-white/80'
                         }`}
                       >
                         #{tag}
                       </span>
                     ))}
                     {project.tags.length > 4 && (
-                      <span className={`text-[10px] font-mono px-1.5 py-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                      <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 ${isDark ? 'text-slate-400' : 'text-[#0f4c75]'}`}>
                         +{project.tags.length - 4}
                       </span>
                     )}
@@ -334,10 +363,10 @@ export default function ProjectsSection() {
                   className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-all ${
                     currentPage === page
                       ? isDark
-                        ? 'bg-[#00f0ff] text-black shadow-[0_0_10px_#00f0ff]'
+                        ? 'bg-[#0284c7] text-white shadow-md border border-[#38bdf8]'
                         : 'bg-[#0284c7] text-white shadow-md'
                       : isDark
-                        ? 'bg-[#03192e]/60 text-slate-300 border border-[#0077b6]/20 hover:border-[#00f0ff]/40'
+                        ? 'bg-[#03192e]/60 text-slate-300 border border-[#0077b6]/20 hover:border-[#38bdf8]/40'
                         : 'bg-white text-slate-700 border border-slate-200 hover:border-[#0284c7]/40'
                   }`}
                 >
@@ -373,7 +402,7 @@ export default function ProjectsSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
+              onClick={() => setSelectedProjectId(null)}
               className="fixed inset-0 bg-black/70 backdrop-blur-md"
             />
 
@@ -389,7 +418,7 @@ export default function ProjectsSection() {
             >
               {/* Close Button */}
               <button
-                onClick={() => setSelectedProject(null)}
+                onClick={() => setSelectedProjectId(null)}
                 aria-label="Close modal"
                 className={`absolute top-4 right-4 p-2 rounded-full border transition-colors ${
                   isDark
@@ -424,12 +453,24 @@ export default function ProjectsSection() {
                 </motion.h3>
 
                 {/* Interactive Screenshot Carousel */}
-                <ProjectScreenshotCarousel project={selectedProject} isDark={isDark} />
+                <ProjectScreenshotCarousel project={selectedProject} isDark={isDark} lang={lang} />
 
                 {/* Description */}
                 <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                   {selectedProject.longDescription}
                 </p>
+
+                {/* Business Impact */}
+                {selectedProject.businessImpact && (
+                  <div className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-mono font-semibold ${
+                    isDark
+                      ? 'bg-emerald-950/40 border border-emerald-500/30 text-emerald-400'
+                      : 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-800'
+                  }`}>
+                    <HiOutlineArrowTrendingUp className="w-4 h-4 shrink-0" />
+                    <span><strong className="font-sans font-bold">{t.projectModal.businessImpact}:</strong> {selectedProject.businessImpact}</span>
+                  </div>
+                )}
 
                 {/* Tech Stack Tags */}
                 <div className="space-y-2 pt-2">

@@ -102,11 +102,11 @@ export default function FloatingSidebar() {
                         window.dispatchEvent(new CustomEvent('open-ai-drawer'));
                       }}
                       className={`relative z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105 ${isDark
-                        ? 'bg-[#010d1f] text-[#00f0ff] shadow-[0_0_14px_rgba(0,240,255,0.4)]'
-                        : 'bg-white text-[#0284c7] shadow-[0_0_12px_rgba(2,132,199,0.3)]'
+                        ? 'bg-[#010d1f] text-[#38bdf8] shadow-[0_0_14px_rgba(56,189,248,0.4)]'
+                        : 'bg-white/90 text-[#032b43] shadow-[0_0_12px_rgba(2,132,199,0.3)]'
                         }`}
                     >
-                      <IconComp className="w-4 h-4 text-[#00f0ff]" />
+                      <IconComp className={`w-4 h-4 ${isDark ? 'text-[#38bdf8]' : 'text-[#032b43]'}`} />
                     </a>
                   </div>
 
@@ -141,16 +141,25 @@ export default function FloatingSidebar() {
                 <a
                   href={item.href}
                   aria-label={item.label}
-                  className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${isActive
-                    ? isDark
-                      ? 'text-[#000610] bg-[#00e5ff] shadow-[0_2px_8px_rgba(0,229,255,0.2)] font-bold'
-                      : 'text-white bg-[#0284c7] shadow-[0_2px_8px_rgba(2,132,199,0.2)] font-bold'
+                  className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 outline-none z-10 ${isActive
+                    ? 'text-white font-bold'
                     : isDark
                       ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
                       : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
                     }`}
                 >
-                  <IconComp className="w-4 h-4" />
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeSidebarGlow"
+                      className={`absolute inset-0 rounded-full ${
+                        isDark
+                          ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6] shadow-[0_2px_10px_rgba(2,132,199,0.5)]'
+                          : 'bg-[#0284c7] shadow-[0_2px_10px_rgba(2,132,199,0.3)]'
+                      }`}
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <IconComp className="w-4 h-4 relative z-10" />
                 </a>
 
                 {/* Tooltip Pill on Hover */}
@@ -162,7 +171,7 @@ export default function FloatingSidebar() {
                       exit={{ opacity: 0, x: -8, scale: 0.95 }}
                       transition={{ duration: 0.12 }}
                       className={`absolute left-12 px-2.5 py-1 rounded-lg text-[11px] font-mono whitespace-nowrap pointer-events-none shadow-md z-50 ${isDark
-                        ? 'bg-[#03192e] border border-[#00f0ff]/40 text-[#00f0ff]'
+                        ? 'bg-[#03192e] border border-[#00b4d8]/40 text-[#38bdf8]'
                         : 'bg-white border border-[#0284c7]/40 text-[#0284c7]'
                         }`}
                     >
@@ -176,7 +185,7 @@ export default function FloatingSidebar() {
         </div>
 
         {/* Separator Line */}
-        <div className={`w-5 h-[1px] my-1 ${isDark ? 'bg-[#00f0ff]/20' : 'bg-[#0284c7]/20'}`} />
+        <div className={`w-5 h-[1px] my-1 ${isDark ? 'bg-[#00b4d8]/20' : 'bg-[#0284c7]/20'}`} />
 
         {/* Action Button for Multi-Language & Theme Mode Dropdown on Desktop */}
         <div className="relative flex items-center">
@@ -187,10 +196,10 @@ export default function FloatingSidebar() {
             title="Pengaturan Tema & Bahasa"
             className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${desktopSettingsOpen
               ? isDark
-                ? 'bg-[#00e5ff] text-[#000610] font-bold shadow-[0_0_12px_rgba(0,229,255,0.4)]'
+                ? 'bg-[#0284c7] text-white font-bold shadow-[0_0_12px_rgba(2,132,199,0.4)]'
                 : 'bg-[#0284c7] text-white font-bold shadow-[0_0_12px_rgba(2,132,199,0.3)]'
               : isDark
-                ? 'text-[#00e5ff] bg-[#03192e] border border-[#00e5ff]/30 hover:bg-[#00e5ff] hover:text-[#000610]'
+                ? 'text-[#38bdf8] bg-[#03192e] border border-[#0284c7]/30 hover:bg-[#0284c7] hover:text-white'
                 : 'text-[#0284c7] bg-[#e0f2fe] border border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
               }`}
           >
@@ -206,7 +215,7 @@ export default function FloatingSidebar() {
                 exit={{ opacity: 0, x: 12, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
                 className={`absolute left-12 bottom-0 w-52 rounded-2xl border p-3 shadow-2xl backdrop-blur-2xl z-50 space-y-2.5 ${isDark
-                  ? 'bg-[#010d1f]/95 border-[#00e5ff]/40 text-white shadow-[#00e5ff]/10'
+                  ? 'bg-[#010d1f]/95 border-[#0284c7]/40 text-white shadow-[#0284c7]/10'
                   : 'bg-white/95 border-slate-300 text-slate-900 shadow-xl'
                   }`}
               >
@@ -216,14 +225,14 @@ export default function FloatingSidebar() {
                 <button
                   type="button"
                   onClick={() => { toggleLang(); setDesktopSettingsOpen(false); }}
-                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${isDark ? 'hover:bg-[#0284c7]/10 text-slate-200 hover:text-[#38bdf8]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
                     }`}
                 >
                   <div className="flex items-center gap-2">
-                    <HiOutlineLanguage className="w-4 h-4 text-[#00e5ff]" />
+                    <HiOutlineLanguage className="w-4 h-4 text-[#0284c7]" />
                     <span>Bahasa</span>
                   </div>
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${isDark ? 'bg-[#00e5ff]/20 text-[#00e5ff]' : 'bg-[#e0f2fe] text-[#0284c7]'
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${isDark ? 'bg-[#0284c7]/20 text-[#38bdf8]' : 'bg-[#e0f2fe] text-[#0284c7]'
                     }`}>
                     {lang.toUpperCase()}
                   </span>
@@ -233,14 +242,14 @@ export default function FloatingSidebar() {
                 <button
                   type="button"
                   onClick={() => { toggleTheme(); setDesktopSettingsOpen(false); }}
-                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${isDark ? 'hover:bg-[#00e5ff]/10 text-slate-200 hover:text-[#00e5ff]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${isDark ? 'hover:bg-[#0284c7]/10 text-slate-200 hover:text-[#38bdf8]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
                     }`}
                 >
                   <div className="flex items-center gap-2">
                     {isDark ? <HiOutlineSun className="w-4 h-4 text-amber-400" /> : <HiOutlineMoon className="w-4 h-4 text-[#0284c7]" />}
                     <span>Mode Tema</span>
                   </div>
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${isDark ? 'bg-[#00e5ff]/20 text-[#00e5ff]' : 'bg-[#e0f2fe] text-[#0284c7]'
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${isDark ? 'bg-[#0284c7]/20 text-[#38bdf8]' : 'bg-[#e0f2fe] text-[#0284c7]'
                     }`}>
                     {isDark ? 'Dark' : 'Light'}
                   </span>
@@ -258,7 +267,7 @@ export default function FloatingSidebar() {
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileOpen(!mobileOpen); }}
           aria-label="Toggle Navigation & Theme Controls"
           className={`w-12 h-12 rounded-full flex items-center justify-center font-bold active:scale-95 transition-all shadow-xl ${isDark
-            ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610]'
+            ? 'bg-gradient-to-r from-[#0284c7] via-[#0077b6] to-[#0f766e] text-white'
             : 'bg-gradient-to-r from-[#0284c7] to-[#0f766e] text-white'
             }`}
         >
@@ -305,11 +314,11 @@ export default function FloatingSidebar() {
                           window.dispatchEvent(new CustomEvent('open-ai-drawer'));
                         }}
                         className={`relative z-10 flex items-center gap-3 px-3.5 py-2.5 rounded-[10px] text-xs font-mono font-bold transition-colors min-h-[44px] ${isDark
-                          ? 'bg-[#010d1f] text-[#00f0ff] shadow-[0_0_12px_rgba(0,240,255,0.3)]'
-                          : 'bg-white text-[#0284c7] shadow-sm'
+                          ? 'bg-[#010d1f] text-[#38bdf8] shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+                          : 'bg-white/90 text-[#032b43] shadow-sm'
                           }`}
                       >
-                        <IconComp className="w-4 h-4 shrink-0 text-[#00f0ff]" />
+                        <IconComp className={`w-4 h-4 shrink-0 ${isDark ? 'text-[#38bdf8]' : 'text-[#032b43]'}`} />
                         <span>{item.label}</span>
                       </a>
                     </div>
@@ -321,17 +330,24 @@ export default function FloatingSidebar() {
                     key={item.id}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-mono transition-colors min-h-[44px] ${isActive
-                      ? isDark
-                        ? 'bg-[#00f0ff]/15 text-[#00f0ff] font-bold border border-[#00f0ff]/30'
-                        : 'bg-[#e0f2fe] text-[#0284c7] font-bold border border-[#0284c7]/30'
+                    className={`relative flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-mono transition-colors min-h-[44px] overflow-hidden ${isActive
+                      ? 'text-white font-bold'
                       : isDark
                         ? 'text-slate-300 hover:text-white hover:bg-[#031729]/60'
                         : 'text-slate-700 hover:text-[#0284c7] hover:bg-[#e0f2fe]'
                       }`}
                   >
-                    <IconComp className="w-4 h-4 shrink-0" />
-                    <span>{item.label}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeMobileNavGlow"
+                        className={`absolute inset-0 rounded-xl ${
+                          isDark ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6]' : 'bg-[#0284c7]'
+                        }`}
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <IconComp className="w-4 h-4 shrink-0 relative z-10" />
+                    <span className="relative z-10">{item.label}</span>
                   </a>
                 );
               })}

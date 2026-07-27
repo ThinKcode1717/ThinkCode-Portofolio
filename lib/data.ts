@@ -15,10 +15,19 @@ export interface Project {
   screenshots?: string[];
 }
 
+export interface SkillItem {
+  name: string;
+  subtitle: string;
+  description: string;
+  iconKey: string;
+  level?: number;
+  highlight?: string;
+}
+
 export interface SkillCategory {
   category: string;
   iconName: string;
-  skills: { name: string; level: number; highlight?: string }[];
+  skills: SkillItem[];
 }
 
 export interface Experience {
@@ -65,12 +74,13 @@ export const THINKCODE_DATA = {
   name: "Yoga Adi Pratama",
   brandName: "ThinkCode",
   avatarUrl: "/profile.jpg",
+  logoUrl: "/logo_nobg.png",
   role: "Full Stack Web Developer & AI Data Analyst",
   tagline: "Merancang Aplikasi Web Berperforma Tinggi & Mengintegrasikan Solusi AI yang Efisien",
   availabilityStatus: "Status: Tersedia untuk Proyek & Kontrak",
   responseTime: "< 24 jam",
   satisfactionRate: "100%",
-  bio: "Lulusan S1 Teknik Informatika Universitas 17 Agustus 1945 Surabaya yang berfokus pada pengembangan aplikasi web full-stack, analisis data, kecerdasan buatan (Machine Learning & Deep Learning), serta otomasi web scraping.",
+  bio: "Senior Full-Stack Web Developer yang berfokus pada pengembangan aplikasi web performa tinggi, analisis data, kecerdasan buatan (Machine Learning & Deep Learning), serta otomasi web scraping.",
   deepBio: "Pengalaman merancang arsitektur sistem dari nol hingga deployment produksi. Berpengalaman membangun REST API, model hybrid ARIMA-LSTM untuk prediksi stok, crawler dokumen otomatis, serta antarmuka modern yang cepat, responsif, dan mudah dirawat.",
   clientBio: "Saya membantu bisnis dan institusi membangun solusi digital yang efisien, mulai dari landing page interaktif, platform e-commerce & travel, hingga sistem informasi inventory dan otomasi data.",
   location: "Surabaya, Indonesia (Remote / On-Site)",
@@ -79,7 +89,6 @@ export const THINKCODE_DATA = {
   projectsCompleted: "15+",
   linesOfCode: "150k+",
   clientsServed: "10+",
-  education: "S1 Teknik Informatika — Universitas 17 Agustus 1945 Surabaya (2021 – 2025)",
   socials: {
     github: "https://github.com/ThinKcode1717",
     githubSecondary: "https://github.com/think-dev01",
@@ -91,34 +100,114 @@ export const THINKCODE_DATA = {
       category: "Frontend Core & UI Frameworks",
       iconName: "Layout",
       skills: [
-        { name: "React (18/19)", level: 95, highlight: "Used in Black Ant Academy, HolidayBro, SIPIA, SAKIP Crawler" },
-        { name: "TypeScript & JavaScript", level: 95, highlight: "Strict Type Safety & Modern ES6+ Architecture" },
-        { name: "Vue.js & Vite", level: 90, highlight: "Used in SI KuroWesi Inventory Frontend" },
-        { name: "Tailwind CSS (v3/v4)", level: 92, highlight: "Custom Styling, Deep Ocean & Responsive Layouts" },
-        { name: "Framer Motion / Motion", level: 90, highlight: "Smooth Page Transitions & Interactive Physics" },
-        { name: "shadcn/ui & Figma", level: 88, highlight: "UI/UX Prototyping & Accessible Component Systems" }
+        {
+          name: "React",
+          subtitle: "Next.js (v14/15), Framer Motion, Redux, React Router",
+          description: "Pengembangan antarmuka web interaktif berperforma tinggi dengan arsitektur komponen modular pada Black Ant Academy, HolidayBro Tour, dan SIPIA.",
+          iconKey: "React",
+          level: 95,
+          highlight: "Diimplementasikan pada Black Ant Academy & HolidayBro Tour"
+        },
+        {
+          name: "TypeScript & JavaScript",
+          subtitle: "Strict Type Safety, ES6+ Architecture, Async/Await, Vite",
+          description: "Fondasi utama penulisan kode terstruktur dan bebas bug pada seluruh aplikasi web full-stack, REST API, crawler, dan microservice.",
+          iconKey: "TypeScript",
+          level: 95,
+          highlight: "Digunakan pada seluruh codebase portofolio & proyek full-stack"
+        },
+        {
+          name: "Vue.js",
+          subtitle: "Vite, Pinia, Vue Router, Composition API",
+          description: "Diimplementasikan pada frontend SI KuroWesi Inventory Bengkel untuk manajemen state & pemantauan persediaan suku cadang secara real-time.",
+          iconKey: "Vue",
+          level: 90,
+          highlight: "Diimplementasikan pada SI KuroWesi Inventory Frontend"
+        },
+        {
+          name: "Tailwind CSS",
+          subtitle: "Tailwind v3/v4, CSS Variables, Glassmorphism, Responsive Design",
+          description: "Merancang tema visual modern Deep Ocean, responsif penuh di semua layar, dan bebas layout shift pada SIT Mukhlisiin & portofolio ThinkCode.",
+          iconKey: "Tailwind",
+          level: 92,
+          highlight: "Digunakan pada SIT Mukhlisiin Landing Page & Portofolio"
+        }
       ]
     },
     {
       category: "Backend, Database & AI Engines",
       iconName: "Server",
       skills: [
-        { name: "Node.js & Express.js", level: 92, highlight: "RESTful APIs, Multi-role JWT Auth & Web Scraping" },
-        { name: "PHP & Laravel (8/10/11)", level: 90, highlight: "Used in SI KuroWesi & SIPINTER Perpustakaan Digital" },
-        { name: "PostgreSQL & MySQL", level: 90, highlight: "Neon Serverless DB, Schema Design & Optimization" },
-        { name: "Python AI & Machine Learning", level: 88, highlight: "TensorFlow, Keras, Hybrid ARIMA-LSTM Stock Forecasting" },
-        { name: "Integrasi LLM API (Groq)", level: 92, highlight: "Groq Llama 3.3 AI Assistants & Document Analysis" }
+        {
+          name: "Node.js",
+          subtitle: "Express.js, RESTful API, JWT Auth, HTTP-Only Cookie",
+          description: "Arsitektur server-side cepat dan aman untuk backend multi-portal SIPIA dan backend SAKIP Document Crawler.",
+          iconKey: "Node",
+          level: 92,
+          highlight: "Digunakan pada SIPIA Portal & SAKIP Document Crawler Engine"
+        },
+        {
+          name: "Python",
+          subtitle: "TensorFlow, Keras, Pandas, NumPy, FastAPI, Flask",
+          description: "Pengembangan model prediksi stok hybrid ARIMA-LSTM (SI KuroWesi), klasifikasi citra medis DNN DICOM, dan pemrosesan data.",
+          iconKey: "Python",
+          level: 88,
+          highlight: "Microservice Prediksi Stok ARIMA-LSTM & DNN Citra Medis"
+        },
+        {
+          name: "Laravel (PHP)",
+          subtitle: "PHP 8+, Eloquent ORM, Blade, REST API, Artisan CLI",
+          description: "Engine backend teruji untuk mengelola transaksi inventori bengkel Kurowesi dan digitalisasi sistem perpustakaan SIPINTER.",
+          iconKey: "Laravel",
+          level: 90,
+          highlight: "Digunakan pada SI KuroWesi Inventory & SIPINTER Perpustakaan"
+        },
+        {
+          name: "PostgreSQL & MySQL",
+          subtitle: "Neon Serverless DB, Relational Schema Design, Indexing",
+          description: "Manajemen basis data utama untuk menyimpan data terstruktur portal pendidikan SIPIA, dokumen SAKIP, dan log perpustakaan.",
+          iconKey: "PostgreSQL",
+          level: 90,
+          highlight: "Database utama SIPIA Portal, SAKIP Crawler & SIPINTER"
+        }
       ]
     },
     {
       category: "Automation, Scraping & DevOps",
       iconName: "Cloud",
       skills: [
-        { name: "Puppeteer & Cheerio", level: 92, highlight: "Recursive Web Crawling, Rate Limiting & Anti-Bot Handling" },
-        { name: "Pandas, NumPy & NLP", level: 86, highlight: "Data Analysis, Text Extraction & Hotel/Film Analysis" },
-        { name: "Docker & Docker Compose", level: 88, highlight: "API Containerization & Multi-container Deployments" },
-        { name: "Nginx & PM2", level: 90, highlight: "Reverse Proxy Configuration & Process Management" },
-        { name: "Linux VPS & Vercel", level: 90, highlight: "Production Cloud Deployment & Server Administration" }
+        {
+          name: "Puppeteer & Cheerio",
+          subtitle: "Recursive Web Crawling, Data Extraction, Anti-Bot Handling",
+          description: "Otomasi riset data prospek bisnis lokal Google Maps (70+ kota) serta crawling rekursif dokumen akuntabilitas pemerintah SAKIP.",
+          iconKey: "Puppeteer",
+          level: 92,
+          highlight: "Engine utama Google Maps Scraper Platform & SAKIP Crawler"
+        },
+        {
+          name: "Integrasi LLM API (Groq)",
+          subtitle: "Groq Llama 3.3 70B, Prompt Engineering, Automated Outreach",
+          description: "Integrasi kecerdasan buatan untuk AI Assistant portofolio ini, analisis celah digital bisnis, dan pembuat draf pesan otomatis.",
+          iconKey: "Groq",
+          level: 92,
+          highlight: "Menggerakkan ThinkCode AI Engine & Google Maps Scraper AI"
+        },
+        {
+          name: "Docker & Containerization",
+          subtitle: "Docker Compose, Container Isolation, Multi-Stage Build",
+          description: "Containerization microservice Python AI ARIMA-LSTM dan skenario deployment cloud terisolasi.",
+          iconKey: "Docker",
+          level: 88,
+          highlight: "Digunakan untuk isolasi microservice Python & deployment server"
+        },
+        {
+          name: "Nginx & Server Administration",
+          subtitle: "Nginx Reverse Proxy, PM2 Process Manager, Linux VPS, Vercel",
+          description: "Manajemen server produksi Linux VPS & Vercel untuk menjamin uptime aplikasi 24/7 dan optimasi kecepatan respon.",
+          iconKey: "Nginx",
+          level: 90,
+          highlight: "Konfigurasi reverse proxy & manajemen proses server produksi"
+        }
       ]
     }
   ] as SkillCategory[],
@@ -127,7 +216,7 @@ export const THINKCODE_DATA = {
     {
       id: "google-maps-scraper",
       title: "Google Maps Scraper Web Platform",
-      category: "Full Stack, AI & Automation",
+      category: "Automation & Scraper",
       description: "Platform web scraping data bisnis lokal Google Maps dengan peta Leaflet real-time & analisis outreach AI.",
       longDescription: "Platform web scraping data bisnis lokal dari Google Maps (Node.js/TypeScript & React) untuk lead generation pembuatan website, mencakup 70+ kota dan 30+ kata kunci bisnis. Memiliki visualisasi peta sebaran bisnis real-time Leaflet/OpenStreetMap dengan auto-zoom, klasifikasi prospek 'Peluang Web', serta integrasi Groq AI (Llama 3.3 70B) untuk analisis celah digital dan pengerjaan draf pesan outreach personal WhatsApp/Instagram DM. Dilengkapi dokumentasi teknis & deployment Docker Compose, PM2, dan Nginx.",
       tags: ["Node.js", "TypeScript", "React", "Leaflet", "Groq AI (Llama 3.3)", "Docker", "Nginx"],
@@ -141,7 +230,7 @@ export const THINKCODE_DATA = {
     {
       id: "black-ant-academy",
       title: "Website Black Ant Academy",
-      category: "Full Stack & Web App",
+      category: "Web Apps",
       description: "Website resmi akademi beladiri interaktif dengan jadwal multi-disiplin dan Virtual Assistant Anty.",
       longDescription: "Membangun website resmi akademi beladiri (Muay Thai, Kickboxing, Boxing, MMA, BJJ, Wushu Sanda) menggunakan React 18, TypeScript, dan Vite. Mengembangkan halaman program multi-disiplin, jadwal latihan interaktif (filter per disiplin, 3 slot waktu harian), sistem paket keanggotaan, pendaftaran trial gratis, widget Virtual Assistant 'Anty' mengambang dengan quick-reply chips terhubung langsung ke WhatsApp admin, serta dukungan bilingual (ID/EN) dan mode gelap/terang.",
       tags: ["React 18", "TypeScript", "Vite", "React Router", "WhatsApp Widget", "Framer Motion"],
@@ -155,7 +244,7 @@ export const THINKCODE_DATA = {
     {
       id: "holidaybro-travel",
       title: "HolidayBro Tour & Travel Web App",
-      category: "Full Stack & Travel",
+      category: "Travel & E-Commerce",
       description: "Aplikasi web katalog paket wisata Jogja, Bromo, & Bali dengan Chatbot AI Travel Assistant.",
       longDescription: "Aplikasi web katalog paket wisata untuk destinasi Yogyakarta, Gunung Bromo, dan Bali berbasis React 18, TypeScript, Tailwind CSS, dan Framer Motion. Mengembangkan fitur pencarian & filter canggih (destinasi, durasi, kategori), rincian itinerary per jam, modal pemesanan, chatbot AI travel assistant, floating WhatsApp widget dengan pesan pre-filled otomatis, serta dukungan tiga bahasa (Indonesia, Inggris, Mandarin) secara real-time tanpa reload.",
       tags: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "AI Travel Assistant", "Multilingual"],
@@ -169,7 +258,7 @@ export const THINKCODE_DATA = {
     {
       id: "sipia-portal",
       title: "SIPIA - Portal Islamic Academy",
-      category: "Full Stack & Education",
+      category: "Education",
       description: "Platform manajemen sekolah full-stack dengan 3 portal (Admin, Guru, Wali Murid) & modul Tahfidz.",
       longDescription: "Platform manajemen sekolah full-stack (React + TypeScript, Node.js/Express, PostgreSQL) dengan portal terpisah untuk Admin, Guru, dan Wali Murid berbasis mobile-first. Merancang sistem autentikasi JWT dengan moderasi pendaftaran, modul pencatatan hafalan Al-Quran (Tahfidz Ziyadah/Murajaah), presensi harian, evaluasi tumbuh kembang siswa berbasis 4 aspek PAUD, serta skema Neon Serverless PostgreSQL.",
       tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT Auth"],
@@ -183,7 +272,7 @@ export const THINKCODE_DATA = {
     {
       id: "sakip-crawler",
       title: "SAKIP Document Crawler System",
-      category: "Full Stack, AI & Automation",
+      category: "Automation & Scraper",
       description: "Sistem crawling & digitalisasi dokumen SAKIP pemerintah secara rekursif dengan visualisasi log real-time.",
       longDescription: "Pengembangan sistem crawling & digitalisasi dokumen SAKIP (Sistem Akuntabilitas Kinerja Instansi Pemerintah) pemerintah secara rekursif dan otomatis (React/TypeScript, Node.js/Express, PostgreSQL). Membangun engine crawler dengan kontrol depth, rate limiting, visualisasi log real-time unduhan dokumen multi-format (PDF, Word, Excel, PPT), sistem multi-role authentication berbasis JWT cookie HTTP-Only, serta fitur analisis ringkasan dokumen berbasis AI.",
       tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "AI Summarizer", "Web Crawler"],
@@ -197,7 +286,7 @@ export const THINKCODE_DATA = {
     {
       id: "sit-mukhlisiin",
       title: "SIT Mukhlisiin Landing Page",
-      category: "Frontend & UI Design",
+      category: "Education",
       description: "Landing page resmi sekolah Islam terpadu (TKIT, SDIT, SMPIT) dengan navigasi PPDB adaptif & animasi Motion.",
       longDescription: "Landing page resmi SIT Mukhlisiin (menaungi jenjang TKIT, SDIT, SMPIT) menggunakan React 19, TypeScript, dan Tailwind CSS v4 dengan animasi Motion. Mengembangkan halaman profil lembaga, keunggulan program (Tahfizh, kurikulum terpadu, bilingual), galeri fasilitas, sistem dropdown navigasi PPDB adaptif (click-outside & z-index fix), serta stabilitas hero banner carousel anti-layout shift.",
       tags: ["React 19", "TypeScript", "Tailwind CSS v4", "Motion", "UX Design"],
@@ -211,7 +300,7 @@ export const THINKCODE_DATA = {
     {
       id: "si-kurowesi",
       title: "SI KuroWesi & AI Forecasting API",
-      category: "Full Stack & AI Forecasting",
+      category: "AI Models",
       description: "Sistem inventori bengkel full-stack terintegrasi microservice API hybrid ARIMA-LSTM untuk prediksi stok.",
       longDescription: "Aplikasi inventori berbasis web full-stack untuk Bengkel Kurowesi (backend Laravel, frontend Vue.js + TypeScript, Tailwind CSS, shadcn/ui). Terintegrasi dengan microservice REST API Python terpisah berbasis model hybrid ARIMA-LSTM (di-containerize Docker) untuk menyajikan prediksi kebutuhan stok secara real-time. Berhasil meningkatkan efisiensi pencatatan stok hingga 100% serta menekan biaya pembelian berlebih (akurasi rata-rata model 83.5%).",
       tags: ["Laravel", "Vue.js", "TypeScript", "Python", "ARIMA-LSTM", "Docker", "shadcn/ui"],
@@ -225,11 +314,11 @@ export const THINKCODE_DATA = {
     {
       id: "sipinter-library",
       title: "SIPINTER - Digital Library System",
-      category: "Full Stack Web App",
-      description: "Sistem informasi perpustakaan digital untuk Pengadilan Tinggi Militer III Surabaya.",
-      longDescription: "Membangun aplikasi perpustakaan digital SIPINTER menggunakan Laravel 8 & MySQL saat magang di Pengadilan Tinggi Militer III Surabaya untuk menggantikan pencatatan manual. Merancang fitur manajemen anggota, katalog buku multi-kategori, aturan bisnis peminjaman (maks 3 buku, 7 hari, denda), reminder email otomatis menjelang jatuh tempo, serta modul e-book dan riwayat peminjaman cetak.",
+      category: "Web Apps",
+      description: "Sistem informasi perpustakaan digital untuk institusi pemerintahan.",
+      longDescription: "Membangun aplikasi perpustakaan digital SIPINTER menggunakan Laravel 8 & MySQL untuk mendigitalisasi pencatatan manual. Merancang fitur manajemen anggota, katalog buku multi-kategori, aturan bisnis peminjaman (maks 3 buku, 7 hari, denda), reminder email otomatis menjelang jatuh tempo, serta modul e-book dan riwayat peminjaman cetak.",
       tags: ["Laravel 8", "MySQL", "Bootstrap/Tailwind", "Email Reminders", "PDF Export"],
-      metrics: "Digitalization 100% · Email Alerts · Instansi Militer",
+      metrics: "Digitalization 100% · Email Alerts · Government Inst.",
       businessImpact: "Menggantikan pencatatan manual buku perpustakaan menjadi sistem digital yang teridentifikasi akurat",
       image: "/profile.jpg",
       githubUrl: "https://github.com/ThinKcode1717",
@@ -239,12 +328,12 @@ export const THINKCODE_DATA = {
     {
       id: "brain-tumor-dnn",
       title: "Brain Tumor Medical Image Classification",
-      category: "AI & Machine Learning",
+      category: "AI Models",
       description: "Klasifikasi citra medis CT Scan/MRI otak format DICOM menggunakan Deep Neural Network (DNN).",
       longDescription: "Klasifikasi citra medis (CT Scan/MRI) format DICOM menggunakan metode Deep Neural Network (DNN). Melakukan preprocessing dataset (augmentasi, normalisasi, resizing), melatih dan menguji model DNN menggunakan TensorFlow & Keras hingga meraih akurasi uji 87.5%, serta mengoptimalkan hyperparameter model untuk meminimalisir overfitting.",
       tags: ["Python", "TensorFlow", "Keras", "Deep Neural Network", "DICOM", "Data Science"],
       metrics: "87.5% Test Accuracy · Medical Image Processing",
-      businessImpact: "Membuat prototype otomatisasi bantuan diagnostik citra medis medis berbasis kecerdasan buatan",
+      businessImpact: "Membuat prototype otomatisasi bantuan diagnostik citra medis berbasis kecerdasan buatan",
       image: "/profile.jpg",
       githubUrl: "https://github.com/ThinKcode1717",
       featured: false,
@@ -376,7 +465,7 @@ export const THINKCODE_DATA = {
     {
       period: "JULI 2023 — OKTOBER 2023",
       role: "IT Support Intern & Web Developer",
-      company: "Pengadilan Tinggi Militer III Surabaya",
+      company: "Digital Library Project",
       location: "Surabaya, Indonesia",
       type: "Magang",
       description: "Merancang dan membangun aplikasi perpustakaan digital SIPINTER untuk mendigitalisasi pencatatan peminjaman dan arsip buku di institusi.",
@@ -391,7 +480,7 @@ export const THINKCODE_DATA = {
   geoAeoFaqs: [
     {
       question: "Siapa itu Yoga Adi Pratama (ThinkCode)?",
-      answer: "Yoga Adi Pratama (ThinkCode) adalah Full Stack Web Developer & AI Data Analyst lulusan S1 Teknik Informatika Universitas 17 Agustus 1945 Surabaya. Memiliki keahlian dalam pengembangan aplikasi web full-stack (React, Vue, Laravel, Node.js), analisis data, model AI hybrid ARIMA-LSTM, integrasi Groq LLM, dan otomasi web scraping.",
+      answer: "Yoga Adi Pratama (ThinkCode) adalah Senior Full Stack Web Developer & AI Data Analyst. Memiliki keahlian dalam pengembangan aplikasi web full-stack (React, Vue, Laravel, Node.js), analisis data, model AI hybrid ARIMA-LSTM, integrasi Groq LLM, dan otomasi web scraping.",
       entityTag: "Developer Identity"
     },
     {

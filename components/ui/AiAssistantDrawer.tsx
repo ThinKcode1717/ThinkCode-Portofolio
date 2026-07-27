@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   HiOutlinePaperAirplane, 
@@ -19,6 +20,7 @@ interface ChatMessage {
   sender: 'user' | 'ai';
   text: string;
   timestamp: string;
+  source?: 'schema' | 'groq';
 }
 
 const formatTimeString = (date: Date = new Date()) => {
@@ -28,7 +30,7 @@ const formatTimeString = (date: Date = new Date()) => {
 };
 
 export default function AiAssistantDrawer() {
-  const { t, theme } = useApp();
+  const { t, theme, lang } = useApp();
   const isDark = theme === 'dark';
 
   const [isOpen, setIsOpen] = useState(false);
@@ -46,6 +48,7 @@ export default function AiAssistantDrawer() {
         sender: 'ai',
         text: t.chatbot.welcome,
         timestamp: formatTimeString(),
+        source: 'schema',
       },
     ]);
   }, [t.chatbot.welcome]);
@@ -82,7 +85,7 @@ export default function AiAssistantDrawer() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText }),
+        body: JSON.stringify({ message: userText, lang }),
       });
 
       const data = await response.json();
@@ -92,6 +95,7 @@ export default function AiAssistantDrawer() {
         sender: 'ai',
         text: data.reply || 'Maaf, terjadi kendala teknis saat menghubungi Groq AI Engine.',
         timestamp: formatTimeString(),
+        source: data.source || 'groq',
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -104,6 +108,7 @@ export default function AiAssistantDrawer() {
           sender: 'ai',
           text: 'Sistem AI sedang offline. Silakan hubungi Yoga secara langsung melalui tombol kontak.',
           timestamp: formatTimeString(),
+          source: 'schema',
         },
       ]);
     } finally {
@@ -123,8 +128,61 @@ export default function AiAssistantDrawer() {
         sender: 'ai',
         text: t.chatbot.welcome,
         timestamp: formatTimeString(),
+        source: 'schema',
       },
     ]);
+  };
+
+  const renderFormattedMessage = (text: string, isAi: boolean) => {
+    const lines = text.split('\n');
+    return (
+      <div className="space-y-1 leading-relaxed">
+        {lines.map((line, lineIdx) => {
+          if (!line.trim()) {
+            return <div key={lineIdx} className="h-1" />;
+          }
+
+          const parts = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+          const isListItem = line.trim().startsWith('•') || line.trim().startsWith('-') || /^\d+\./.test(line.trim());
+
+          return (
+            <div key={lineIdx} className={isListItem ? 'pl-2' : ''}>
+              {parts.map((part, partIdx) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  return (
+                    <strong
+                      key={partIdx}
+                      className={`font-semibold ${
+                        isAi
+                          ? isDark ? 'text-sky-300' : 'text-[#0284c7]'
+                          : 'text-white font-bold'
+                      }`}
+                    >
+                      {part.slice(2, -2)}
+                    </strong>
+                  );
+                }
+                if (part.startsWith('*') && part.endsWith('*')) {
+                  return (
+                    <em
+                      key={partIdx}
+                      className={`italic ${
+                        isAi
+                          ? isDark ? 'text-slate-300' : 'text-[#0f4c75]'
+                          : 'text-slate-100'
+                      }`}
+                    >
+                      {part.slice(1, -1)}
+                    </em>
+                  );
+                }
+                return part;
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
@@ -150,32 +208,29 @@ export default function AiAssistantDrawer() {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
               className={`fixed inset-y-0 right-0 z-50 w-full sm:w-[480px] md:w-[520px] flex flex-col border-l shadow-2xl backdrop-blur-2xl ${
                 isDark
-                  ? 'bg-[#010a17]/95 border-[#00e5ff]/30 text-slate-100'
-                  : 'bg-white/98 border-slate-200 text-slate-900'
+                  ? 'bg-[#010a17]/95 border-[#0077b6]/30 text-slate-100'
+                  : 'bg-white/90 border-white/80 text-[#032b43]'
               }`}
             >
               {/* Drawer Top Header Bar */}
               <div className={`px-6 py-4 border-b flex items-center justify-between shrink-0 ${
-                isDark ? 'bg-[#031729]/80 border-[#0077b6]/30' : 'bg-slate-50 border-slate-200'
+                isDark ? 'bg-[#031729]/80 border-[#0077b6]/30' : 'bg-white/70 border-white/80'
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center ${
+                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center p-1.5 ${
                     isDark
-                      ? 'bg-[#00e5ff]/10 border-[#00e5ff]/40 text-[#00e5ff]'
-                      : 'bg-[#e0f2fe] border-[#0284c7]/40 text-[#0284c7]'
+                      ? 'bg-[#0284c7]/10 border-[#0284c7]/40 text-[#38bdf8]'
+                      : 'bg-white/80 border-white/90 text-[#0284c7] shadow-sm'
                   }`}>
-                    <HiOutlineSparkles className="w-5 h-5 animate-pulse" />
+                    <Image src="/logo_nobg.png" alt="ThinkCode Logo" width={28} height={28} className="object-contain" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="font-mono text-sm font-bold tracking-tight">
+                      <h3 className={`font-mono text-sm font-bold tracking-tight ${isDark ? 'text-white' : 'text-[#032b43]'}`}>
                         {t.chatbot.titleEngine}
                       </h3>
                       <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
                     </div>
-                    <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                      Groq Llama 3.3 Engine
-                    </p>
                   </div>
                 </div>
 
@@ -187,7 +242,7 @@ export default function AiAssistantDrawer() {
                     className={`p-2 rounded-lg border text-xs font-mono transition-colors flex items-center gap-1 ${
                       isDark
                         ? 'border-slate-700 text-slate-400 hover:text-white hover:border-slate-500'
-                        : 'border-slate-300 text-slate-600 hover:text-slate-900'
+                        : 'border-white/80 bg-white/50 text-[#032b43] hover:text-[#0284c7] hover:bg-white'
                     }`}
                   >
                     <HiOutlineArrowPath className="w-3.5 h-3.5" />
@@ -199,7 +254,7 @@ export default function AiAssistantDrawer() {
                     className={`p-2 rounded-lg border transition-colors ${
                       isDark
                         ? 'border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'
-                        : 'border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                        : 'border-white/80 bg-white/50 text-[#032b43] hover:text-[#0284c7] hover:bg-white'
                     }`}
                   >
                     <HiOutlineXMark className="w-5 h-5" />
@@ -214,37 +269,54 @@ export default function AiAssistantDrawer() {
               >
                 {messages.map((msg) => {
                   const isAi = msg.sender === 'ai';
+                  const isSchema = msg.source === 'schema';
                   return (
                     <div
                       key={msg.id}
                       className={`flex gap-3 max-w-[90%] ${isAi ? 'mr-auto' : 'ml-auto flex-row-reverse'}`}
                     >
-                      <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 mt-1 ${
+                      <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 mt-1 transition-all ${
                         isAi
-                          ? isDark
-                            ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]'
-                            : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
+                          ? isSchema
+                            ? isDark
+                              ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400'
+                              : 'bg-emerald-50 border-emerald-500 text-emerald-600 shadow-sm'
+                            : isDark
+                              ? 'bg-[#0284c7]/10 border-[#0284c7]/50 text-[#38bdf8]'
+                              : 'bg-sky-50 border-sky-500 text-sky-600 shadow-sm'
                           : isDark
                             ? 'bg-slate-800 border-slate-700 text-slate-200'
-                            : 'bg-slate-200 border-slate-300 text-slate-800'
+                            : 'bg-white/90 border-white text-[#032b43] shadow-sm'
                       }`}>
-                        {isAi ? <RiRobot3Fill className="w-4 h-4" /> : <HiOutlineUser className="w-4 h-4" />}
+                        {isAi ? (
+                          <RiRobot3Fill className={`w-4 h-4 ${
+                            isSchema
+                              ? isDark ? 'text-emerald-400' : 'text-emerald-600'
+                              : isDark ? 'text-[#38bdf8]' : 'text-[#0284c7]'
+                          }`} />
+                        ) : (
+                          <HiOutlineUser className={`w-4 h-4 ${isDark ? 'text-slate-200' : 'text-[#032b43]'}`} />
+                        )}
                       </div>
 
                       <div className="space-y-1">
-                        <div className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                        <div className={`p-3.5 rounded-2xl text-xs sm:text-sm ${
                           isAi
                             ? isDark
-                              ? 'bg-[#031729]/90 border border-[#0077b6]/30 text-slate-200 rounded-tl-sm'
-                              : 'bg-slate-100 border border-slate-200 text-slate-800 rounded-tl-sm'
+                              ? isSchema
+                                ? 'bg-[#011710]/90 border border-emerald-500/30 text-slate-200 rounded-tl-sm'
+                                : 'bg-[#031729]/90 border border-[#0077b6]/30 text-slate-200 rounded-tl-sm'
+                              : isSchema
+                                ? 'bg-emerald-50/70 border border-emerald-200 text-[#032b43] font-medium rounded-tl-sm shadow-sm'
+                                : 'bg-white/70 border border-white/90 text-[#032b43] font-medium rounded-tl-sm shadow-sm'
                             : isDark
-                              ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610] font-semibold rounded-tr-sm'
-                              : 'bg-[#0284c7] text-white font-semibold rounded-tr-sm'
+                              ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6] text-white font-semibold rounded-tr-sm'
+                              : 'bg-[#0284c7] text-white font-semibold rounded-tr-sm shadow-md'
                         }`}>
-                          {msg.text}
+                          {renderFormattedMessage(msg.text, isAi)}
                         </div>
                         <div className={`text-[10px] font-mono px-1 ${
-                          isAi ? 'text-slate-500' : 'text-slate-400 text-right'
+                          isAi ? (isDark ? 'text-slate-400' : 'text-[#0f4c75]') : 'text-slate-400 text-right'
                         }`}>
                           {msg.timestamp}
                         </div>
@@ -256,12 +328,12 @@ export default function AiAssistantDrawer() {
                 {loading && (
                   <div className="flex gap-3 max-w-[90%] mr-auto">
                     <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 ${
-                      isDark ? 'bg-[#00e5ff]/10 border-[#00e5ff]/30 text-[#00e5ff]' : 'bg-[#e0f2fe] border-[#0284c7]/30 text-[#0284c7]'
+                      isDark ? 'bg-[#0284c7]/10 border-[#0284c7]/30 text-[#38bdf8]' : 'bg-white/80 border-white/90 text-[#0284c7]'
                     }`}>
                       <RiRobot3Fill className="w-4 h-4" />
                     </div>
                     <div className={`p-3.5 rounded-2xl text-xs font-mono flex items-center gap-2 ${
-                      isDark ? 'bg-[#031729] border border-[#0077b6]/30 text-[#00e5ff]' : 'bg-slate-100 border border-slate-200 text-[#0284c7]'
+                      isDark ? 'bg-[#031729] border border-[#0077b6]/30 text-[#38bdf8]' : 'bg-white/70 border border-white/90 text-[#0284c7]'
                     }`}>
                       <CgSpinner className="w-4 h-4 animate-spin" />
                       <span>{t.chatbot.processing}</span>
@@ -272,9 +344,9 @@ export default function AiAssistantDrawer() {
 
               {/* Quick Prompt Suggestion Chips */}
               <div className={`px-5 py-3 border-t overflow-x-auto no-scrollbar flex items-center gap-2 text-xs font-mono shrink-0 ${
-                isDark ? 'border-[#0077b6]/20 bg-[#000610]/40' : 'border-slate-200 bg-slate-50'
+                isDark ? 'border-[#0077b6]/20 bg-[#000610]/40' : 'border-white/60 bg-white/40'
               }`}>
-                <span className={`shrink-0 text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                <span className={`shrink-0 text-[11px] font-bold ${isDark ? 'text-slate-400' : 'text-[#0f4c75]'}`}>
                   {t.chatbot.suggestionLabel}
                 </span>
                 {t.chatbot.chips.map((chipText: string) => (
@@ -283,10 +355,10 @@ export default function AiAssistantDrawer() {
                     type="button"
                     onClick={() => sendMessage(chipText)}
                     disabled={loading}
-                    className={`shrink-0 px-3 py-1 rounded-full border text-[11px] transition-all whitespace-nowrap ${
+                    className={`shrink-0 px-3 py-1 rounded-full border text-[11px] font-semibold transition-all whitespace-nowrap ${
                       isDark
-                        ? 'border-[#0077b6]/30 bg-[#031729]/60 text-slate-300 hover:border-[#00e5ff]/50 hover:text-white'
-                        : 'border-slate-300 bg-white text-slate-700 hover:border-[#0284c7]/50 hover:text-[#0284c7]'
+                        ? 'border-[#0077b6]/30 bg-[#031729]/60 text-slate-300 hover:border-[#0284c7]/50 hover:text-white'
+                        : 'border-white/80 bg-white/70 text-[#032b43] hover:border-white hover:text-[#0284c7] hover:bg-white shadow-sm'
                     }`}
                   >
                     {chipText}
@@ -298,7 +370,7 @@ export default function AiAssistantDrawer() {
               <form
                 onSubmit={handleFormSubmit}
                 className={`p-4 border-t flex items-center gap-2 shrink-0 ${
-                  isDark ? 'border-[#0077b6]/30 bg-[#010d1f]' : 'border-slate-200 bg-white'
+                  isDark ? 'border-[#0077b6]/30 bg-[#010d1f]' : 'border-white/80 bg-white/60'
                 }`}
               >
                 <input
@@ -307,10 +379,10 @@ export default function AiAssistantDrawer() {
                   onChange={(e) => setInputMsg(e.target.value)}
                   placeholder={t.chatbot.placeholder}
                   disabled={loading}
-                  className={`flex-1 px-4 py-3 rounded-2xl border text-xs sm:text-sm outline-none font-sans transition-colors ${
+                  className={`flex-1 px-4 py-3 rounded-2xl border text-xs sm:text-sm outline-none font-sans font-medium transition-colors ${
                     isDark
-                      ? 'bg-[#000610] border-[#0077b6]/30 text-white placeholder-slate-500 focus:border-[#00e5ff]'
-                      : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#0284c7]'
+                      ? 'bg-[#000610] border-[#0077b6]/30 text-white placeholder-slate-500 focus:border-[#38bdf8]'
+                      : 'bg-white/70 border-white/90 text-[#032b43] placeholder-slate-500 focus:border-[#0284c7] focus:bg-white'
                   }`}
                 />
                 <button
@@ -319,7 +391,7 @@ export default function AiAssistantDrawer() {
                   className={`px-4 py-3 rounded-2xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all ${
                     inputMsg.trim() && !loading
                       ? isDark
-                        ? 'bg-gradient-to-r from-[#00e5ff] to-[#0077b6] text-[#000610]'
+                        ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6] text-white'
                         : 'bg-[#0284c7] text-white shadow-md'
                       : isDark
                         ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'

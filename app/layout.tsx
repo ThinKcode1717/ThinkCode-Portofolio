@@ -24,33 +24,38 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'ThinkCode | Full Stack Developer & Submarine Tech Specialist',
-  description: 'Portofolio resmi ThinkCode - Lead Full Stack Engineer spesialis Next.js, WebGL, Go, dan Sistem Terdistribusi Beban Tinggi dengan tema visual kedalaman laut.',
+  title: 'ThinkCode | Senior Full Stack Web Developer & AI Data Analyst',
+  description: 'Portofolio resmi Yoga Adi Pratama (ThinkCode) - Senior Full Stack Web Developer & AI Data Analyst spesialis React, Next.js, Node.js, Laravel, Python AI, dan Otomasi Web Scraping.',
   keywords: [
     'ThinkCode',
+    'Yoga Adi Pratama',
     'Full Stack Developer',
+    'AI Data Analyst',
     'Next.js Developer',
-    'WebGL Engineer',
-    'Go Developer',
-    'Portofolio Developer Indonesia',
-    'Underwater Portfolio',
-    'React 19',
-    'TypeScript'
+    'React Developer',
+    'Laravel Developer',
+    'Web Scraping Specialist',
+    'Portofolio Developer Indonesia'
   ],
-  authors: [{ name: 'ThinkCode' }],
+  authors: [{ name: 'Yoga Adi Pratama (ThinkCode)' }],
   creator: 'ThinkCode',
   metadataBase: new URL('https://thinkcode.dev'),
+  icons: {
+    icon: '/logo_nobg.png',
+    shortcut: '/logo_nobg.png',
+    apple: '/logo_nobg.png',
+  },
   openGraph: {
-    title: 'ThinkCode | Full Stack Developer',
-    description: 'Portofolio resmi ThinkCode - Full Stack Engineer spesialis Next.js, WebGL, dan Sistem Kedalaman Terdistribusi.',
+    title: 'ThinkCode | Senior Full Stack Web Developer & AI Data Analyst',
+    description: 'Portofolio resmi Yoga Adi Pratama (ThinkCode) - Senior Full Stack Web Developer & AI Data Analyst.',
     url: 'https://thinkcode.dev',
     siteName: 'ThinkCode Portfolio',
     images: [
       {
-        url: '/profile.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'ThinkCode Profile Avatar'
+        url: '/logo_nobg.png',
+        width: 512,
+        height: 512,
+        alt: 'ThinkCode Logo'
       }
     ],
     locale: 'id_ID',
@@ -58,9 +63,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ThinkCode | Full Stack Developer',
-    description: 'Full Stack Engineer & WebGL Specialist',
-    images: ['/profile.jpg'],
+    title: 'ThinkCode | Senior Full Stack Web Developer',
+    description: 'Senior Full Stack Web Developer & AI Data Analyst',
+    images: ['/logo_nobg.png'],
   },
   robots: {
     index: true,

@@ -1,3 +1,5 @@
+import { THINKCODE_DATA, Project, Testimonial, ServicePackage, Experience } from './data';
+
 export type Language = 'id' | 'en';
 
 export const TRANSLATIONS = {
@@ -13,8 +15,12 @@ export const TRANSLATIONS = {
     },
     hero: {
       greeting: "Halo, Saya",
-      role: "Full Stack Developer",
-      tagline: "Merancang sistem web berperforma tinggi, dari database hingga antarmuka pengguna",
+      role: "Full Stack Web Developer & AI Data Analyst",
+      roles: ["Web Developer", "AI Automation", "Data Analyst"],
+      tagline: "Merancang Aplikasi Web Berperforma Tinggi & Mengintegrasikan Solusi AI yang Efisien",
+      fullTagline: "Merancang arsitektur full-stack yang tangguh, sistem web berkinerja tinggi, dan integrasi AI yang efisien.",
+      clientBio: "Saya membantu bisnis dan institusi membangun solusi digital yang efisien, mulai dari landing page interaktif, platform e-commerce & travel, hingga sistem informasi inventory dan otomasi data.",
+      startProject: "Mulai Proyek Sekarang",
       viewWork: "Lihat Proyek Unggulan",
       talkAi: "Tanya Asisten AI",
       diveDeeper: "Jelajahi Lebih Lanjut",
@@ -24,10 +30,12 @@ export const TRANSLATIONS = {
       titlePre: "Developer yang Menulis Kode",
       titleHighlight: "Sekaligus Memikirkan Arsitekturnya",
       subtitle: "Memahami perangkat lunak dari layer database hingga piksel terakhir di layar dengan presisi dan standar tinggi.",
-      cardTitle: "Filosofi & Arsitektur",
+      cardTitle: "Filosofi & Arsitektur System",
+      bio: "Senior Full-Stack Web Developer yang berfokus pada pengembangan aplikasi web performa tinggi, analisis data, kecerdasan buatan (Machine Learning & Deep Learning), serta otomasi web scraping.",
+      deepBio: "Pengalaman merancang arsitektur sistem dari nol hingga deployment produksi. Berpengalaman membangun REST API, model hybrid ARIMA-LSTM untuk prediksi stok, crawler dokumen otomatis, serta antarmuka modern yang cepat, responsif, dan mudah dirawat.",
       base: "Lokasi",
       status: "Status Kerja",
-      statusVal: "Tersedia untuk Proyek",
+      statusVal: "Tersedia untuk Proyek & Kontrak",
       years: "Tahun Pengalaman",
       projects: "Proyek Selesai",
       loc: "Baris Kode",
@@ -39,6 +47,21 @@ export const TRANSLATIONS = {
       titleHighlight: "yang Saya Gunakan",
       subtitle: "Teknologi teruji untuk membangun sistem dari 0 hingga 1M+ pengguna aktif.",
       all: "Semua",
+      verifiedStack: "Stack Terverifikasi",
+      clickCollapse: "Klik untuk ciutkan",
+      clickExpand: "Klik untuk buka",
+      githubNotice: "Seluruh keahlian di atas diimplementasikan pada akun ThinKcode1717 & think-dev01.",
+      viewRepos: "Lihat Repositori",
+      verifiedCaseStudy: "Proyek Terverifikasi & Studi Kasus",
+    },
+    services: {
+      badge: "Solusi & Kapabilitas Teknik",
+      titlePre: "Kapabilitas Rekayasa",
+      titleHighlight: "Sistem & Otomasi",
+      subtitle: "Pilih bidang rekayasa di bawah ini untuk melihat detail kapabilitas teknis & alur pengerjaan spesifiknya.",
+      cta: "Diskusikan Solusi Ini",
+      workflowTitle: "Siklus Collab & Alur Pengerjaan Spesifik",
+      workflowSubtitle: "Tahapan rekayasa terstruktur khusus untuk kategori sistem yang dipilih.",
     },
     projects: {
       badge: "Proyek Pilihan",
@@ -51,11 +74,30 @@ export const TRANSLATIONS = {
       code: "Kode Sumber",
       usedTech: "Teknologi yang Digunakan",
     },
+    projectModal: {
+      category: "Kategori",
+      businessImpact: "Dampak Bisnis & Hasil",
+      keyMetrics: "Metrics Utama",
+      techSpecs: "Spesifikasi & Stack",
+      liveDemo: "Lihat Live Product",
+      sourceCode: "Kode Sumber",
+      close: "Tutup Modal",
+      screenshotsTitle: "Pratinjau Antarmuka & Dashboard",
+    },
     experience: {
       badge: "Perjalanan Karir",
       titlePre: "Pengalaman &",
       titleHighlight: "Pencapaian",
-      subtitle: "Kronologi peran, terobosan teknik, dan pencapaian utama selama 5+ tahun.",
+      subtitle: "Kronologi peran, terobosan teknik, dan pencapaian utama selama 3+ tahun.",
+    },
+    testimonials: {
+      badge: "Klien & Testimonial",
+      titlePre: "Hasil Nyata,",
+      titleHighlight: "Klien Puas",
+      subtitle: "Dampak nyata pada efisiensi sistem dan pertumbuhan bisnis klien.",
+      clientsServed: "Klien Dilayani",
+      satisfactionRate: "Tingkat Kepuasan",
+      responseTime: "Response Time",
     },
     chatbot: {
       badge: "AI Assistant",
@@ -96,13 +138,25 @@ export const TRANSLATIONS = {
       submitBtn: "Kirim Pesan",
       successTitle: "Pesan Terkirim!",
       successMsg: "Terima kasih telah menghubungi. Saya akan merespons dalam waktu kurang dari 24 jam.",
+      contractStatus: "Status: Open for Contracts",
+      responseSpeed: "Respon < 24 jam",
+      freeConsultation: "Konsultasi awal gratis",
+      sendAnother: "Kirim Pesan Lain",
     },
     footer: {
       copyright: "Hak cipta dilindungi undang-undang.",
-      seoTag: "Teroptimasi SEO · GEO · AEO",
       surface: "Kembali ke atas",
+    },
+
+    // Data Collections (Indonesian)
+    data: {
+      projects: THINKCODE_DATA.projects as Project[],
+      services: THINKCODE_DATA.services as ServicePackage[],
+      experiences: THINKCODE_DATA.experiences as Experience[],
+      testimonials: THINKCODE_DATA.testimonials as Testimonial[],
     }
   },
+
   en: {
     nav: {
       home: 'Home',
@@ -115,8 +169,12 @@ export const TRANSLATIONS = {
     },
     hero: {
       greeting: "Hello, I'm",
-      role: "Full Stack Developer",
-      tagline: "Architecting high-performance web systems: from database to user interface",
+      role: "Full Stack Web Developer & AI Data Analyst",
+      roles: ["Web Developer", "AI Automation", "Data Analyst"],
+      tagline: "Engineering High-Performance Web Applications & Integrating Efficient AI Solutions",
+      fullTagline: "Architecting resilient full-stack systems, high-speed web apps, and efficient AI workflows.",
+      clientBio: "I help businesses and institutions build efficient digital solutions, from interactive landing pages to e-commerce, travel platforms, and automated data pipelines.",
+      startProject: "Start a Project Now",
       viewWork: "View Selected Work",
       talkAi: "Talk to AI Assistant",
       diveDeeper: "Explore More",
@@ -126,10 +184,12 @@ export const TRANSLATIONS = {
       titlePre: "A Developer Who Writes Code",
       titleHighlight: "and Thinks Architecture",
       subtitle: "Understanding software from the core database layer up to the final pixel on screen with precision and high standards.",
-      cardTitle: "Philosophy & Architecture",
+      cardTitle: "System Philosophy & Architecture",
+      bio: "Senior Full-Stack Web Developer specializing in high-performance web applications, data analysis, artificial intelligence (Machine Learning & Deep Learning), and web scraping automation.",
+      deepBio: "Proven experience architecting software systems from ground up to production cloud deployment. Experienced in building REST APIs, hybrid ARIMA-LSTM models for inventory forecasting, recursive crawlers, and modern responsive interfaces.",
       base: "Location",
       status: "Work Status",
-      statusVal: "Available for Projects",
+      statusVal: "Available for Projects & Contracts",
       years: "Years Experience",
       projects: "Projects Completed",
       loc: "Lines of Code",
@@ -141,6 +201,21 @@ export const TRANSLATIONS = {
       titleHighlight: "I Work With",
       subtitle: "Battle-tested technologies for scaling systems from 0 to 1M+ active users.",
       all: "All",
+      verifiedStack: "Verified Stack",
+      clickCollapse: "Click to collapse",
+      clickExpand: "Click to expand",
+      githubNotice: "All skills above are implemented in active accounts ThinKcode1717 & think-dev01.",
+      viewRepos: "View Repositories",
+      verifiedCaseStudy: "Verified Projects & Case Studies",
+    },
+    services: {
+      badge: "Solutions & Engineering Capabilities",
+      titlePre: "System Engineering &",
+      titleHighlight: "Automation Capabilities",
+      subtitle: "Select an engineering discipline below to view tailored technical capabilities & specific workflow lifecycles.",
+      cta: "Discuss This Solution",
+      workflowTitle: "Collaboration & Case-Specific Engineering Workflow",
+      workflowSubtitle: "Tailored engineering phases designed specifically for the selected capability.",
     },
     projects: {
       badge: "Selected Work",
@@ -153,11 +228,30 @@ export const TRANSLATIONS = {
       code: "Source Code",
       usedTech: "Technologies Used",
     },
+    projectModal: {
+      category: "Category",
+      businessImpact: "Business Impact & Outcome",
+      keyMetrics: "Key Metrics",
+      techSpecs: "Technical Specs & Stack",
+      liveDemo: "Live Product",
+      sourceCode: "Source Code",
+      close: "Close Modal",
+      screenshotsTitle: "Interface & Dashboard Previews",
+    },
     experience: {
       badge: "Career Journey",
       titlePre: "Experience &",
       titleHighlight: "Achievements",
-      subtitle: "A chronological timeline of roles, engineering breakthroughs, and key achievements over 5+ years.",
+      subtitle: "A chronological timeline of engineering roles, system breakthroughs, and key achievements over 3+ years.",
+    },
+    testimonials: {
+      badge: "Clients & Testimonials",
+      titlePre: "Real Results,",
+      titleHighlight: "Satisfied Clients",
+      subtitle: "Tangible impact on system efficiency and client business growth.",
+      clientsServed: "Clients Served",
+      satisfactionRate: "Satisfaction Rate",
+      responseTime: "Response Time",
     },
     chatbot: {
       badge: "AI Assistant",
@@ -198,11 +292,283 @@ export const TRANSLATIONS = {
       submitBtn: "Send Message",
       successTitle: "Message Sent!",
       successMsg: "Thank you for reaching out. I will respond within 24 hours.",
+      contractStatus: "Status: Open for Contracts",
+      responseSpeed: "Response < 24 hrs",
+      freeConsultation: "Free initial consultation",
+      sendAnother: "Send Another Message",
     },
     footer: {
       copyright: "All rights reserved.",
-      seoTag: "SEO · GEO · AEO Optimized",
       surface: "Back to top",
+    },
+
+    // Data Collections (English Translations)
+    data: {
+      projects: [
+        {
+          id: "google-maps-scraper",
+          title: "Google Maps Scraper Web Platform",
+          category: "Automation & Scraper",
+          description: "Web scraping platform for local Google Maps business data with real-time Leaflet map & AI outreach analysis.",
+          longDescription: "A web scraping platform for extracting local business data from Google Maps (Node.js/TypeScript & React) built for lead generation, covering 70+ cities and 30+ business keywords. Features real-time Leaflet/OpenStreetMap business distribution mapping with auto-zoom, 'Web Opportunity' prospect classification, and Groq AI (Llama 3.3 70B) integration for digital gap analysis and personalized WhatsApp/Instagram outreach drafting. Includes technical docs & Docker Compose, PM2, and Nginx deployment.",
+          tags: ["Node.js", "TypeScript", "React", "Leaflet", "Groq AI (Llama 3.3)", "Docker", "Nginx"],
+          metrics: "70+ Cities · 30+ Niche · Auto Lead Gen",
+          businessImpact: "Accelerates local business lead research and automates personalized outreach proposal drafting",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: true,
+          year: "2026"
+        },
+        {
+          id: "black-ant-academy",
+          title: "Black Ant Academy Website",
+          category: "Web Apps",
+          description: "Official martial arts academy website with multi-discipline interactive schedule and Anty Virtual Assistant.",
+          longDescription: "Engineered the official martial arts academy website (Muay Thai, Kickboxing, Boxing, MMA, BJJ, Wushu Sanda) using React 18, TypeScript, and Vite. Developed multi-discipline program pages, interactive training schedule (filtered per discipline, 3 daily time slots), membership packages, free trial booking, floating 'Anty' Virtual Assistant widget connected directly to WhatsApp, and bilingual (ID/EN) dark/light mode support.",
+          tags: ["React 18", "TypeScript", "Vite", "React Router", "WhatsApp Widget", "Framer Motion"],
+          metrics: "6 Disciplines · 3 Daily Slots · Dark Mode",
+          businessImpact: "Increased free trial bookings and prospective member conversions for the academy",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: true,
+          year: "2026"
+        },
+        {
+          id: "holidaybro-travel",
+          title: "HolidayBro Tour & Travel Web App",
+          category: "Travel & E-Commerce",
+          description: "Tour package catalog web app for Jogja, Bromo, & Bali with AI Travel Assistant Chatbot.",
+          longDescription: "A tour package web application for Yogyakarta, Mount Bromo, and Bali built with React 18, TypeScript, Tailwind CSS, and Framer Motion. Engineered advanced search & filter features (destination, duration, category), hourly itinerary breakdowns, booking modal, AI travel assistant chatbot, floating WhatsApp widget with auto pre-filled messages, and real-time 3-language support (Indonesian, English, Mandarin).",
+          tags: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "AI Travel Assistant", "Multilingual"],
+          metrics: "3 Key Destinations · 3 Languages · AI Assistant",
+          businessImpact: "Accelerates tour package bookings and provides 24/7 AI-driven travel consultation services",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: true,
+          year: "2026"
+        },
+        {
+          id: "sipia-portal",
+          title: "SIPIA - Islamic Academy Portal",
+          category: "Education",
+          description: "Full-stack school management platform with 3 portals (Admin, Teacher, Parent) & Tahfidz module.",
+          longDescription: "Full-stack school management platform (React + TypeScript, Node.js/Express, PostgreSQL) with mobile-first dedicated portals for Admin, Teachers, and Parents. Designed JWT authentication with registration moderation, Quran memorization tracking module (Tahfidz Ziyadah/Murajaah), daily attendance, 4-aspect early childhood development evaluations, and Neon Serverless PostgreSQL schema.",
+          tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT Auth"],
+          metrics: "3 Role Portals · Tahfidz Module · Mobile First",
+          businessImpact: "Digitized Quran memorization monitoring and school-parent communication transparency",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: true,
+          year: "2026"
+        },
+        {
+          id: "sakip-crawler",
+          title: "SAKIP Document Crawler System",
+          category: "Automation & Scraper",
+          description: "Recursive government SAKIP document crawling & digitization system with real-time log visualization.",
+          longDescription: "Development of a recursive, automated government SAKIP performance document crawling & digitization system (React/TypeScript, Node.js/Express, PostgreSQL). Built crawler engine with depth control, rate limiting, real-time download log visualization for multi-format docs (PDF, Word, Excel, PPT), multi-role HTTP-Only cookie JWT auth, and AI document summarization features.",
+          tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "AI Summarizer", "Web Crawler"],
+          metrics: "Multi-Format Crawl · Real-Time Logs · Role Auth",
+          businessImpact: "Significantly reduces time spent searching & archiving government SAKIP records",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: false,
+          year: "2026"
+        },
+        {
+          id: "sit-mukhlisiin",
+          title: "SIT Mukhlisiin Landing Page",
+          category: "Education",
+          description: "Official Integrated Islamic School landing page with adaptive PPDB navigation & Motion animations.",
+          longDescription: "Official landing page for SIT Mukhlisiin (Kindergarten, Elementary, Junior High) using React 19, TypeScript, and Tailwind CSS v4 with Motion animations. Developed institutional profile pages, integrated curriculum highlights, facility galleries, adaptive PPDB dropdown navigation (click-outside & z-index fix), and hero carousel layout stability.",
+          tags: ["React 19", "TypeScript", "Tailwind CSS v4", "Motion", "UX Design"],
+          metrics: "3 Education Levels · PPDB Ready · 0 Layout Shift",
+          businessImpact: "Enhanced readability of admissions info and elevated digital institutional brand image",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: false,
+          year: "2026"
+        },
+        {
+          id: "si-kurowesi",
+          title: "SI KuroWesi & AI Forecasting API",
+          category: "AI Models",
+          description: "Full-stack workshop inventory system integrated with Python hybrid ARIMA-LSTM stock forecasting microservice.",
+          longDescription: "Full-stack web inventory application for Kurowesi Workshop (Laravel backend, Vue.js + TypeScript frontend, Tailwind CSS, shadcn/ui). Integrated with a separate Python REST API microservice based on a hybrid ARIMA-LSTM model (Docker containerized) providing real-time stock demand forecasting. Achieved 100% inventory digital efficiency and eliminated overstock purchasing costs (83.5% ML accuracy).",
+          tags: ["Laravel", "Vue.js", "TypeScript", "Python", "ARIMA-LSTM", "Docker", "shadcn/ui"],
+          metrics: "100% Stock Efficiency · 83.5% ML Accuracy",
+          businessImpact: "Eliminated overstock workshop expenses and automated inventory replenishment monitoring",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: true,
+          year: "2025"
+        },
+        {
+          id: "sipinter-library",
+          title: "SIPINTER - Digital Library System",
+          category: "Web Apps",
+          description: "Digital library information system for government institutions.",
+          longDescription: "Built the SIPINTER digital library web application using Laravel 8 & MySQL to replace manual record-keeping. Designed member management, multi-category book catalogs, business lending rules (max 3 books, 7 days, fine calculation), automated email due date reminders, and e-book / print loan history modules.",
+          tags: ["Laravel 8", "MySQL", "Bootstrap/Tailwind", "Email Reminders", "PDF Export"],
+          metrics: "100% Digitalization · Email Alerts · Govt Inst.",
+          businessImpact: "Replaced manual library logbooks with an accurate, automated digital management system",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: false,
+          year: "2023"
+        },
+        {
+          id: "brain-tumor-dnn",
+          title: "Brain Tumor Medical Image Classification",
+          category: "AI Models",
+          description: "Medical DICOM CT Scan/MRI brain image classification using Deep Neural Networks (DNN).",
+          longDescription: "Medical image classification (CT Scan/MRI) in DICOM format using Deep Neural Network (DNN) methods. Conducted dataset preprocessing (augmentation, normalization, resizing), trained and evaluated DNN models using TensorFlow & Keras reaching 87.5% test accuracy, and optimized hyperparameters to minimize overfitting.",
+          tags: ["Python", "TensorFlow", "Keras", "Deep Neural Network", "DICOM", "Data Science"],
+          metrics: "87.5% Test Accuracy · Medical Image Processing",
+          businessImpact: "Created an automated AI-assisted diagnostic prototype for medical imaging analysis",
+          image: "/profile.jpg",
+          githubUrl: "https://github.com/ThinKcode1717",
+          featured: false,
+          year: "2024"
+        }
+      ] as Project[],
+
+      services: [
+        {
+          id: "web-dev-fullstack",
+          name: "Full-Stack Web Development",
+          tagline: "Modern, responsive, production-ready web applications",
+          icon: "Rocket",
+          timeline: "2–4 weeks",
+          ideal: "Businesses, institutions, academies, or SMBs needing custom web software",
+          deliverables: [
+            "Custom React/Vue/Laravel/Node.js web application",
+            "Design system & mobile-first responsive UI",
+            "Multi-role authentication system (JWT / Cookie)",
+            "PostgreSQL / MySQL database integration",
+            "Production deployment (Vercel / VPS Linux with Nginx + PM2)",
+            "Post-launch support & system maintenance"
+          ],
+          cta: "Discuss Project"
+        },
+        {
+          id: "web-scraping-ai",
+          name: "Web Scraping & Data Automation",
+          tagline: "Automated data extraction & AI-driven processing pipelines",
+          icon: "Layers",
+          timeline: "1–3 weeks",
+          ideal: "Businesses requiring B2B lead gen, document digitization, or market intelligence",
+          deliverables: [
+            "Recursive web crawlers & scrapers (Puppeteer, Cheerio)",
+            "Rate limiting & anti-bot protection handling",
+            "Map visualization (Leaflet) & data analytics (Pandas/NumPy)",
+            "LLM AI integration (Groq Llama 3.3) for extraction & outreach",
+            "Docker containerization & automated cron schedulers",
+            "Comprehensive API documentation & operational guide"
+          ],
+          cta: "Start Automation"
+        },
+        {
+          id: "ai-integration-ml",
+          name: "AI & Stock Forecasting Microservices",
+          tagline: "Machine learning & AI models tailored for business intelligence",
+          icon: "Building2",
+          timeline: "3–6 weeks",
+          ideal: "Companies with time-series data, inventory tracking, or classification needs",
+          deliverables: [
+            "Custom ML/DL model engineering (TensorFlow, Keras, ARIMA-LSTM)",
+            "Python REST API microservices (Flask/FastAPI)",
+            "Integration with core web systems (Vue/React/Laravel)",
+            "Docker containerization for effortless cloud deployment",
+            "Model accuracy evaluation metrics (MAE, RMSE, R²)",
+            "Model maintenance & retraining guidelines"
+          ],
+          cta: "Consult AI"
+        }
+      ] as ServicePackage[],
+
+      experiences: [
+        {
+          period: "APRIL 2026 — PRESENT",
+          role: "Freelance Web Developer",
+          company: "Self-Employed",
+          location: "Surabaya, Indonesia (Remote)",
+          type: "Freelance / Contract",
+          description: "Architecting and developing custom full-stack web applications based on client specifications, from requirements engineering, database schema design, and web scraping automation to cloud production deployment.",
+          highlights: [
+            "Engineered Google Maps web scraper platform (Node.js/React/Leaflet) & Groq AI outreach (70+ cities)",
+            "Built Black Ant Academy (React 18) & HolidayBro Tour (3 languages) integrated with AI Assistant",
+            "Architected SIPIA school management platform (React, Express, PostgreSQL) with 3 portal roles & Tahfidz tracker",
+            "Developed SAKIP recursive document crawler system with real-time log visualization & AI summarizer"
+          ]
+        },
+        {
+          period: "MAY 2025 — JULY 2025",
+          role: "Web Developer & AI Integrator",
+          company: "Kurowesi Workshop",
+          location: "East Java, Indonesia",
+          type: "Contract Project",
+          description: "Engineered a full-stack web inventory application integrated with a Python REST API microservice utilizing a hybrid ARIMA-LSTM model for real-time stock forecasting.",
+          highlights: [
+            "Built SI KuroWesi inventory app (Laravel + Vue.js + shadcn/ui) for automated stock tracking",
+            "Integrated Python ARIMA-LSTM REST API microservice (Docker containerized) for stock forecasting",
+            "Achieved 100% stock tracking digital efficiency with an 83.5% average ML model forecasting accuracy"
+          ]
+        },
+        {
+          period: "JULY 2023 — OCTOBER 2023",
+          role: "IT Support Intern & Web Developer",
+          company: "Digital Library Project",
+          location: "Surabaya, Indonesia",
+          type: "Internship",
+          description: "Designed and built the SIPINTER digital library web system to replace manual record-keeping and digitize institutional book archives.",
+          highlights: [
+            "Developed SIPINTER web application using Laravel 8 & MySQL to digitize manual library records",
+            "Designed clean database schemas & intuitive UI/UX, digitizing institutional book archives",
+            "Implemented borrowing business rules, automated email due date reminders, and printable history logs"
+          ]
+        }
+      ] as Experience[],
+
+      testimonials: [
+        {
+          id: "t1",
+          name: "Kurowesi Auto Owner",
+          role: "Owner",
+          company: "Kurowesi Workshop",
+          industry: "Automotive & Retail",
+          avatar: "/profile.jpg",
+          rating: 5,
+          quote: "The SI KuroWesi inventory system built by Yoga revolutionized our stock tracking. The AI stock forecasting feature is incredibly accurate, preventing costly inventory overstocking.",
+          project: "SI KuroWesi Inventory & AI Forecasting API",
+          result: "100% digital stock tracking, eliminated overstock purchasing costs"
+        },
+        {
+          id: "t2",
+          name: "SIT Mukhlisiin School Board",
+          role: "Head of Institution",
+          company: "SIT Mukhlisiin",
+          industry: "Education",
+          avatar: "/profile.jpg",
+          rating: 5,
+          quote: "The school landing page built by Yoga is elegant, ultra-fast, and the dropdown system for student admissions (PPDB) is highly responsive on both mobile and desktop. Parents love it.",
+          project: "Official SIT Mukhlisiin Landing Page",
+          result: "Professional brand representation for 3 education levels & increased admission inquiries"
+        },
+        {
+          id: "t3",
+          name: "Black Ant Academy Coaching Team",
+          role: "Head Coach",
+          company: "Black Ant Academy",
+          industry: "Sports & Fitness",
+          avatar: "/profile.jpg",
+          rating: 5,
+          quote: "The interactive schedule and Virtual Assistant Anty connected directly to our WhatsApp allow prospective members to inquire and book free trials effortlessly.",
+          project: "Black Ant Academy Official Website",
+          result: "Dramatic increase in free trial conversions via seamless WhatsApp AI integration"
+        }
+      ] as Testimonial[]
     }
   }
 };
+

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { THINKCODE_DATA } from '@/lib/data';
+import { getLocalSchemaReply } from '@/lib/aiSchemaRouter';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
@@ -9,7 +10,6 @@ Your main duty is to provide accurate, polite, and professional information rega
 
 THINKCODE KNOWLEDGE BASE:
 - Full Name: ${THINKCODE_DATA.name} (Brand / Alias: ${THINKCODE_DATA.brandName})
-- Education: ${THINKCODE_DATA.education}
 - Role: ${THINKCODE_DATA.role}
 - Tagline: ${THINKCODE_DATA.tagline}
 - Summary Bio: ${THINKCODE_DATA.bio}
@@ -53,17 +53,33 @@ STRICT SCOPE GUARDRAILS:
 3. Respond in ${lang === 'en' ? 'ENGLISH' : 'INDONESIAN'} language clearly, politely, and professionally.
 `;
 
+// Priority ordered free Groq models for automatic failover on rate limits / quota exhaustion
+const GROQ_FREE_FALLBACK_MODELS = [
+  'llama-3.3-70b-versatile', // Priority 1: High intelligence (1K RPD / 100K TPD)
+  'llama-3.1-8b-instant',    // Priority 2: Ultra-fast & High Quota (14.4K RPD / 500K TPD)
+  'qwen/qwen3.6-27b',        // Priority 3: Qwen 27B (1K RPD / 200K TPD)
+  'allam-2-7b',              // Priority 4: Allam 7B (7K RPD / 500K TPD)
+  'openai/gpt-oss-120b',     // Priority 5: GPT-OSS 120B (1K RPD / 200K TPD)
+  'groq/compound-mini'       // Priority 6: High Token Limit (70K TPM / No limit TPD)
+];
+
 export async function POST(req: Request) {
-  let activeLang = 'id';
+  let activeLang: 'id' | 'en' = 'id';
   try {
     const body = await req.json();
     const { message, lang } = body;
-    if (lang && typeof lang === 'string') {
+    if (lang === 'en' || lang === 'id') {
       activeLang = lang;
     }
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json({ error: 'Pesan tidak valid' }, { status: 400 });
+    }
+
+    // 1. Check Local Pre-routing Schema (Sub-millisecond resolution, 0 API quota used)
+    const localCheck = getLocalSchemaReply(message, activeLang);
+    if (localCheck.matched) {
+      return NextResponse.json({ reply: localCheck.reply, source: 'schema' });
     }
 
     const apiKey = process.env.GROQ_API_KEY;
@@ -73,47 +89,63 @@ export async function POST(req: Request) {
       return NextResponse.json({
         reply: activeLang === 'en'
           ? "The AI assistant is operating in offline mode. Please configure GROQ_API_KEY."
-          : "Asisten AI sedang beroperasi dalam mode offline. Harap konfigurasi GROQ_API_KEY."
+          : "Asisten AI sedang beroperasi dalam mode offline. Harap konfigurasi GROQ_API_KEY.",
+        source: 'schema'
       });
     }
 
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: getSystemPrompt(activeLang) },
-          { role: 'user', content: message }
-        ],
-        temperature: 0.3,
-        max_tokens: 600
-      })
+    // 2. Multi-Model Failover Loop: Iterate through free Groq models if Rate Limit (HTTP 429) occurs
+    let lastError = '';
+    for (const modelName of GROQ_FREE_FALLBACK_MODELS) {
+      try {
+        const response = await fetch(GROQ_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: modelName,
+            messages: [
+              { role: 'system', content: getSystemPrompt(activeLang) },
+              { role: 'user', content: message }
+            ],
+            temperature: 0.3,
+            max_tokens: 600
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const reply = data.choices?.[0]?.message?.content;
+          if (reply) {
+            return NextResponse.json({ reply, source: 'groq', modelUsed: modelName });
+          }
+        }
+
+        // If rate limit (429) or model error occurs, log warning and failover to next free model
+        const errorText = await response.text();
+        lastError = errorText;
+        console.warn(`Groq Model [${modelName}] failover trigger (${response.status}):`, errorText);
+      } catch (modelErr) {
+        console.warn(`Groq Model [${modelName}] exception:`, modelErr);
+      }
+    }
+
+    console.error('All Groq free models exhausted or rate limited:', lastError);
+    return NextResponse.json({
+      reply: activeLang === 'en'
+        ? "All AI models are currently at maximum daily usage limits. Please try asking portfolio questions!"
+        : "Seluruh model AI sedang mencapai batas kuota harian. Silakan tanyakan hal seputar portofolio!",
+      source: 'schema'
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Groq API Error:', errorText);
-      return NextResponse.json({
-        reply: activeLang === 'en'
-          ? "Sorry, an error occurred while processing the AI response. Please try again in a moment."
-          : "Maaf, terjadi kendala saat memproses respon AI. Silakan coba beberapa saat lagi."
-      });
-    }
-
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || "Maaf, tidak ada respon yang diterima.";
-
-    return NextResponse.json({ reply });
   } catch (error) {
     console.error('Chat API Handler Error:', error);
     return NextResponse.json({
       reply: activeLang === 'en'
-        ? "Sorry, the AI system is currently at extreme depths. Please try again later."
-        : "Maaf, sistem AI sedang berada di kedalaman ekstrim. Silakan coba lagi nanti."
+        ? "Sorry, the AI system is currently unavailable. Please try again later."
+        : "Maaf, sistem AI sedang tidak dapat diakses saat ini. Silakan coba lagi nanti.",
+      source: 'schema'
     }, { status: 500 });
   }
 }

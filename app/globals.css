@@ -7,15 +7,16 @@
   --bg-ocean-marine: #031729;
   --bg-ocean-surface: #042540;
 
-  /* Brand Colors */
-  --color-biolum-cyan: #00e5ff;
-  --color-deep-aqua: #00b4d8;
+  /* Brand Colors — Deep Ocean Palette */
+  --color-biolum-cyan: #0284c7;
+  --color-deep-aqua: #0096c7;
   --color-sapphire-blue: #0077b6;
+  --color-marine-teal: #0f766e;
   --color-deep-navy: #001220;
 
-  /* Accent — Electric Purple for AI/tech */
-  --color-electric-purple: #7c3aed;
-  --color-purple-dim: #4c1d95;
+  /* Accent — Deep Marine Accent */
+  --color-electric-purple: #0f766e;
+  --color-purple-dim: #04395e;
 
   /* Semantic */
   --color-success: #10b981;
@@ -53,8 +54,8 @@ body {
   border: 1px solid #000308;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f0ff;
-  box-shadow: 0 0 12px #00f0ff;
+  background: #0284c7;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
 }
 
 /* Utility to hide scrollbars for horizontal filter pills on mobile */

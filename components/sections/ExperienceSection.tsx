@@ -61,7 +61,7 @@ export default function ExperienceSection() {
           }`} />
 
           <div className="space-y-6 sm:space-y-8">
-            {THINKCODE_DATA.experiences.map((exp, idx) => {
+            {t.data.experiences.map((exp, idx) => {
               const isEven = idx % 2 === 0;
               return (
                 <motion.div
@@ -77,10 +77,10 @@ export default function ExperienceSection() {
                   {/* Node Marker */}
                   <div className={`absolute left-4 sm:left-1/2 top-0 -translate-x-1/2 w-7 h-7 rounded-full border-2 flex items-center justify-center z-10 ${
                     isDark
-                      ? 'bg-[#000610] border-[#00e5ff] text-[#00e5ff]'
-                      : 'bg-white border-[#0284c7] text-[#0284c7] shadow-md'
+                      ? 'bg-[#000610] border-[#0284c7] text-[#38bdf8]'
+                      : 'bg-white border-[#0284c7] text-[#0284c7] shadow-lg shadow-[#0284c7]/20'
                   }`}>
-                    <span className={`w-2 h-2 rounded-full ${isDark ? 'bg-[#00e5ff]' : 'bg-[#0284c7]'}`} />
+                    <span className={`w-2 h-2 rounded-full ${isDark ? 'bg-[#38bdf8]' : 'bg-[#0284c7]'}`} />
                   </div>
 
                   {/* Experience Card */}
@@ -89,39 +89,39 @@ export default function ExperienceSection() {
                   }`}>
                     <div className={`rounded-2xl border p-5 backdrop-blur-xl transition-all duration-300 space-y-3 ${
                       isDark
-                        ? 'bg-[#031729]/40 border-[#0077b6]/30 hover:border-[#00e5ff]/40'
-                        : 'bg-white/80 border-slate-200 hover:border-[#0284c7]/40 hover:shadow-lg'
+                        ? 'bg-[#031729]/40 border-[#0077b6]/30 hover:border-[#0284c7]/40'
+                        : 'bg-white/40 border-white/60 shadow-xl shadow-[#0284c7]/15 hover:bg-white/55 hover:border-white/80'
                     }`}>
                       
                       <div className={`flex flex-wrap items-center justify-between gap-2 border-b pb-2 ${
-                        isDark ? 'border-[#0077b6]/20' : 'border-slate-200'
+                        isDark ? 'border-[#0077b6]/20' : 'border-white/40'
                       }`}>
-                        <span className={`text-[11px] font-mono font-semibold flex items-center gap-1 ${
-                          isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'
+                        <span className={`text-[11px] font-mono font-bold flex items-center gap-1 ${
+                          isDark ? 'text-[#38bdf8]' : 'text-[#0284c7]'
                         }`}>
                           <HiOutlineCalendar className="w-3 h-3" />
                           {exp.period}
                         </span>
-                        <span className={`text-[11px] font-mono flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                        <span className={`text-[11px] font-mono font-medium flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-[#0f4c75]'}`}>
                           <HiOutlineMapPin className="w-3 h-3" />
                           {exp.location}
                         </span>
                       </div>
 
                       <div>
-                        <h3 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{exp.role}</h3>
-                        <span className={`text-xs font-semibold ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`}>{exp.company}</span>
+                        <h3 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-[#032b43]'}`}>{exp.role}</h3>
+                        <span className={`text-xs font-bold ${isDark ? 'text-[#38bdf8]' : 'text-[#0284c7]'}`}>{exp.company}</span>
                       </div>
 
-                      <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                      <p className={`text-xs leading-relaxed font-medium ${isDark ? 'text-slate-300' : 'text-[#0c3559]'}`}>
                         {exp.description}
                       </p>
 
                       {/* Bullet Highlights */}
-                      <ul className={`space-y-1.5 pt-2 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-slate-200'}`}>
+                      <ul className={`space-y-1.5 pt-2 border-t ${isDark ? 'border-[#0077b6]/20' : 'border-white/40'}`}>
                         {exp.highlights.map((h, i) => (
-                          <li key={i} className={`text-[11px] font-mono flex items-start gap-1.5 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                            <HiOutlineCheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#00e5ff]' : 'text-[#0284c7]'}`} />
+                          <li key={i} className={`text-[11px] font-mono font-semibold flex items-start gap-1.5 ${isDark ? 'text-slate-300' : 'text-[#082846]'}`}>
+                            <HiOutlineCheckCircle className={`w-3 h-3 shrink-0 mt-0.5 ${isDark ? 'text-[#38bdf8]' : 'text-[#0284c7]'}`} />
                             <span>{h}</span>
                           </li>
                         ))}
