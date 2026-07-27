@@ -14,7 +14,7 @@ import {
   HiOutlineCloudArrowUp,
   HiOutlineWrenchScrewdriver,
   HiOutlineCommandLine,
-  HiOutlineAdjustmentsHorizontal,
+  HiOutlineFunnel,
   HiOutlineChevronDown
 } from 'react-icons/hi2';
 import { useApp } from '@/context/AppContext';
@@ -45,7 +45,7 @@ export default function ServicesSection() {
   const isEn = lang === 'en';
 
   const [activeTab, setActiveTab] = useState<'web' | 'automation' | 'ai'>('web');
-  const [mobileCategoryOpen, setMobileCategoryOpen] = useState<boolean>(false);
+  const [mobileTabOpen, setMobileTabOpen] = useState<boolean>(false);
 
   const cases: CaseStudyCapability[] = [
     {
@@ -285,41 +285,39 @@ export default function ServicesSection() {
           </motion.p>
         </div>
 
-        {/* ── 1. MOBILE CATEGORY SELECT DROPDOWN (sm:hidden - Fixes Clipping) ── */}
-        <div className="sm:hidden w-full mb-6 relative">
+        {/* ── 1. Glass Segmented Control Tab Selector (Mobile Dropdown vs Desktop Bar) ── */}
+        
+        {/* Mobile Category Dropdown Selector (Zero clipping on mobile) */}
+        <div className="sm:hidden relative w-full mb-6 z-30">
           <button
             type="button"
-            onClick={() => setMobileCategoryOpen(!mobileCategoryOpen)}
-            className={`w-full p-3.5 rounded-2xl border backdrop-blur-2xl flex items-center justify-between font-mono text-xs font-bold transition-all shadow-lg ${
+            onClick={() => setMobileTabOpen(!mobileTabOpen)}
+            className={`w-full px-4 py-3 rounded-2xl border backdrop-blur-2xl text-xs font-mono font-bold flex items-center justify-between transition-all ${
               isDark
-                ? 'bg-[#010d1a]/90 border-[#0077b6]/40 text-white'
-                : 'bg-white/90 border-slate-300 text-slate-900'
+                ? 'bg-[#010d1a]/95 border-[#0077b6]/40 text-white shadow-xl'
+                : 'bg-white/95 border-slate-300 text-slate-900 shadow-md'
             }`}
           >
-            <div className="flex items-center gap-2 truncate">
-              <HiOutlineAdjustmentsHorizontal className="w-4 h-4 text-[#38bdf8] shrink-0" />
-              <span className="text-slate-400">{isEn ? 'Capability:' : 'Kapabilitas:'}</span>
-              <span className={`px-2.5 py-0.5 rounded-md font-bold truncate ${
-                isDark ? 'bg-[#0284c7]/20 text-[#38bdf8]' : 'bg-[#e0f2fe] text-[#0284c7]'
-              }`}>
-                {cases.find((c) => c.id === activeTab)?.tabLabel}
-              </span>
+            <div className="flex items-center gap-2">
+              <HiOutlineFunnel className="w-4 h-4 text-[#38bdf8]" />
+              <span className="text-[#38bdf8] font-semibold">Kapabilitas:</span>
+              <span className="truncate max-w-[170px]">{activeCase.tabLabel}</span>
             </div>
-            <HiOutlineChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
-              mobileCategoryOpen ? 'rotate-180 text-[#38bdf8]' : 'text-slate-400'
+            <HiOutlineChevronDown className={`w-4 h-4 text-[#38bdf8] transition-transform duration-300 ${
+              mobileTabOpen ? 'rotate-180' : ''
             }`} />
           </button>
 
           <AnimatePresence>
-            {mobileCategoryOpen && (
+            {mobileTabOpen && (
               <motion.div
-                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                initial={{ opacity: 0, y: 8, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                exit={{ opacity: 0, y: 8, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className={`absolute left-0 right-0 top-14 z-40 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl space-y-1 ${
+                className={`absolute top-full left-0 right-0 mt-2 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl space-y-1 z-50 ${
                   isDark
-                    ? 'bg-[#010d1f]/95 border-[#0077b6]/50 text-white'
+                    ? 'bg-[#010d1a]/95 border-[#0077b6]/50 text-white'
                     : 'bg-white/95 border-slate-300 text-slate-900'
                 }`}
               >
@@ -331,23 +329,23 @@ export default function ServicesSection() {
                       type="button"
                       onClick={() => {
                         setActiveTab(c.id);
-                        setMobileCategoryOpen(false);
+                        setMobileTabOpen(false);
                       }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-semibold transition-colors ${
+                      className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-between ${
                         isActive
                           ? isDark
-                            ? 'bg-[#0284c7] text-white font-bold'
-                            : 'bg-[#0284c7] text-white font-bold'
+                            ? 'bg-[#0284c7] text-white'
+                            : 'bg-[#0284c7] text-white'
                           : isDark
-                            ? 'hover:bg-[#031729] text-slate-300'
-                            : 'hover:bg-slate-100 text-slate-700'
+                            ? 'text-slate-300 hover:bg-[#031729]'
+                            : 'text-slate-700 hover:bg-slate-100'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         {c.icon}
                         <span>{c.tabLabel}</span>
                       </div>
-                      {isActive && <HiOutlineCheckCircle className="w-4 h-4 text-white" />}
+                      {isActive && <HiOutlineCheckCircle className="w-4 h-4" />}
                     </button>
                   );
                 })}
@@ -356,7 +354,7 @@ export default function ServicesSection() {
           </AnimatePresence>
         </div>
 
-        {/* ── 2. DESKTOP GLASS SEGMENTED TAB SELECTOR (hidden sm:flex) ── */}
+        {/* Desktop Segmented Control Bar */}
         <div className="hidden sm:flex justify-center mb-8">
           <div className={`p-1.5 rounded-2xl border backdrop-blur-2xl flex items-center gap-1.5 max-w-full overflow-x-auto no-scrollbar ${
             isDark
