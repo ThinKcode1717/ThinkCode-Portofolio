@@ -1,25 +1,24 @@
 import type { Metadata } from 'next';
-import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
+import { Outfit, JetBrains_Mono, Unbounded } from 'next/font/google';
 import './globals.css';
 import SeoSchema from '@/components/seo/SeoSchema';
 import { AppProvider } from '@/context/AppContext';
 
-const archivo = Archivo({
+const unbounded = Unbounded({
   subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-unbounded',
   display: 'swap',
 });
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-outfit',
   display: 'swap',
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-jetbrains',
   display: 'swap',
 });
 
@@ -79,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${archivo.variable} ${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}>
+    <html lang="id" className={`${unbounded.variable} ${outfit.variable} ${jetbrainsMono.variable} scroll-smooth`}>
       <head>
         <SeoSchema />
       </head>

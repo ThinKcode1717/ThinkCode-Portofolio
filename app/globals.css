@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: var(--font-unbounded), "Unbounded", sans-serif;
+  --font-sans: var(--font-outfit), "Outfit", sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", monospace;
+}
+
+.font-display {
+  font-family: var(--font-unbounded), "Unbounded", sans-serif !important;
+}
+
+.font-sans {
+  font-family: var(--font-outfit), "Outfit", sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-jetbrains), "JetBrains Mono", monospace;
+}
+
 :root {
   /* Ocean Color System */
   --bg-ocean-abyss: #000610;
@@ -21,9 +39,6 @@
   /* Semantic */
   --color-success: #10b981;
   --color-warning: #f59e0b;
-
-  /* Typography */
-  --font-display: var(--font-display);
 }
 
 html {

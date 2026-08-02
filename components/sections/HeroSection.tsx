@@ -39,7 +39,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6 }}
               className="space-y-1.5 w-full"
             >
-              <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans leading-tight ${isDark ? 'text-white' : 'text-[#032b43]'
+              <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-display leading-tight ${isDark ? 'text-white' : 'text-[#032b43]'
                 }`}>
                 {t.hero.greeting} <br className="hidden sm:block" />
                 <AnimatePresence mode="wait">

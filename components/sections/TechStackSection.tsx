@@ -316,7 +316,7 @@ export default function TechStackSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className={`text-2xl sm:text-4xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-slate-900'
+            className={`text-2xl sm:text-4xl font-extrabold tracking-tight font-display ${isDark ? 'text-white' : 'text-slate-900'
               }`}
           >
             {t.skills.titlePre}{' '}

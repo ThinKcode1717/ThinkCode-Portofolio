@@ -15,10 +15,12 @@ import {
   HiOutlineSun,
   HiOutlineMoon,
   HiOutlineLanguage,
-  HiOutlineAdjustmentsHorizontal
+  HiOutlineAdjustmentsHorizontal,
+  HiOutlineLockClosed
 } from 'react-icons/hi2';
 import { RiRobot3Fill } from 'react-icons/ri';
 import { useApp } from '@/context/AppContext';
+import ProjectCMSModal from '../admin/ProjectCMSModal';
 
 export default function FloatingSidebar() {
   const { theme, toggleTheme, lang, toggleLang, t } = useApp();
@@ -26,6 +28,7 @@ export default function FloatingSidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopSettingsOpen, setDesktopSettingsOpen] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [cmsOpen, setCmsOpen] = useState(false);
 
   // AI Assistant (chatbot) placed at the VERY TOP of the navigation items
   const sidebarItems = [
@@ -254,6 +257,23 @@ export default function FloatingSidebar() {
                     {isDark ? 'Dark' : 'Light'}
                   </span>
                 </button>
+
+                {/* Admin CMS Trigger */}
+                <button
+                  type="button"
+                  onClick={() => { setCmsOpen(true); setDesktopSettingsOpen(false); }}
+                  className={`w-full flex items-center justify-between p-2 rounded-xl text-xs font-mono font-semibold transition-colors ${isDark ? 'hover:bg-[#0284c7]/10 text-slate-200 hover:text-[#38bdf8]' : 'hover:bg-slate-100 text-slate-800 hover:text-[#0284c7]'
+                    }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <HiOutlineLockClosed className="w-4 h-4 text-[#38bdf8]" />
+                    <span>Project CMS</span>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${isDark ? 'bg-[#0284c7]/20 text-[#38bdf8]' : 'bg-[#e0f2fe] text-[#0284c7]'
+                    }`}>
+                    Admin
+                  </span>
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
@@ -384,10 +404,30 @@ export default function FloatingSidebar() {
                   <span>{isDark ? 'Light' : 'Dark'}</span>
                 </button>
               </div>
+
+              {/* Mobile Project CMS Button */}
+              <button
+                type="button"
+                onClick={() => { setCmsOpen(true); setMobileOpen(false); }}
+                className={`w-full py-2.5 px-3 rounded-xl font-mono text-xs font-bold flex items-center justify-center gap-1.5 border transition-all ${isDark
+                  ? 'bg-[#0284c7]/20 text-[#38bdf8] border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
+                  : 'bg-[#e0f2fe] text-[#0284c7] border-[#0284c7]/40 hover:bg-[#0284c7] hover:text-white'
+                  }`}
+              >
+                <HiOutlineLockClosed className="w-3.5 h-3.5" />
+                <span>Project CMS (Admin)</span>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Project CMS Admin Modal */}
+      <ProjectCMSModal
+        isOpen={cmsOpen}
+        onClose={() => setCmsOpen(false)}
+        isDark={isDark}
+      />
     </>
   );
 }

@@ -216,7 +216,7 @@ export const THINKCODE_DATA = {
     {
       id: "google-maps-scraper",
       title: "Google Maps Scraper Web Platform",
-      category: "Automation & Scraper",
+      category: "Analytics Dashboard",
       description: "Platform web scraping data bisnis lokal Google Maps dengan peta Leaflet real-time & analisis outreach AI.",
       longDescription: "Platform web scraping data bisnis lokal dari Google Maps (Node.js/TypeScript & React) untuk lead generation pembuatan website, mencakup 70+ kota dan 30+ kata kunci bisnis. Memiliki visualisasi peta sebaran bisnis real-time Leaflet/OpenStreetMap dengan auto-zoom, klasifikasi prospek 'Peluang Web', serta integrasi Groq AI (Llama 3.3 70B) untuk analisis celah digital dan pengerjaan draf pesan outreach personal WhatsApp/Instagram DM. Dilengkapi dokumentasi teknis & deployment Docker Compose, PM2, dan Nginx.",
       tags: ["Node.js", "TypeScript", "React", "Leaflet", "Groq AI (Llama 3.3)", "Docker", "Nginx"],
@@ -230,7 +230,7 @@ export const THINKCODE_DATA = {
     {
       id: "black-ant-academy",
       title: "Website Black Ant Academy",
-      category: "Web Apps",
+      category: "Company Profile",
       description: "Website resmi akademi beladiri interaktif dengan jadwal multi-disiplin dan Virtual Assistant Anty.",
       longDescription: "Membangun website resmi akademi beladiri (Muay Thai, Kickboxing, Boxing, MMA, BJJ, Wushu Sanda) menggunakan React 18, TypeScript, dan Vite. Mengembangkan halaman program multi-disiplin, jadwal latihan interaktif (filter per disiplin, 3 slot waktu harian), sistem paket keanggotaan, pendaftaran trial gratis, widget Virtual Assistant 'Anty' mengambang dengan quick-reply chips terhubung langsung ke WhatsApp admin, serta dukungan bilingual (ID/EN) dan mode gelap/terang.",
       tags: ["React 18", "TypeScript", "Vite", "React Router", "WhatsApp Widget", "Framer Motion"],
@@ -244,7 +244,7 @@ export const THINKCODE_DATA = {
     {
       id: "holidaybro-travel",
       title: "HolidayBro Tour & Travel Web App",
-      category: "Travel & E-Commerce",
+      category: "Booking/Reservation System",
       description: "Aplikasi web katalog paket wisata Jogja, Bromo, & Bali dengan Chatbot AI Travel Assistant.",
       longDescription: "Aplikasi web katalog paket wisata untuk destinasi Yogyakarta, Gunung Bromo, dan Bali berbasis React 18, TypeScript, Tailwind CSS, dan Framer Motion. Mengembangkan fitur pencarian & filter canggih (destinasi, durasi, kategori), rincian itinerary per jam, modal pemesanan, chatbot AI travel assistant, floating WhatsApp widget dengan pesan pre-filled otomatis, serta dukungan tiga bahasa (Indonesia, Inggris, Mandarin) secara real-time tanpa reload.",
       tags: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "AI Travel Assistant", "Multilingual"],
@@ -258,7 +258,7 @@ export const THINKCODE_DATA = {
     {
       id: "sipia-portal",
       title: "SIPIA - Portal Islamic Academy",
-      category: "Education",
+      category: "School/Campus Management",
       description: "Platform manajemen sekolah full-stack dengan 3 portal (Admin, Guru, Wali Murid) & modul Tahfidz.",
       longDescription: "Platform manajemen sekolah full-stack (React + TypeScript, Node.js/Express, PostgreSQL) dengan portal terpisah untuk Admin, Guru, dan Wali Murid berbasis mobile-first. Merancang sistem autentikasi JWT dengan moderasi pendaftaran, modul pencatatan hafalan Al-Quran (Tahfidz Ziyadah/Murajaah), presensi harian, evaluasi tumbuh kembang siswa berbasis 4 aspek PAUD, serta skema Neon Serverless PostgreSQL.",
       tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT Auth"],
@@ -272,7 +272,7 @@ export const THINKCODE_DATA = {
     {
       id: "sakip-crawler",
       title: "SAKIP Document Crawler System",
-      category: "Automation & Scraper",
+      category: "CMS (Content Management System)",
       description: "Sistem crawling & digitalisasi dokumen SAKIP pemerintah secara rekursif dengan visualisasi log real-time.",
       longDescription: "Pengembangan sistem crawling & digitalisasi dokumen SAKIP (Sistem Akuntabilitas Kinerja Instansi Pemerintah) pemerintah secara rekursif dan otomatis (React/TypeScript, Node.js/Express, PostgreSQL). Membangun engine crawler dengan kontrol depth, rate limiting, visualisasi log real-time unduhan dokumen multi-format (PDF, Word, Excel, PPT), sistem multi-role authentication berbasis JWT cookie HTTP-Only, serta fitur analisis ringkasan dokumen berbasis AI.",
       tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "AI Summarizer", "Web Crawler"],
@@ -286,7 +286,7 @@ export const THINKCODE_DATA = {
     {
       id: "sit-mukhlisiin",
       title: "SIT Mukhlisiin Landing Page",
-      category: "Education",
+      category: "Company Profile",
       description: "Landing page resmi sekolah Islam terpadu (TKIT, SDIT, SMPIT) dengan navigasi PPDB adaptif & animasi Motion.",
       longDescription: "Landing page resmi SIT Mukhlisiin (menaungi jenjang TKIT, SDIT, SMPIT) menggunakan React 19, TypeScript, dan Tailwind CSS v4 dengan animasi Motion. Mengembangkan halaman profil lembaga, keunggulan program (Tahfizh, kurikulum terpadu, bilingual), galeri fasilitas, sistem dropdown navigasi PPDB adaptif (click-outside & z-index fix), serta stabilitas hero banner carousel anti-layout shift.",
       tags: ["React 19", "TypeScript", "Tailwind CSS v4", "Motion", "UX Design"],
@@ -300,7 +300,7 @@ export const THINKCODE_DATA = {
     {
       id: "si-kurowesi",
       title: "SI KuroWesi & AI Forecasting API",
-      category: "AI Models",
+      category: "POS + Inventory Hybrid",
       description: "Sistem inventori bengkel full-stack terintegrasi microservice API hybrid ARIMA-LSTM untuk prediksi stok.",
       longDescription: "Aplikasi inventori berbasis web full-stack untuk Bengkel Kurowesi (backend Laravel, frontend Vue.js + TypeScript, Tailwind CSS, shadcn/ui). Terintegrasi dengan microservice REST API Python terpisah berbasis model hybrid ARIMA-LSTM (di-containerize Docker) untuk menyajikan prediksi kebutuhan stok secara real-time. Berhasil meningkatkan efisiensi pencatatan stok hingga 100% serta menekan biaya pembelian berlebih (akurasi rata-rata model 83.5%).",
       tags: ["Laravel", "Vue.js", "TypeScript", "Python", "ARIMA-LSTM", "Docker", "shadcn/ui"],
@@ -314,7 +314,7 @@ export const THINKCODE_DATA = {
     {
       id: "sipinter-library",
       title: "SIPINTER - Digital Library System",
-      category: "Web Apps",
+      category: "LMS (Learning Management System)",
       description: "Sistem informasi perpustakaan digital untuk institusi pemerintahan.",
       longDescription: "Membangun aplikasi perpustakaan digital SIPINTER menggunakan Laravel 8 & MySQL untuk mendigitalisasi pencatatan manual. Merancang fitur manajemen anggota, katalog buku multi-kategori, aturan bisnis peminjaman (maks 3 buku, 7 hari, denda), reminder email otomatis menjelang jatuh tempo, serta modul e-book dan riwayat peminjaman cetak.",
       tags: ["Laravel 8", "MySQL", "Bootstrap/Tailwind", "Email Reminders", "PDF Export"],
@@ -328,7 +328,7 @@ export const THINKCODE_DATA = {
     {
       id: "brain-tumor-dnn",
       title: "Brain Tumor Medical Image Classification",
-      category: "AI Models",
+      category: "Healthcare/Telemedicine",
       description: "Klasifikasi citra medis CT Scan/MRI otak format DICOM menggunakan Deep Neural Network (DNN).",
       longDescription: "Klasifikasi citra medis (CT Scan/MRI) format DICOM menggunakan metode Deep Neural Network (DNN). Melakukan preprocessing dataset (augmentasi, normalisasi, resizing), melatih dan menguji model DNN menggunakan TensorFlow & Keras hingga meraih akurasi uji 87.5%, serta mengoptimalkan hyperparameter model untuk meminimalisir overfitting.",
       tags: ["Python", "TensorFlow", "Keras", "Deep Neural Network", "DICOM", "Data Science"],

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HiOutlineFolder,
@@ -16,6 +16,7 @@ import {
 } from 'react-icons/hi2';
 import { GithubIcon } from '../ui/Icons';
 import { THINKCODE_DATA, Project } from '@/lib/data';
+import { getMergedProjects, DynamicProjectItem } from '@/lib/projectResolver';
 import { useApp } from '@/context/AppContext';
 import ScrollSectionWrapper from '../ui/ScrollSectionWrapper';
 
@@ -147,7 +148,6 @@ function ProjectScreenshotCarousel({ project, isDark, lang }: { project: Project
     </div>
   );
 }
-
 export default function ProjectsSection() {
   const { t, theme, lang } = useApp();
   const isDark = theme === 'dark';
@@ -156,19 +156,50 @@ export default function ProjectsSection() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [mobileCategoryOpen, setMobileCategoryOpen] = useState<boolean>(false);
   const [mobileCardIndex, setMobileCardIndex] = useState<number>(0);
+  const [dynamicProjects, setDynamicProjects] = useState<DynamicProjectItem[]>([]);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
 
-  // Dynamically resolve active project from current language dictionary
+  const scrollCategories = (direction: 'left' | 'right') => {
+    if (categoryScrollRef.current) {
+      const scrollAmount = direction === 'left' ? -280 : 280;
+      categoryScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const fetchCmsProjects = async () => {
+    try {
+      const res = await fetch('/api/admin/projects');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.projects)) {
+        setDynamicProjects(data.projects);
+      }
+    } catch (err) {
+      console.error('Failed to load CMS projects:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCmsProjects();
+    const handleUpdate = () => fetchCmsProjects();
+    window.addEventListener('projects-updated', handleUpdate);
+    return () => window.removeEventListener('projects-updated', handleUpdate);
+  }, []);
+
+  // Merged projects (Static portfolio projects + dynamic CMS projects)
+  const allProjects = getMergedProjects(dynamicProjects, lang as 'id' | 'en');
+
+  // Dynamically resolve active project from current merged list
   const selectedProject = selectedProjectId
-    ? t.data.projects.find((p) => p.id === selectedProjectId) || null
+    ? allProjects.find((p) => p.id === selectedProjectId) || null
     : null;
 
   const ITEMS_PER_PAGE = 4;
 
-  const categories = ['All', ...Array.from(new Set(t.data.projects.map((p) => p.category)))];
+  const categories = ['All', ...Array.from(new Set(allProjects.map((p) => p.category)))];
 
   const filteredProjects = activeFilter === 'All'
-    ? t.data.projects
-    : t.data.projects.filter((p) => p.category === activeFilter);
+    ? allProjects
+    : allProjects.filter((p) => p.category === activeFilter);
 
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
 
@@ -205,7 +236,7 @@ export default function ProjectsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className={`text-2xl sm:text-4xl font-extrabold tracking-tight ${
+            className={`text-2xl sm:text-4xl font-extrabold tracking-tight font-display ${
               isDark ? 'text-white' : 'text-slate-900'
             }`}
           >
@@ -236,12 +267,12 @@ export default function ProjectsSection() {
                 : 'bg-white/95 border-slate-300 text-slate-900 shadow-md'
             }`}
           >
-            <div className="flex items-center gap-2">
-              <HiOutlineFunnel className="w-4 h-4 text-[#38bdf8]" />
-              <span className="text-[#38bdf8] font-semibold">Kategori Proyek:</span>
-              <span className="truncate max-w-[170px]">{activeFilter === 'All' ? t.projects.all : activeFilter}</span>
+            <div className="flex items-center gap-2 min-w-0">
+              <HiOutlineFunnel className="w-4 h-4 text-[#38bdf8] shrink-0" />
+              <span className="text-[#38bdf8] font-semibold shrink-0">Kategori:</span>
+              <span className="truncate">{activeFilter === 'All' ? t.projects.all : activeFilter}</span>
             </div>
-            <HiOutlineChevronDown className={`w-4 h-4 text-[#38bdf8] transition-transform duration-300 ${
+            <HiOutlineChevronDown className={`w-4 h-4 text-[#38bdf8] shrink-0 transition-transform duration-300 ${
               mobileCategoryOpen ? 'rotate-180' : ''
             }`} />
           </button>
@@ -253,7 +284,7 @@ export default function ProjectsSection() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className={`absolute top-full left-0 right-0 mt-2 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl space-y-1 z-50 ${
+                className={`absolute top-full left-0 right-0 mt-2 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl space-y-1 z-50 max-h-64 overflow-y-auto ${
                   isDark
                     ? 'bg-[#010d1a]/95 border-[#0077b6]/50 text-white'
                     : 'bg-white/95 border-slate-300 text-slate-900'
@@ -279,8 +310,8 @@ export default function ProjectsSection() {
                             : 'text-slate-700 hover:bg-slate-100'
                       }`}
                     >
-                      <span>{cat === 'All' ? t.projects.all : cat}</span>
-                      {isActive && <HiOutlineCheckCircle className="w-4 h-4" />}
+                      <span className="truncate mr-2">{cat === 'All' ? t.projects.all : cat}</span>
+                      {isActive && <HiOutlineCheckCircle className="w-4 h-4 shrink-0" />}
                     </button>
                   );
                 })}
@@ -289,41 +320,75 @@ export default function ProjectsSection() {
           </AnimatePresence>
         </div>
 
-        {/* Desktop Category Filter Pills with Smooth Active Tab Sliding Animation */}
-        <div className="hidden sm:flex w-full max-w-full overflow-x-auto no-scrollbar py-2 px-1 mb-8 justify-center">
-          <div className={`p-1.5 rounded-2xl border backdrop-blur-2xl flex items-center gap-1.5 min-w-max ${
-            isDark
-              ? 'bg-[#010d1a]/80 border-[#0077b6]/30 shadow-xl'
-              : 'bg-white/70 border-slate-200 shadow-md'
-          }`}>
-            {categories.map((cat) => {
-              const isActive = activeFilter === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => handleFilterChange(cat)}
-                  className={`relative px-4 py-2.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all duration-300 outline-none z-10 ${
-                    isActive
-                      ? 'text-white font-bold'
-                      : isDark
-                        ? 'text-slate-400 hover:text-slate-200'
-                        : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeProjectCategoryGlow"
-                      className={`absolute inset-0 rounded-xl shadow-md ${
-                        isDark ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6]' : 'bg-[#0284c7]'
-                      }`}
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{cat === 'All' ? t.projects.all : cat}</span>
-                </button>
-              );
-            })}
+        {/* Desktop Category Filter Pills with Scroll Navigation & Zero Clipping */}
+        <div className="hidden sm:block relative w-full mb-8 z-10">
+          {/* Left Scroll Button */}
+          <button
+            type="button"
+            onClick={() => scrollCategories('left')}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full border backdrop-blur-xl flex items-center justify-center transition-all ${
+              isDark
+                ? 'bg-[#010d1a]/90 border-[#0077b6]/50 text-white hover:bg-[#0284c7] hover:border-[#0284c7] shadow-lg'
+                : 'bg-white/90 border-slate-300 text-slate-800 hover:bg-[#0284c7] hover:text-white shadow-md'
+            }`}
+            aria-label="Scroll category left"
+          >
+            <HiOutlineChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Right Scroll Button */}
+          <button
+            type="button"
+            onClick={() => scrollCategories('right')}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full border backdrop-blur-xl flex items-center justify-center transition-all ${
+              isDark
+                ? 'bg-[#010d1a]/90 border-[#0077b6]/50 text-white hover:bg-[#0284c7] hover:border-[#0284c7] shadow-lg'
+                : 'bg-white/90 border-slate-300 text-slate-800 hover:bg-[#0284c7] hover:text-white shadow-md'
+            }`}
+            aria-label="Scroll category right"
+          >
+            <HiOutlineChevronRight className="w-4 h-4" />
+          </button>
+
+          {/* Scrollable Container with Left/Right Padding to Prevent Clipping */}
+          <div
+            ref={categoryScrollRef}
+            className="w-full overflow-x-auto no-scrollbar py-2 px-10 scroll-smooth"
+          >
+            <div className={`p-1.5 rounded-2xl border backdrop-blur-2xl flex items-center gap-1.5 w-max mx-auto ${
+              isDark
+                ? 'bg-[#010d1a]/80 border-[#0077b6]/30 shadow-xl'
+                : 'bg-white/70 border-slate-200 shadow-md'
+            }`}>
+              {categories.map((cat) => {
+                const isActive = activeFilter === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => handleFilterChange(cat)}
+                    className={`relative px-4 py-2.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all duration-300 outline-none shrink-0 ${
+                      isActive
+                        ? 'text-white font-bold'
+                        : isDark
+                          ? 'text-slate-400 hover:text-slate-200'
+                          : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeProjectCategoryGlow"
+                        className={`absolute inset-0 rounded-xl shadow-md ${
+                          isDark ? 'bg-gradient-to-r from-[#0284c7] to-[#0077b6]' : 'bg-[#0284c7]'
+                        }`}
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{cat === 'All' ? t.projects.all : cat}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 

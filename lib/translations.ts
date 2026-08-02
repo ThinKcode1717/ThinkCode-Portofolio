@@ -308,7 +308,7 @@ export const TRANSLATIONS = {
         {
           id: "google-maps-scraper",
           title: "Google Maps Scraper Web Platform",
-          category: "Automation & Scraper",
+          category: "Analytics Dashboard",
           description: "Web scraping platform for local Google Maps business data with real-time Leaflet map & AI outreach analysis.",
           longDescription: "A web scraping platform for extracting local business data from Google Maps (Node.js/TypeScript & React) built for lead generation, covering 70+ cities and 30+ business keywords. Features real-time Leaflet/OpenStreetMap business distribution mapping with auto-zoom, 'Web Opportunity' prospect classification, and Groq AI (Llama 3.3 70B) integration for digital gap analysis and personalized WhatsApp/Instagram outreach drafting. Includes technical docs & Docker Compose, PM2, and Nginx deployment.",
           tags: ["Node.js", "TypeScript", "React", "Leaflet", "Groq AI (Llama 3.3)", "Docker", "Nginx"],
@@ -322,7 +322,7 @@ export const TRANSLATIONS = {
         {
           id: "black-ant-academy",
           title: "Black Ant Academy Website",
-          category: "Web Apps",
+          category: "Company Profile",
           description: "Official martial arts academy website with multi-discipline interactive schedule and Anty Virtual Assistant.",
           longDescription: "Engineered the official martial arts academy website (Muay Thai, Kickboxing, Boxing, MMA, BJJ, Wushu Sanda) using React 18, TypeScript, and Vite. Developed multi-discipline program pages, interactive training schedule (filtered per discipline, 3 daily time slots), membership packages, free trial booking, floating 'Anty' Virtual Assistant widget connected directly to WhatsApp, and bilingual (ID/EN) dark/light mode support.",
           tags: ["React 18", "TypeScript", "Vite", "React Router", "WhatsApp Widget", "Framer Motion"],
@@ -336,7 +336,7 @@ export const TRANSLATIONS = {
         {
           id: "holidaybro-travel",
           title: "HolidayBro Tour & Travel Web App",
-          category: "Travel & E-Commerce",
+          category: "Booking/Reservation System",
           description: "Tour package catalog web app for Jogja, Bromo, & Bali with AI Travel Assistant Chatbot.",
           longDescription: "A tour package web application for Yogyakarta, Mount Bromo, and Bali built with React 18, TypeScript, Tailwind CSS, and Framer Motion. Engineered advanced search & filter features (destination, duration, category), hourly itinerary breakdowns, booking modal, AI travel assistant chatbot, floating WhatsApp widget with auto pre-filled messages, and real-time 3-language support (Indonesian, English, Mandarin).",
           tags: ["React 18", "TypeScript", "Tailwind CSS", "Framer Motion", "AI Travel Assistant", "Multilingual"],
@@ -350,7 +350,7 @@ export const TRANSLATIONS = {
         {
           id: "sipia-portal",
           title: "SIPIA - Islamic Academy Portal",
-          category: "Education",
+          category: "School/Campus Management",
           description: "Full-stack school management platform with 3 portals (Admin, Teacher, Parent) & Tahfidz module.",
           longDescription: "Full-stack school management platform (React + TypeScript, Node.js/Express, PostgreSQL) with mobile-first dedicated portals for Admin, Teachers, and Parents. Designed JWT authentication with registration moderation, Quran memorization tracking module (Tahfidz Ziyadah/Murajaah), daily attendance, 4-aspect early childhood development evaluations, and Neon Serverless PostgreSQL schema.",
           tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "JWT Auth"],
@@ -364,7 +364,7 @@ export const TRANSLATIONS = {
         {
           id: "sakip-crawler",
           title: "SAKIP Document Crawler System",
-          category: "Automation & Scraper",
+          category: "CMS (Content Management System)",
           description: "Recursive government SAKIP document crawling & digitization system with real-time log visualization.",
           longDescription: "Development of a recursive, automated government SAKIP performance document crawling & digitization system (React/TypeScript, Node.js/Express, PostgreSQL). Built crawler engine with depth control, rate limiting, real-time download log visualization for multi-format docs (PDF, Word, Excel, PPT), multi-role HTTP-Only cookie JWT auth, and AI document summarization features.",
           tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "AI Summarizer", "Web Crawler"],
@@ -378,7 +378,7 @@ export const TRANSLATIONS = {
         {
           id: "sit-mukhlisiin",
           title: "SIT Mukhlisiin Landing Page",
-          category: "Education",
+          category: "Company Profile",
           description: "Official Integrated Islamic School landing page with adaptive PPDB navigation & Motion animations.",
           longDescription: "Official landing page for SIT Mukhlisiin (Kindergarten, Elementary, Junior High) using React 19, TypeScript, and Tailwind CSS v4 with Motion animations. Developed institutional profile pages, integrated curriculum highlights, facility galleries, adaptive PPDB dropdown navigation (click-outside & z-index fix), and hero carousel layout stability.",
           tags: ["React 19", "TypeScript", "Tailwind CSS v4", "Motion", "UX Design"],
@@ -392,7 +392,7 @@ export const TRANSLATIONS = {
         {
           id: "si-kurowesi",
           title: "SI KuroWesi & AI Forecasting API",
-          category: "AI Models",
+          category: "POS + Inventory Hybrid",
           description: "Full-stack workshop inventory system integrated with Python hybrid ARIMA-LSTM stock forecasting microservice.",
           longDescription: "Full-stack web inventory application for Kurowesi Workshop (Laravel backend, Vue.js + TypeScript frontend, Tailwind CSS, shadcn/ui). Integrated with a separate Python REST API microservice based on a hybrid ARIMA-LSTM model (Docker containerized) providing real-time stock demand forecasting. Achieved 100% inventory digital efficiency and eliminated overstock purchasing costs (83.5% ML accuracy).",
           tags: ["Laravel", "Vue.js", "TypeScript", "Python", "ARIMA-LSTM", "Docker", "shadcn/ui"],
@@ -406,7 +406,7 @@ export const TRANSLATIONS = {
         {
           id: "sipinter-library",
           title: "SIPINTER - Digital Library System",
-          category: "Web Apps",
+          category: "LMS (Learning Management System)",
           description: "Digital library information system for government institutions.",
           longDescription: "Built the SIPINTER digital library web application using Laravel 8 & MySQL to replace manual record-keeping. Designed member management, multi-category book catalogs, business lending rules (max 3 books, 7 days, fine calculation), automated email due date reminders, and e-book / print loan history modules.",
           tags: ["Laravel 8", "MySQL", "Bootstrap/Tailwind", "Email Reminders", "PDF Export"],
@@ -420,7 +420,7 @@ export const TRANSLATIONS = {
         {
           id: "brain-tumor-dnn",
           title: "Brain Tumor Medical Image Classification",
-          category: "AI Models",
+          category: "Healthcare/Telemedicine",
           description: "Medical DICOM CT Scan/MRI brain image classification using Deep Neural Networks (DNN).",
           longDescription: "Medical image classification (CT Scan/MRI) in DICOM format using Deep Neural Network (DNN) methods. Conducted dataset preprocessing (augmentation, normalization, resizing), trained and evaluated DNN models using TensorFlow & Keras reaching 87.5% test accuracy, and optimized hyperparameters to minimize overfitting.",
           tags: ["Python", "TensorFlow", "Keras", "Deep Neural Network", "DICOM", "Data Science"],

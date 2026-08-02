@@ -264,7 +264,7 @@ export default function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className={`text-2xl sm:text-4xl font-extrabold tracking-tight ${
+            className={`text-2xl sm:text-4xl font-extrabold tracking-tight font-display ${
               isDark ? 'text-white' : 'text-[#032b43]'
             }`}
           >
