@@ -3,6 +3,7 @@ import { Outfit, JetBrains_Mono, Unbounded } from 'next/font/google';
 import './globals.css';
 import SeoSchema from '@/components/seo/SeoSchema';
 import { AppProvider } from '@/context/AppContext';
+import { SITE_URL } from '@/lib/site';
 
 const unbounded = Unbounded({
   subsets: ['latin'],
@@ -38,7 +39,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Yoga Adi Pratama (ThinkCode)' }],
   creator: 'ThinkCode',
-  metadataBase: new URL('https://thinkcode.dev'),
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: '/',
+  },
+  verification: {
+    google: 'MqabyjNS-apoUDncq7Cb2TbyU6Yd-0qpskAxTT0g6c0',
+  },
   icons: {
     icon: '/logo_nobg.png',
     shortcut: '/logo_nobg.png',
@@ -47,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'ThinkCode | Senior Full Stack Web Developer & AI Data Analyst',
     description: 'Portofolio resmi Yoga Adi Pratama (ThinkCode) - Senior Full Stack Web Developer & AI Data Analyst.',
-    url: 'https://thinkcode.dev',
+    url: SITE_URL,
     siteName: 'ThinkCode Portfolio',
     images: [
       {

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { THINKCODE_DATA } from '@/lib/data';
+import { SITE_URL } from '@/lib/site';
 
 export default function SeoSchema() {
   const personSchema = {
@@ -26,7 +27,7 @@ export default function SeoSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: `${THINKCODE_DATA.name} | ${THINKCODE_DATA.role}`,
-    url: 'https://thinkcode.dev',
+    url: SITE_URL,
     description: THINKCODE_DATA.tagline,
     author: {
       '@type': 'Person',
